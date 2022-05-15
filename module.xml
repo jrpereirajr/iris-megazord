@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-  <Document name="dc-sample-template.ZPM">
+  <Document name="iris-flow.ZPM">
     <Module>
-      <Name>dc-sample-template</Name>
-      <Version>1.1.0</Version>
-      <Description>A basic module template for InterSystems ObjectScript with Unittests</Description>
+      <Name>iris-flow</Name>
+      <Version>1.0.0</Version>
+      <Description>An API for create IRIS Interoperability from graphical flows</Description>
       <Packaging>module</Packaging>
-      <SourcesRoot>src/iris</SourcesRoot>
-      <Resource Name="dc.sample.PKG"/>
-      <UnitTest Name="/tests" Package="dc.sample.unittests" Phase="test"/>
+      <SourcesRoot>src</SourcesRoot>
+      <Resource Name="dc.irisflow.PKG"/>
+      <UnitTest Name="/src" Package="UnitTest" Phase="test"/>
     </Module>
   </Document>
 </Export>

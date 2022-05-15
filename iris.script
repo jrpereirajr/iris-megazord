@@ -2,11 +2,13 @@
     zn "%SYS"
     Do ##class(Security.Users).UnExpireUserPasswords("*")
 
-    // create IRISAPP namespace
-    do $SYSTEM.OBJ.Load("/home/irisowner/irisbuild/Installer.cls", "ck") 
-    set sc = ##class(App.Installer).setup() 
+    // todo: enable interoperability in IRISAPP namespace
+    #; // create IRISAPP namespace
+    #; do $SYSTEM.OBJ.Load("/home/irisowner/irisbuild/Installer.cls", "ck") 
+    #; set sc = ##class(App.Installer).setup() 
 
     // load all the code of the project as a ZPM package
-    zn "IRISAPP"
+    #; zn "IRISAPP"
+    zn "USER"
     zpm "load /home/irisowner/irisbuild/ -v":1:1
     halt

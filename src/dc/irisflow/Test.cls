@@ -1,0 +1,133 @@
+Class dc.irisflow.Test Extends %RegisteredObject
+{
+
+Parameter BusinessHostTypeBS = "BusinessService";
+
+Parameter BusinessHostTypeBP = "BusinessProcess";
+
+Parameter BusinessHostTypeBO = "BusinessOperation";
+
+/// Description
+ClassMethod Run() As %Status
+{
+    Set sc = $$$OK
+
+    Set flow = {
+        "name": "Helloworld",
+        "nodes": [{
+            "name": "FromFile",
+            "type": "action",
+            "config": {
+                "class": "EnsLib.File.PassthroughService"
+            },
+        "targets": [{
+            "name": "ToFile"
+        }]
+        },{
+            "name": "ToFile",
+            "type": "action",
+            "config": {
+                "class": "EnsLib.File.PassthroughOperation"
+            },
+        "targets": []
+        }]
+    }
+
+    Set mappedProduction = {
+        "production": {
+            "name": "Helloworld"
+        },
+        "bs": [{
+            "name": "FromFile",
+            "config": {
+                "class": "EnsLib.File.PassthroughService"
+            }
+        }],
+        "bp": [{
+            "name": "DefaultFlowBP",
+            "config": [{
+                "type": "call",
+                "target": "ToFile"
+            }]
+        }],
+        "bo": [{
+            "name": "ToFile",
+            "config": {
+                "class": "EnsLib.File.PassthroughOperation"
+            }
+        }]
+    }
+    
+    Set builder = ..%New()
+
+    Do builder.CreateProduction(mappedProduction.production)
+    Do builder.foreach(mappedProduction.bs, "CreateBusinessService")
+    Do builder.foreach(mappedProduction.bp, "CreateBusinessProcess")
+    Do builder.foreach(mappedProduction.bo, "CreateBusinessOperation")
+    
+    #; Do builder.Production({
+    #;     "name": "dc.irisflow.test.Helloworld"
+    #; }).Item({
+    #;     "name": "dc.irisflow.test.FromFile",
+    #;     "type": (..#BusinessHostTypeBS)
+    #; }).Item({
+    #;     "name": "dc.irisflow.test.DefaultFlowBP",
+    #;     "type": (..#BusinessHostTypeBP)
+    #; }).Item({
+    #;     "name": "dc.irisflow.test.ToFile",
+    #;     "type": (..#BusinessHostTypeBO)
+    #; })
+
+    Return sc
+}
+
+Method foreach(array As %DynamicArray, callback)
+{
+    Set it = array.%GetIterator()
+    While it.%GetNext(.idx, .val) {
+        Do $METHOD($this, callback, val)
+    }
+}
+
+Method CreateProduction(config As %DynamicObject)
+{
+    Write "[CreateProduction] "
+    ZW config
+}
+
+Method CreateBusinessService(config As %DynamicObject)
+{
+    Write "[CreateBusinessService] "
+    ZW config
+}
+
+Method CreateBusinessProcess(config As %DynamicObject)
+{
+    Write "[CreateBusinessProcess] "
+    ZW config
+}
+
+Method CreateBusinessOperation(config As %DynamicObject)
+{
+    Write "[CreateBusinessOperation] "
+    ZW config
+}
+
+/*
+Method Production(config As %DynamicObject) As Test
+{
+    Write "[Creating production] "
+    ZW config
+
+    Return $this
+}
+
+Method Item(config As %DynamicObject) As Test
+{
+    Write "[Creating production item] "
+    ZW config
+
+    Return $this
+}
+*/
+}

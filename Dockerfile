@@ -6,7 +6,8 @@ FROM $IMAGE
 
 WORKDIR /home/irisowner/irisbuild
 
-ARG TESTS=0
+ARG MODULE=iris-flow
+ARG TESTS=1
 
 RUN --mount=type=bind,src=.,dst=. \
     iris start IRIS && \
