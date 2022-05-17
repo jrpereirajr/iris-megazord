@@ -149,4 +149,15 @@ ClassMethod ListProductions()
     }
 }
 
+ClassMethod TestGetItemInfo()
+{
+    w ##class(EnsPortal.Utils).ItemSettings("dc.irisflow.test.template1.NewProduction||FromFileMsg", .pData, .pMetaData)
+    zw pMetaData
+    s k = $O(pData(""))
+    while (k '= "") {
+        zw $list(pData(k), 1, 3)
+        s k = $O(pData(k))
+    }
+}
+
 }
