@@ -1,17 +1,7 @@
-Class UnitTest.dc.irisflow.Main Extends %UnitTest.TestCase
+Class UnitTest.dc.irisflow.FlowMapper Extends %UnitTest.TestCase
 {
 
 Property mapper As dc.irisflow.FlowMapper;
-
-ClassMethod Setup()
-{
-    Set ^UnitTestRoot = "/irisrun/repo/src"
-}
-
-ClassMethod Run()
-{
-    Do ##class(%UnitTest.Manager).RunTest("UnitTest/dc/irisflow/", "/nodelete")
-}
 
 Method OnBeforeOneTest(testname As %String) As %Status
 {
@@ -100,7 +90,7 @@ Method TestGetProduction()
 Method TestGetProductionFail()
 {
     Set flow = {}
-    Set expected = [(..mapper.CreateNoProductionDefinedError())]
+    Set expected = [(..mapper.errorHelper.CreateNoProductionDefinedError())]
     Set ..mapper.flow = flow
     Do ..mapper.GetProduction()
     Set errors = ..mapper.errors
@@ -185,8 +175,8 @@ Method TestCreateBusinessServiceFail()
 {
     Set node = {}
     Set expected = [
-        (..mapper.CreateNoNamedActionError(0)),
-        (..mapper.CreateNoConfigActionError(0))
+        (..mapper.errorHelper.CreateNoNamedActionError(0)),
+        (..mapper.errorHelper.CreateNoConfigActionError(0))
     ]
     Set mapped = ..mapper.CreateBusinessService(node, 0)
     Set errors = ..mapper.errors
@@ -220,8 +210,8 @@ Method TestCreateBusinessOperationFail()
 {
     Set node = {}
     Set expected = [
-        (..mapper.CreateNoNamedActionError(0)),
-        (..mapper.CreateNoConfigActionError(0))
+        (..mapper.errorHelper.CreateNoNamedActionError(0)),
+        (..mapper.errorHelper.CreateNoConfigActionError(0))
     ]
     Set mapped = ..mapper.CreateBusinessOperation(node, 0)
     Set errors = ..mapper.errors

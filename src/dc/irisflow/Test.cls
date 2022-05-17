@@ -130,4 +130,23 @@ Method Item(config As %DynamicObject) As Test
     Return $this
 }
 */
+ClassMethod ListProductions()
+{
+    #; Set rs = ##class(%ResultSet).%New()
+    #; Set rs.ClassName = "EnsPortal.Productions"
+    #; Set rs.QueryName = "Enumerate"
+    #; $$$TOE(st, rs.Execute())
+    #; While (rs.Next()) {
+    #;     Write rs.Production,!
+    #; }
+
+    Set stmt = ##class(%SQL.Statement).%New()
+    #; $$$TOE(st, stmt.%PrepareClassQuery("EnsPortal.Productions", "Enumerate"))
+    $$$TOE(st, stmt.%PrepareClassQuery("Ens.Config.Production", "ProductionStatus"))
+    Set rs = stmt.%Execute()
+    While (rs.%Next()) {
+        Write rs.Production,!
+    }
+}
+
 }

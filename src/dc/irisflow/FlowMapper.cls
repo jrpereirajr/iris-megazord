@@ -7,11 +7,14 @@ Property mapped As %DynamicObject;
 
 Property errors As %DynamicArray;
 
+Property errorHelper As dc.irisflow.Error;
+
 Method %OnNew() As %Status
 {
     Set ..flow = {}
     Set ..mapped = ..CreateMappedTemplate()
     Set ..errors = []
+    Set ..errorHelper = ##class(dc.irisflow.Error).%New()
 	Quit $$$OK
 }
 
@@ -40,7 +43,7 @@ Method GetProduction()
             "name": (..flow.name)
         }
     } Else {
-        Do ..errors.%Push(..CreateNoProductionDefinedError())
+        Do ..errors.%Push(..errorHelper.CreateNoProductionDefinedError())
     }
 }
 
@@ -88,11 +91,11 @@ Method CreateBusinessHost(node As %DynamicObject, nodeIdx As %Integer) As %Dynam
     Set errors = 0
     
     If (node.name = "") {
-        Do ..errors.%Push(..CreateNoNamedActionError(nodeIdx))
+        Do ..errors.%Push(..errorHelper.CreateNoNamedActionError(nodeIdx))
         Set errors = 1
     }
     If (node.config = "") || ('node.config.className = "") {
-        Do ..errors.%Push(..CreateNoConfigActionError(nodeIdx))
+        Do ..errors.%Push(..errorHelper.CreateNoConfigActionError(nodeIdx))
         Set errors = 1
     }
 
@@ -168,42 +171,6 @@ Method CreateBPCallForTarget(targetName As %String)
         "target": (targetName)
     }
     Return call
-}
-
-Method CreateError(code As %String, description As %String, info As %DynamicArray = "") As %DynamicObject
-{
-    Return {
-        "code": (code),
-        "description": (description),
-        "info": (info)
-    }
-}
-
-Method CreateNoProductionDefinedError()
-{
-    Return ..CreateError("NoProductionDefined", "No production defined.")
-}
-
-Method CreateNoNamedActionError(actionIdx As %String)
-{
-    Return ..CreateError(
-        "NoNamedActionError", 
-        $$$FormatText("No name was found for action #%1.", actionIdx),
-        {
-            "actionIndex": (actionIdx)
-        }
-    )
-}
-
-Method CreateNoConfigActionError(actionIdx As %String)
-{
-    Return ..CreateError(
-        "NoConfigActionError", 
-        $$$FormatText("No config was found for action #%1.", actionIdx),
-        {
-            "actionIndex": (actionIdx)
-        }
-    )
 }
 
 }
