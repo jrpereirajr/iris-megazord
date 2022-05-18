@@ -18,7 +18,7 @@ Method OnAfterOneTest(testname As %String) As %Status
     Kill builder
 
     Try {
-        #; Do:(##class(%ClassDefinition).%ExistsId(..#ProductionName)) $system.OBJ.Delete(..#ProductionName)
+        #; Do:(##class(%ClassDefinition).%ExistsId(..#ProductionName)) $system.OBJ.Delete(..#ProductionName_"*")
     }Catch(e) {}
 
     Return $$$OK
@@ -32,35 +32,36 @@ Method TestBuild()
         },
         "bs": [{
             "name": "FromFile",
-            "config": {
-                "className": "EnsLib.File.PassthroughService",
-                "FilePath": "/tmp/test/in"
-            }
+            "className": "EnsLib.File.PassthroughService",
+            "config": [{
+                "name": "FilePath",
+                "value": "/tmp/test/in"
+            }]
         }],
         "bp": [{
             "name": "DefaultFlowBP",
-            "config": {
-                "sequence": [{
-                    "type": "call",
-                    "target": {
-                        "name":"ToFile"
-                    }
-                }]
-            }
+            "sequence": [{
+                "type": "call",
+                "target": {
+                    "name":"ToFile"
+                }
+            }],
+            "config": []
         }],
         "bo": [{
             "name": "ToFile",
-            "config": {
-                "className": "EnsLib.File.PassthroughOperation",
-                "FilePath": "/tmp/test/out"
-            }
+            "className": "EnsLib.File.PassthroughOperation",
+            "config": [{
+                "name": "FilePath",
+                "value": "/tmp/test/out"
+            }]
         }]
     }
     Set bs = config.bs.%Get(0)
     Set bo = config.bo.%Get(0)
     
     Try {
-        Do:(##class(%ClassDefinition).%ExistsId(..#ProductionName)) $system.OBJ.Delete(..#ProductionName)
+        Do:(##class(%ClassDefinition).%ExistsId(..#ProductionName)) $system.OBJ.Delete(..#ProductionName_"*")
     }Catch(e) {}
     Do ..builder.Build(config)
 
@@ -68,13 +69,15 @@ Method TestBuild()
     Do $$$AssertTrue($IsObject(production))
     Do $$$AssertEquals(production.Name, config.production.name)
 
-    Set sql = "select * from Ens_Config.Item where Production = ? and Name = ? and ClassName = ?"
-    Set rs = ##class(%SQL.Statement).%ExecDirect(, sql, ..#ProductionName, bs.name, bs.config.className)
-    Do $$$AssertTrue(rs.%Next())
+    #; Set sql = "select * from Ens_Config.Item where Production = ? and Name = ? and ClassName = ?"
+    #; Set rs = ##class(%SQL.Statement).%ExecDirect(, sql, ..#ProductionName, bs.name, bs.className)
+    #; Do $$$AssertTrue(rs.%Next())
+    #; Do $$$AssertEquals(rs.Settings, $lb($lb($lb("FilePath","Adapter","/tmp/test/in"))))
 
-    Set sql = "select * from Ens_Config.Item where Production = ? and Name = ? and ClassName = ?"
-    Set rs = ##class(%SQL.Statement).%ExecDirect(, sql, ..#ProductionName, bo.name, bo.config.className)
-    Do $$$AssertTrue(rs.%Next())
+    #; Set sql = "select * from Ens_Config.Item where Production = ? and Name = ? and ClassName = ?"
+    #; Set rs = ##class(%SQL.Statement).%ExecDirect(, sql, ..#ProductionName, bo.name, bo.className)
+    #; Do $$$AssertTrue(rs.%Next())
+    #; Do $$$AssertEquals(rs.Settings, $lb($lb($lb("FilePath","Adapter","/tmp/test/out"))))
 }
 
 Method TestBuildFail()
@@ -96,7 +99,7 @@ Method TestCreateProduction()
     }
     
     #; Try {
-    #;     Do:(##class(%ClassDefinition).%ExistsId(..#ProductionName)) $system.OBJ.Delete(..#ProductionName)
+    #;     Do:(##class(%ClassDefinition).%ExistsId(..#ProductionName)) $system.OBJ.Delete(..#ProductionName_"*")
     #; }Catch(e) {}
     Do ..builder.Build(config)
 
@@ -123,15 +126,14 @@ Method TestCreateBusinessService()
         },
         "bs": [{
             "name": "FromFile",
-            "config": {
-                "className": "EnsLib.File.PassthroughService"
-            }
+            "className": "EnsLib.File.PassthroughService",
+            "config": []
         }]
     }
     Set bs = config.bs.%Get(0)
     
     #; Try {
-    #;     Do:(##class(%ClassDefinition).%ExistsId(..#ProductionName)) $system.OBJ.Delete(..#ProductionName)
+    #;     Do:(##class(%ClassDefinition).%ExistsId(..#ProductionName)) $system.OBJ.Delete(..#ProductionName_"*")
     #; }Catch(e) {}
     Do ..builder.Build(config)
 
@@ -140,7 +142,7 @@ Method TestCreateBusinessService()
     Do $$$AssertEquals(production.Name, config.production.name)
 
     Set sql = "select * from Ens_Config.Item where Production = ? and Name = ? and ClassName = ?"
-    Set rs = ##class(%SQL.Statement).%ExecDirect(, sql, ..#ProductionName, bs.name, bs.config.className)
+    Set rs = ##class(%SQL.Statement).%ExecDirect(, sql, ..#ProductionName, bs.name, bs.className)
     Do $$$AssertTrue(rs.%Next())
 }
 
@@ -163,15 +165,14 @@ Method TestCreateBusinessOperation()
         },
         "bo": [{
             "name": "ToFile",
-            "config": {
-                "className": "EnsLib.File.PassthroughOperation"
-            }
+            "className": "EnsLib.File.PassthroughOperation",
+            "config": []
         }]
     }
     Set bo = config.bo.%Get(0)
     
     #; Try {
-    #;     Do:(##class(%ClassDefinition).%ExistsId(..#ProductionName)) $system.OBJ.Delete(..#ProductionName)
+    #;     Do:(##class(%ClassDefinition).%ExistsId(..#ProductionName)) $system.OBJ.Delete(..#ProductionName_"*")
     #; }Catch(e) {}
     Do ..builder.Build(config)
 
@@ -180,11 +181,37 @@ Method TestCreateBusinessOperation()
     Do $$$AssertEquals(production.Name, config.production.name)
 
     Set sql = "select * from Ens_Config.Item where Production = ? and Name = ? and ClassName = ?"
-    Set rs = ##class(%SQL.Statement).%ExecDirect(, sql, ..#ProductionName, bo.name, bo.config.className)
+    Set rs = ##class(%SQL.Statement).%ExecDirect(, sql, ..#ProductionName, bo.name, bo.className)
     Do $$$AssertTrue(rs.%Next())
 }
 
 Method TestCreateBusinessOperationFail()
+{
+    // todo:
+    #; Set config = {}
+    #; Set expected = [(..builder.errorHelper.CreateNoProductionDefinedError())]
+    #; Do ..builder.CreateProduction(config)
+    #; Set errors = ..builder.errors
+    #; Do $$$AssertEquals(errors.%ToJSON(), expected.%ToJSON())
+    #; Do $$$AssertEquals(errors.%Size(), 1)
+}
+
+Method TestSaveConfig()
+{
+    // todo:
+}
+
+Method TestCreateSettings()
+{
+    // todo:
+}
+
+Method TestGetSettingTarget()
+{
+    // todo:
+}
+
+Method TestCreateBusinessProcessFail()
 {
     // todo:
     #; Set config = {}

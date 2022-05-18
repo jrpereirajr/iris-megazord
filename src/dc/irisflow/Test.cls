@@ -152,11 +152,17 @@ ClassMethod ListProductions()
 ClassMethod TestGetItemInfo()
 {
     w ##class(EnsPortal.Utils).ItemSettings("dc.irisflow.test.template1.NewProduction||FromFileMsg", .pData, .pMetaData)
+    #; w ##class(EnsPortal.Utils).ItemSettings("User.Helloworld||FromFile", .pData, .pMetaData)
     zw pMetaData
     s k = $O(pData(""))
     while (k '= "") {
         zw $list(pData(k), 1, 3)
         s k = $O(pData(k))
+    }
+
+    s o = ##class(Ens.Config.Item).%OpenId(4)
+    for i = 1:1:o.Settings.Count() {
+        zw o.Settings.GetAt(i)
     }
 }
 

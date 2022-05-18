@@ -30,7 +30,7 @@ Method CreateProduction(config As %DynamicObject) As Builder
 {
     If (config.name '= "") {
         Set class = ##class(%Dictionary.ClassDefinition).%New(config.name)
-        Set class.ProcedureBlock = 1
+        #; Set class.ProcedureBlock = 1
         Set class.Super = "Ens.Production"
 
         Set xdata = ##class(%Dictionary.XDataDefinition).%New()
@@ -55,10 +55,14 @@ Method CreateBusinessService(bs As %DynamicObject) As Builder
         Set production = ##class(Ens.Config.Production).%OpenId(..productionName)
         Set item = ##class(Ens.Config.Item).%New()
         Set item.Name = bs.name
-        Set item.ClassName = bs.config.className
+        Set item.ClassName = bs.className
         Do production.Items.Insert(item)
-        // todo: define (in JSON) and set BS configurations
         $$$TOE(st, production.%Save())
+        Do bs.config.%Push({
+            "name": "TargetConfigNames",
+            "value": "DefaultFlowBP"
+        })
+        Do ..SaveConfig(bs, item)
     }
 
     Return $this
@@ -70,12 +74,51 @@ Method ValidateBSConfig(bs As %DynamicObject) As %Boolean
     Return $$$OK
 }
 
-Method CreateBusinessProcess(config As %DynamicObject) As Builder
+Method CreateBusinessProcess(bp As %DynamicObject) As Builder
 {
     #; Write "[CreateBusinessProcess] "
     #; ZW config
+    If (..ValidateBPConfig()) {
+        Set bpName = ..productionName_bp.name
+        Set class = ##class(%Dictionary.ClassDefinition).%New(bpName)
+        #; Set class.ProcedureBlock = 1
+        Set class.Super = "Ens.BusinessProcessBPL"
+
+        Set xdata = ##class(%Dictionary.XDataDefinition).%New()
+        Set xdata.Name = "BPL"
+        Do xdata.Data.Write(            
+            "<process language='objectscript' request='Ens.Request' response='Ens.Response' height='2000' width='2000' > "_
+            "<sequence xend='200' yend='450' > "_
+            "<call name='ToFile' target='ToFile' async='0' xpos='200' ypos='350' > "_
+            "<request type='Ens.Request' > "_
+            "<assign property=""callrequest"" value=""request"" action=""set"" /> "_
+            "</request> "_
+            "<response type='Ens.Response' /> "_
+            "</call> "_
+            "</sequence> "_
+            "</process> "
+        )
+        Do class.XDatas.Insert(xdata)
+
+        $$$TOE(st, class.%Save())
+        $$$TOE(st, $System.OBJ.Compile(bpName, "fck-dv"))
+        
+        Set production = ##class(Ens.Config.Production).%OpenId(..productionName)
+        Set item = ##class(Ens.Config.Item).%New()
+        Set item.Name = bp.name
+        Set item.ClassName = class.Name
+        Do production.Items.Insert(item)
+        $$$TOE(st, production.%Save())
+        #; Do ..SaveConfig(bp, item)
+    }
 
     Return $this
+}
+
+Method ValidateBPConfig(bs As %DynamicObject) As %Boolean
+{
+    // todo:
+    Return $$$OK
 }
 
 Method CreateBusinessOperation(bo As %DynamicObject)
@@ -84,10 +127,10 @@ Method CreateBusinessOperation(bo As %DynamicObject)
         Set production = ##class(Ens.Config.Production).%OpenId(..productionName)
         Set item = ##class(Ens.Config.Item).%New()
         Set item.Name = bo.name
-        Set item.ClassName = bo.config.className
+        Set item.ClassName = bo.className
         Do production.Items.Insert(item)
-        // todo: define (in JSON) and set BO configurations
         $$$TOE(st, production.%Save())
+        Do ..SaveConfig(bo, item)
     }
 
     Return $this
@@ -105,6 +148,37 @@ Method foreach(array As %DynamicArray, callback)
     While it.%GetNext(.idx, .val) {
         Do $METHOD($this, callback, val)
     }
+}
+
+Method SaveConfig(host As %DynamicObject, item As Ens.Config.Item)
+{
+    Set configIt = host.config.%GetIterator()
+    While (configIt.%GetNext(.idx, .config)) {
+        Set setting = ..CreateSettings(item.Name, config.name, config.value)
+        Do item.Settings.Insert(setting)
+        $$$TOE(st, item.%Save())
+    }
+}
+
+Method CreateSettings(itemName As %String, propName As %String, propValue) As Ens.Config.Setting
+{
+    Set setting = ##class(Ens.Config.Setting).%New()
+    Set setting.Target = ..GetSettingTarget(itemName, propName)
+    Set setting.Name = propName
+    Set setting.Value = propValue
+    Return setting
+}
+
+Method GetSettingTarget(itemName As %String, propName As %String) As %String
+{
+    $$$TOE(st, ##class(EnsPortal.Utils).ItemSettings(..productionName_"||"_itemName, .pData, .pMetaData))
+    Set k = $O(pData(""))
+    While (k '= "") {
+        Quit:($LG(pData(k), 2) = propName)
+        Set k = $O(pData(k))
+    }
+    Return:(k '= "") $LG(pData(k), 1)
+    Throw ##class(%Exception.General).%New($$$FormatText("Setting %1 not found for item %2 in production %3.", propName, itemName, ..productionName))
 }
 
 }
