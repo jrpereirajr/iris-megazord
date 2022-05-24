@@ -57,7 +57,7 @@ Method TestMappingHelloworld5()
                 "className": "dc.components.telegram.TelegramOperation",
                 "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
                 "Credentials": "telegram",
-                "ChatId": "5364421812"
+                "ChatId": "telegram-chat-id"
             },
             "targets": []
         }]
@@ -110,7 +110,7 @@ Method TestMappingHelloworld5()
                 "value": "telegram"
             },{
                 "name": "ChatId",
-                "value": "5364421812"
+                "value": "telegram-chat-id"
             }],
             "targets": []
         }]

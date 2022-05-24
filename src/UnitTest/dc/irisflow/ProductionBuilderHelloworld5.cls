@@ -75,7 +75,7 @@ Method TestBuildHelloworld5()
                 "value": "telegram"
             },{
                 "name": "ChatId",
-                "value": "5364421812"
+                "value": "telegram-chat-id"
             }],
             "targets": []
         }]
@@ -109,7 +109,7 @@ Method TestBuildHelloworld5()
 
     Set sql = "select * from Ens_Config.Item where Production = ? and Name = ? and ClassName = ?"
     Set rs = ##class(%SQL.Statement).%ExecDirect(, sql, ..#ProductionName, bo.%Get(2).name, bo.%Get(2).className)
-    Set expected = $lb($lb($lb("SSLConfiguration","Adapter","ISC.FeatureTracker.SSL.Config")),$lb($lb("Credentials","Adapter","telegram")),$lb($lb("ChatId","Host","5364421812")))
+    Set expected = $lb($lb($lb("SSLConfiguration","Adapter","ISC.FeatureTracker.SSL.Config")),$lb($lb("Credentials","Adapter","telegram")),$lb($lb("ChatId","Host","telegram-chat-id")))
     Do $$$AssertTrue(rs.%Next())
     Do $$$AssertEquals(rs.Settings, expected)
 }

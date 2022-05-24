@@ -248,7 +248,7 @@ ClassMethod CreateProductionHelloworld5() As %Status
                 "className": "dc.components.telegram.TelegramOperation",
                 "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
                 "Credentials": "telegram",
-                "ChatId": "5364421812"
+                "ChatId": "telegram-chat-id"
             },
             "targets": []
         }]
