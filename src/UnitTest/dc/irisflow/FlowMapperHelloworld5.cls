@@ -24,7 +24,7 @@ Method TestMappingHelloworld5()
             "name": "FromFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughService",
+                "className": "dc.irisflow.components.file.FilePassthroughService",
                 "FilePath": "/tmp/test/in"
             },
             "targets": [{
@@ -34,7 +34,7 @@ Method TestMappingHelloworld5()
             "name": "ToFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": [{
@@ -44,7 +44,7 @@ Method TestMappingHelloworld5()
             "name": "ToFile1",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": [{
@@ -54,7 +54,7 @@ Method TestMappingHelloworld5()
             "name": "ToTelegram",
             "type": "action",
             "config": {
-                "className": "dc.components.telegram.TelegramOperation",
+                "className": "dc.irisflow.components.telegram.TelegramOperation",
                 "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
                 "Credentials": "telegram",
                 "ChatId": "telegram-chat-id"
@@ -69,7 +69,7 @@ Method TestMappingHelloworld5()
         },
         "bs": [{
             "name": "FromFile",
-            "className": "dc.components.file.FilePassthroughService",
+            "className": "dc.irisflow.components.file.FilePassthroughService",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/in"
@@ -81,7 +81,7 @@ Method TestMappingHelloworld5()
         "bp": [],
         "bo": [{
             "name": "ToFile",
-            "className": "dc.components.file.FilePassthroughOperation",
+            "className": "dc.irisflow.components.file.FilePassthroughOperation",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/out"
@@ -91,7 +91,7 @@ Method TestMappingHelloworld5()
             }]
         },{
             "name": "ToFile1",
-            "className": "dc.components.file.FilePassthroughOperation",
+            "className": "dc.irisflow.components.file.FilePassthroughOperation",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/out"
@@ -101,7 +101,7 @@ Method TestMappingHelloworld5()
             }]
         },{
             "name": "ToTelegram",
-            "className": "dc.components.telegram.TelegramOperation",
+            "className": "dc.irisflow.components.telegram.TelegramOperation",
             "config": [{
                 "name": "SSLConfiguration",
                 "value": "ISC.FeatureTracker.SSL.Config"

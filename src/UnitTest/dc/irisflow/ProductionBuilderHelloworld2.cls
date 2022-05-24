@@ -34,7 +34,7 @@ Method TestBuildHelloworld2()
         },
         "bs": [{
             "name": "FromFile",
-            "className": "dc.components.file.FilePassthroughService",
+            "className": "dc.irisflow.components.file.FilePassthroughService",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/in"
@@ -46,7 +46,7 @@ Method TestBuildHelloworld2()
         "bp": [],
         "bo": [{
             "name": "ToFile",
-            "className": "dc.components.file.FilePassthroughOperation",
+            "className": "dc.irisflow.components.file.FilePassthroughOperation",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/out"
@@ -54,7 +54,7 @@ Method TestBuildHelloworld2()
             "targets": []
         },{
             "name": "ToFile1",
-            "className": "dc.components.file.FilePassthroughOperation",
+            "className": "dc.irisflow.components.file.FilePassthroughOperation",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/out"

@@ -26,7 +26,7 @@ Method Build(config As %DynamicObject)
     }
 }
 
-Method CreateProduction(config As %DynamicObject) As Builder
+Method CreateProduction(config As %DynamicObject)
 {
     If (config.name '= "") {
         Set class = ##class(%Dictionary.ClassDefinition).%New(config.name)
@@ -45,11 +45,9 @@ Method CreateProduction(config As %DynamicObject) As Builder
     } Else {
         Do ..errors.%Push(..errorHelper.CreateNoProductionDefinedError())
     }
-
-    Return $this
 }
 
-Method CreateBusinessService(bs As %DynamicObject) As Builder
+Method CreateBusinessService(bs As %DynamicObject)
 {
     If (..ValidateBSConfig()) {
         Set production = ##class(Ens.Config.Production).%OpenId(..productionName)
@@ -94,7 +92,7 @@ Method ValidateBOConfig(bs As %DynamicObject) As %Boolean
     Return $$$OK
 }
 
-Method CreateBusinessProcess(bp As %DynamicObject) As Builder
+Method CreateBusinessProcess(bp As %DynamicObject)
 {
     // todo: method under construction...
     
@@ -132,8 +130,6 @@ Method CreateBusinessProcess(bp As %DynamicObject) As Builder
         $$$TOE(st, production.%Save())
         #; Do ..SaveConfig(bp, item)
     }
-
-    Return $this
 }
 
 Method ValidateBPConfig(bs As %DynamicObject) As %Boolean

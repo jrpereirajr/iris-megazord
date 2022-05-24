@@ -24,7 +24,7 @@ Method TestMappingHelloworld3()
             "name": "FromFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughService",
+                "className": "dc.irisflow.components.file.FilePassthroughService",
                 "FilePath": "/tmp/test/in"
             },
             "targets": [{
@@ -34,7 +34,7 @@ Method TestMappingHelloworld3()
             "name": "ToFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": [{
@@ -44,7 +44,7 @@ Method TestMappingHelloworld3()
             "name": "ToFile1",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": []
@@ -57,7 +57,7 @@ Method TestMappingHelloworld3()
         },
         "bs": [{
             "name": "FromFile",
-            "className": "dc.components.file.FilePassthroughService",
+            "className": "dc.irisflow.components.file.FilePassthroughService",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/in"
@@ -69,7 +69,7 @@ Method TestMappingHelloworld3()
         "bp": [],
         "bo": [{
             "name": "ToFile",
-            "className": "dc.components.file.FilePassthroughOperation",
+            "className": "dc.irisflow.components.file.FilePassthroughOperation",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/out"
@@ -79,7 +79,7 @@ Method TestMappingHelloworld3()
             }]
         },{
             "name": "ToFile1",
-            "className": "dc.components.file.FilePassthroughOperation",
+            "className": "dc.irisflow.components.file.FilePassthroughOperation",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/out"

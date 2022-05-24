@@ -7,6 +7,7 @@
       <Description>An API for create IRIS Interoperability from graphical flows</Description>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
+      <Resource Name="Telegram.PKG"/>
       <Resource Name="dc.irisflow.PKG"/>
       <UnitTest Name="/src" Package="UnitTest" Phase="test"/>
     </Module>

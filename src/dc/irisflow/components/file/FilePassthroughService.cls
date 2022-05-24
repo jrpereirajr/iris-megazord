@@ -1,9 +1,9 @@
-Class dc.components.file.FilePassthroughService Extends (EnsLib.File.PassthroughService, dc.components.IrisFlowBusinessService)
+Class dc.irisflow.components.file.FilePassthroughService Extends (EnsLib.File.PassthroughService, dc.irisflow.components.IrisFlowBusinessService)
 {
 
-Parameter CONTAINERCLASS = "dc.components.GenericMessage";
+Parameter CONTAINERCLASS = "dc.irisflow.components.GenericMessage";
 
-Method OnCreateMessage(pInput As %RegisteredObject) As dc.components.GenericMessage
+Method OnCreateMessage(pInput As %RegisteredObject) As dc.irisflow.components.GenericMessage
 {
     Return $classmethod(..#CONTAINERCLASS,"%New",pInput)
 }

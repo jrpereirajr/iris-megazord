@@ -34,7 +34,7 @@ Method TestBuildHelloworld5()
         },
         "bs": [{
             "name": "FromFile",
-            "className": "dc.components.file.FilePassthroughService",
+            "className": "dc.irisflow.components.file.FilePassthroughService",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/in"
@@ -46,7 +46,7 @@ Method TestBuildHelloworld5()
         "bp": [],
         "bo": [{
             "name": "ToFile",
-            "className": "dc.components.file.FilePassthroughOperation",
+            "className": "dc.irisflow.components.file.FilePassthroughOperation",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/out"
@@ -56,7 +56,7 @@ Method TestBuildHelloworld5()
             }]
         },{
             "name": "ToFile1",
-            "className": "dc.components.file.FilePassthroughOperation",
+            "className": "dc.irisflow.components.file.FilePassthroughOperation",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/out"
@@ -66,7 +66,7 @@ Method TestBuildHelloworld5()
             }]
         },{
             "name": "ToTelegram",
-            "className": "dc.components.telegram.TelegramOperation",
+            "className": "dc.irisflow.components.telegram.TelegramOperation",
             "config": [{
                 "name": "SSLConfiguration",
                 "value": "ISC.FeatureTracker.SSL.Config"

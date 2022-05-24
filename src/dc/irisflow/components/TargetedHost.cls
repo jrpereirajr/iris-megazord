@@ -1,4 +1,4 @@
-Class dc.components.TargetedHost Extends Ens.Host [ Abstract ]
+Class dc.irisflow.components.TargetedHost Extends Ens.Host [ Abstract ]
 {
 
 /// Configuration item(s) to which to send file stream messages

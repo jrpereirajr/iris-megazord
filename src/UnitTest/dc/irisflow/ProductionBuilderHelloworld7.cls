@@ -34,7 +34,7 @@ Method TestBuildHelloworld7()
         },
         "bs": [{
             "name": "FromTelegram",
-            "className": "dc.components.telegram.TelegramService",
+            "className": "dc.irisflow.components.telegram.TelegramService",
             "config": [{
                 "name": "SSLConfiguration",
                 "value": "ISC.FeatureTracker.SSL.Config"
@@ -43,19 +43,19 @@ Method TestBuildHelloworld7()
                 "value": "telegram"
             }],
             "targets": [{
-                "name": "dc.components.SimpleEchoOperation"
+                "name": "dc.irisflow.components.SimpleEchoOperation"
             }]
         }],
         "bo": [{
-            "name": "dc.components.SimpleEchoOperation",
-            "className": "dc.components.SimpleEchoOperation",
+            "name": "dc.irisflow.components.SimpleEchoOperation",
+            "className": "dc.irisflow.components.SimpleEchoOperation",
             "config": [],
             "targets": [{
                 "name": "ToTelegram"
             }]
         },{
             "name": "ToTelegram",
-            "className": "dc.components.telegram.TelegramOperation",
+            "className": "dc.irisflow.components.telegram.TelegramOperation",
             "config": [{
                 "name": "SSLConfiguration",
                 "value": "ISC.FeatureTracker.SSL.Config"
@@ -68,7 +68,7 @@ Method TestBuildHelloworld7()
             }]
         },{
             "name": "ToFile",
-            "className": "dc.components.file.FilePassthroughOperation",
+            "className": "dc.irisflow.components.file.FilePassthroughOperation",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/out"
@@ -86,7 +86,7 @@ Method TestBuildHelloworld7()
 
     Set sql = "select * from Ens_Config.Item where Production = ? and Name = ? and ClassName = ?"
     Set rs = ##class(%SQL.Statement).%ExecDirect(, sql, ..#ProductionName, bs.%Get(0).name, bs.%Get(0).className)
-    Set expected = $lb($lb($lb("SSLConfiguration","Adapter","ISC.FeatureTracker.SSL.Config")),$lb($lb("Credentials","Adapter","telegram")),$lb($lb("TargetConfigNames","Host","dc.components.SimpleEchoOperation")))
+    Set expected = $lb($lb($lb("SSLConfiguration","Adapter","ISC.FeatureTracker.SSL.Config")),$lb($lb("Credentials","Adapter","telegram")),$lb($lb("TargetConfigNames","Host","dc.irisflow.components.SimpleEchoOperation")))
     Do $$$AssertTrue(rs.%Next())
     Do $$$AssertEquals(rs.Settings, expected)
 

@@ -69,7 +69,7 @@ Method TestCreateBusinessService()
         },
         "bs": [{
             "name": "FromFile",
-            "className": "dc.components.file.FilePassthroughService",
+            "className": "dc.irisflow.components.file.FilePassthroughService",
             "config": [],
             "targets": [{
                 "name": "ToFile"
@@ -108,7 +108,7 @@ Method TestCreateBusinessOperation()
         },
         "bo": [{
             "name": "ToFile",
-            "className": "dc.components.file.FilePassthroughOperation",
+            "className": "dc.irisflow.components.file.FilePassthroughOperation",
             "config": []
         }]
     }

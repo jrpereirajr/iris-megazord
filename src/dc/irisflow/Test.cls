@@ -11,7 +11,7 @@ ClassMethod CreateProductionHelloworld1() As %Status
             "name": "FromFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughService",
+                "className": "dc.irisflow.components.file.FilePassthroughService",
                 "FilePath": "/tmp/test/in"
             },
             "targets": [{
@@ -21,7 +21,7 @@ ClassMethod CreateProductionHelloworld1() As %Status
             "name": "ToFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": []
@@ -53,7 +53,7 @@ ClassMethod CreateProductionHelloworld2() As %Status
             "name": "FromFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughService",
+                "className": "dc.irisflow.components.file.FilePassthroughService",
                 "FilePath": "/tmp/test/in"
             },
             "targets": [{
@@ -63,7 +63,7 @@ ClassMethod CreateProductionHelloworld2() As %Status
             "name": "ToFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": []
@@ -71,7 +71,7 @@ ClassMethod CreateProductionHelloworld2() As %Status
             "name": "ToFile1",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": []
@@ -102,7 +102,7 @@ ClassMethod CreateProductionHelloworld3() As %Status
             "name": "FromFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughService",
+                "className": "dc.irisflow.components.file.FilePassthroughService",
                 "FilePath": "/tmp/test/in"
             },
             "targets": [{
@@ -112,7 +112,7 @@ ClassMethod CreateProductionHelloworld3() As %Status
             "name": "ToFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": [{
@@ -122,7 +122,7 @@ ClassMethod CreateProductionHelloworld3() As %Status
             "name": "ToFile1",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": []
@@ -153,7 +153,7 @@ ClassMethod CreateProductionHelloworld4() As %Status
             "name": "FromFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughService",
+                "className": "dc.irisflow.components.file.FilePassthroughService",
                 "FilePath": "/tmp/test/in"
             },
             "targets": [{
@@ -163,7 +163,7 @@ ClassMethod CreateProductionHelloworld4() As %Status
             "name": "FromTelegram",
             "type": "action",
             "config": {
-                "className": "dc.components.telegram.TelegramService",
+                "className": "dc.irisflow.components.telegram.TelegramService",
                 "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
                 "Credentials": "telegram"
             },
@@ -174,7 +174,7 @@ ClassMethod CreateProductionHelloworld4() As %Status
             "name": "ToFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": [{
@@ -184,7 +184,7 @@ ClassMethod CreateProductionHelloworld4() As %Status
             "name": "ToFile1",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": []
@@ -215,7 +215,7 @@ ClassMethod CreateProductionHelloworld5() As %Status
             "name": "FromFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughService",
+                "className": "dc.irisflow.components.file.FilePassthroughService",
                 "FilePath": "/tmp/test/in"
             },
             "targets": [{
@@ -225,7 +225,7 @@ ClassMethod CreateProductionHelloworld5() As %Status
             "name": "ToFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": [{
@@ -235,7 +235,7 @@ ClassMethod CreateProductionHelloworld5() As %Status
             "name": "ToFile1",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": [{
@@ -245,7 +245,7 @@ ClassMethod CreateProductionHelloworld5() As %Status
             "name": "ToTelegram",
             "type": "action",
             "config": {
-                "className": "dc.components.telegram.TelegramOperation",
+                "className": "dc.irisflow.components.telegram.TelegramOperation",
                 "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
                 "Credentials": "telegram",
                 "ChatId": "telegram-chat-id"
@@ -278,7 +278,7 @@ ClassMethod CreateProductionHelloworld6() As %Status
             "name": "FromTelegram",
             "type": "action",
             "config": {
-                "className": "dc.components.telegram.TelegramService",
+                "className": "dc.irisflow.components.telegram.TelegramService",
                 "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
                 "Credentials": "telegram"
             },
@@ -289,7 +289,7 @@ ClassMethod CreateProductionHelloworld6() As %Status
             "name": "ToTelegram",
             "type": "action",
             "config": {
-                "className": "dc.components.telegram.TelegramOperation",
+                "className": "dc.irisflow.components.telegram.TelegramOperation",
                 "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
                 "Credentials": "telegram"
             },
@@ -300,7 +300,7 @@ ClassMethod CreateProductionHelloworld6() As %Status
             "name": "ToFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": []
@@ -330,7 +330,7 @@ ClassMethod CreateProductionHelloworld7() As %Status
             "name": "FromTelegram",
             "type": "action",
             "config": {
-                "className": "dc.components.telegram.TelegramService",
+                "className": "dc.irisflow.components.telegram.TelegramService",
                 "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
                 "Credentials": "telegram"
             },
@@ -341,7 +341,7 @@ ClassMethod CreateProductionHelloworld7() As %Status
             "name": "SimpleEchoOperation",
             "type": "action",
             "config": {
-                "className": "dc.components.SimpleEchoOperation"
+                "className": "dc.irisflow.components.SimpleEchoOperation"
             },
             "targets": [{
                 "name": "ToTelegram"
@@ -350,7 +350,7 @@ ClassMethod CreateProductionHelloworld7() As %Status
             "name": "ToTelegram",
             "type": "action",
             "config": {
-                "className": "dc.components.telegram.TelegramOperation",
+                "className": "dc.irisflow.components.telegram.TelegramOperation",
                 "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
                 "Credentials": "telegram"
             },
@@ -361,7 +361,7 @@ ClassMethod CreateProductionHelloworld7() As %Status
             "name": "ToFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": []
@@ -392,7 +392,7 @@ ClassMethod CreateProductionHelloworldBPL() As %Status
         },
         "bs": [{
             "name": "FromFile",
-            "className": "dc.components.file.FilePassthroughService",
+            "className": "dc.irisflow.components.file.FilePassthroughService",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/in"
@@ -414,7 +414,7 @@ ClassMethod CreateProductionHelloworldBPL() As %Status
         }],
         "bo": [{
             "name": "ToFile",
-            "className": "dc.components.file.FilePassthroughOperation",
+            "className": "dc.irisflow.components.file.FilePassthroughOperation",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/out"

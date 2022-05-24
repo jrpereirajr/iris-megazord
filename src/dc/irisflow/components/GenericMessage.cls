@@ -1,4 +1,4 @@
-Class dc.components.GenericMessage Extends Ens.StreamContainer
+Class dc.irisflow.components.GenericMessage Extends Ens.StreamContainer
 {
 
 Property Context As %String;

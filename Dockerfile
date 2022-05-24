@@ -10,9 +10,7 @@ ARG MODULE=iris-flow
 ARG TESTS=1
 
 RUN --mount=type=bind,src=.,dst=. \
-    #### todo: remove #####
     mkdir -p /tmp/test/in && mkdir -p /tmp/test/out && \
-    #######################
     iris start IRIS && \
 	iris session IRIS < iris.script && \
     ([ $TESTS -eq 0 ] || iris session iris "##class(%ZPM.PackageManager).Shell(\"test $MODULE -v -only\",1,1)") && \

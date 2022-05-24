@@ -1,4 +1,4 @@
-Class dc.components.IrisFlowBusinessService Extends (Ens.BusinessService, dc.components.TargetedHost)
+Class dc.irisflow.components.IrisFlowBusinessService Extends (Ens.BusinessService, dc.irisflow.components.TargetedHost)
 {
 
 Method OnProcessInput(pInput As %RegisteredObject, pOutput As %RegisteredObject) As %Status
@@ -10,7 +10,7 @@ Method OnProcessInput(pInput As %RegisteredObject, pOutput As %RegisteredObject)
     Return $$$OK
 }
 
-Method OnCreateMessage(pInput As %RegisteredObject) As dc.components.GenericMessage
+Method OnCreateMessage(pInput As %RegisteredObject) As dc.irisflow.components.GenericMessage
 {
 }
 

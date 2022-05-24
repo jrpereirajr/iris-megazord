@@ -24,7 +24,7 @@ Method TestMappingHelloworld6()
             "name": "FromTelegram",
             "type": "action",
             "config": {
-                "className": "dc.components.telegram.TelegramService",
+                "className": "dc.irisflow.components.telegram.TelegramService",
                 "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
                 "Credentials": "telegram"
             },
@@ -35,7 +35,7 @@ Method TestMappingHelloworld6()
             "name": "ToTelegram",
             "type": "action",
             "config": {
-                "className": "dc.components.telegram.TelegramOperation",
+                "className": "dc.irisflow.components.telegram.TelegramOperation",
                 "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
                 "Credentials": "telegram"
             },
@@ -46,7 +46,7 @@ Method TestMappingHelloworld6()
             "name": "ToFile",
             "type": "action",
             "config": {
-                "className": "dc.components.file.FilePassthroughOperation",
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
                 "FilePath": "/tmp/test/out"
             },
             "targets": []
@@ -59,7 +59,7 @@ Method TestMappingHelloworld6()
         },
         "bs": [{
             "name": "FromTelegram",
-            "className": "dc.components.telegram.TelegramService",
+            "className": "dc.irisflow.components.telegram.TelegramService",
             "config": [{
                 "name": "SSLConfiguration",
                 "value": "ISC.FeatureTracker.SSL.Config"
@@ -74,7 +74,7 @@ Method TestMappingHelloworld6()
         "bp": [],
         "bo": [{
             "name": "ToTelegram",
-            "className": "dc.components.telegram.TelegramOperation",
+            "className": "dc.irisflow.components.telegram.TelegramOperation",
             "config": [{
                 "name": "SSLConfiguration",
                 "value": "ISC.FeatureTracker.SSL.Config"
@@ -87,7 +87,7 @@ Method TestMappingHelloworld6()
             }]
         },{
             "name": "ToFile",
-            "className": "dc.components.file.FilePassthroughOperation",
+            "className": "dc.irisflow.components.file.FilePassthroughOperation",
             "config": [{
                 "name": "FilePath",
                 "value": "/tmp/test/out"

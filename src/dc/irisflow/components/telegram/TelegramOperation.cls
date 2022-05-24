@@ -1,4 +1,4 @@
-Class dc.components.telegram.TelegramOperation Extends dc.components.IrisFlowBusinessOperation
+Class dc.irisflow.components.telegram.TelegramOperation Extends dc.irisflow.components.IrisFlowBusinessOperation
 {
 
 Parameter ADAPTER = "Telegram.TelegramOutboundAdapter";
@@ -7,12 +7,13 @@ Parameter INVOCATION = "Queue";
 
 Property Adapter As Telegram.TelegramOutboundAdapter;
 
+/// todo: use a credential to get this value instead of directly from host configuration
 /// Id for Telegram user who message will sent for, when no one ChatId field is found in the input message
 Property ChatId As %String;
 
 Parameter SETTINGS = "ChatId";
 
-Method OnConsumeMessage(ByRef pRequest As dc.components.GenericMessage, Output pResponse As Ens.Response)
+Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage, Output pResponse As Ens.Response)
 {
     Set inputMessage = pRequest.Stream.Read()
     Set context = pRequest.Context
