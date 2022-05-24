@@ -19,8 +19,8 @@ Method Build(config As %DynamicObject)
     If (config.production '= "") {
         Do ..CreateProduction(config.production)
         Do:(config.bs '= "") ..foreach(config.bs, "CreateBusinessService")
-        Do:(config.bp '= "") ..foreach(config.bp, "CreateBusinessProcess")
         Do:(config.bo '= "") ..foreach(config.bo, "CreateBusinessOperation")
+        Do:(config.bp '= "") ..foreach(config.bp, "CreateBusinessProcess")
     } Else {
         Do ..errors.%Push(..errorHelper.CreateNoProductionDefinedError())
     }
@@ -58,11 +58,8 @@ Method CreateBusinessService(bs As %DynamicObject) As Builder
         Set item.ClassName = bs.className
         Do production.Items.Insert(item)
         $$$TOE(st, production.%Save())
-        Do bs.config.%Push({
-            "name": "TargetConfigNames",
-            "value": "DefaultFlowBP"
-        })
-        Do ..SaveConfig(bs, item)
+
+        Do ..ProcessTargets(bs, item)
     }
 
     Return $this
@@ -74,13 +71,37 @@ Method ValidateBSConfig(bs As %DynamicObject) As %Boolean
     Return $$$OK
 }
 
+Method CreateBusinessOperation(bo As %DynamicObject)
+{
+    If (..ValidateBOConfig()) {
+        Set production = ##class(Ens.Config.Production).%OpenId(..productionName)
+        Set item = ##class(Ens.Config.Item).%New()
+        Set item.Name = bo.name
+        Set item.ClassName = bo.className
+        Do production.Items.Insert(item)
+        $$$TOE(st, production.%Save())
+
+        Do ..SaveConfig(bo, item)
+        Do ..ProcessTargets(bo, item)
+    }
+
+    Return $this
+}
+
+Method ValidateBOConfig(bs As %DynamicObject) As %Boolean
+{
+    // todo:
+    Return $$$OK
+}
+
 Method CreateBusinessProcess(bp As %DynamicObject) As Builder
 {
+    // todo: method under construction...
+    
     #; Write "[CreateBusinessProcess] "
     #; ZW config
     If (..ValidateBPConfig()) {
-        Set bpName = ..productionName_bp.name
-        Set class = ##class(%Dictionary.ClassDefinition).%New(bpName)
+        Set class = ##class(%Dictionary.ClassDefinition).%New(bp.className)
         #; Set class.ProcedureBlock = 1
         Set class.Super = "Ens.BusinessProcessBPL"
 
@@ -101,7 +122,7 @@ Method CreateBusinessProcess(bp As %DynamicObject) As Builder
         Do class.XDatas.Insert(xdata)
 
         $$$TOE(st, class.%Save())
-        $$$TOE(st, $System.OBJ.Compile(bpName, "fck-dv"))
+        $$$TOE(st, $System.OBJ.Compile(bp.className, "fck-dv"))
         
         Set production = ##class(Ens.Config.Production).%OpenId(..productionName)
         Set item = ##class(Ens.Config.Item).%New()
@@ -121,32 +142,25 @@ Method ValidateBPConfig(bs As %DynamicObject) As %Boolean
     Return $$$OK
 }
 
-Method CreateBusinessOperation(bo As %DynamicObject)
-{
-    If (..ValidateBOConfig()) {
-        Set production = ##class(Ens.Config.Production).%OpenId(..productionName)
-        Set item = ##class(Ens.Config.Item).%New()
-        Set item.Name = bo.name
-        Set item.ClassName = bo.className
-        Do production.Items.Insert(item)
-        $$$TOE(st, production.%Save())
-        Do ..SaveConfig(bo, item)
-    }
-
-    Return $this
-}
-
-Method ValidateBOConfig(bs As %DynamicObject) As %Boolean
-{
-    // todo:
-    Return $$$OK
-}
-
 Method foreach(array As %DynamicArray, callback)
 {
     Set it = array.%GetIterator()
     While it.%GetNext(.idx, .val) {
         Do $METHOD($this, callback, val)
+    }
+}
+
+Method ProcessTargets(host As Ens.Host, item As Ens.Config.Item)
+{
+    If (host.targets '= "") {
+        Set targetsIt = host.targets.%GetIterator()
+        While targetsIt.%GetNext(.idx, .target) {
+            Do host.config.%Push({
+                "name": "TargetConfigNames",
+                "value": (target.name)
+            })
+            Do ..SaveConfig(host, item)
+        }
     }
 }
 

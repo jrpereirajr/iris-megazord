@@ -37,4 +37,15 @@ Method CreateNoConfigActionError(actionIdx As %String)
     )
 }
 
+Method CreateOnlyOneTargetSupportedError(actionIdx As %String)
+{
+    Return ..CreateError(
+        "OnlyOneTargetSupportedError", 
+        $$$FormatText("Only one target is supported. Check targets for action #%1.", actionIdx),
+        {
+            "actionIndex": (actionIdx)
+        }
+    )
+}
+
 }

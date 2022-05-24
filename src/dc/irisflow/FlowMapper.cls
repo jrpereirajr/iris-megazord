@@ -58,7 +58,7 @@ Method ProcessFlowNodes()
             If (..IsBusinessOperation(node)) {
                 Do ..mapped.bo.%Push(..CreateBusinessOperation(node, idx))
             }
-            Do ..ProcessBPL(node)
+            #; Do ..ProcessBPL(node)
         }
     }
 }
@@ -98,12 +98,36 @@ Method CreateBusinessHost(node As %DynamicObject, nodeIdx As %Integer) As %Dynam
         Do ..errors.%Push(..errorHelper.CreateNoConfigActionError(nodeIdx))
         Set errors = 1
     }
+    // for now, only one target is supported
+    If (node.targets '= "") && (node.targets.%Size() > 1) {
+        Do ..errors.%Push(..errorHelper.CreateOnlyOneTargetSupportedError(nodeIdx))
+        Set errors = 1
+    }
 
     If ('errors) {
         Set item = {
             "name": (node.name),
-            "config": {
-                "className": (node.config.className)
+                "className": (node.config.className),
+            "config": [],
+            "targets": []
+        }
+
+        Set configIt = node.config.%GetIterator()
+        While (configIt.%GetNext(.configKey, .config)) {
+            If (configKey '= "className") {
+                Do item.config.%Push({
+                    "name": (configKey), 
+                    "value": (config)
+                })
+            }
+        }
+
+        If ($IsObject(node.targets)) {
+            Set targetsIt = node.targets.%GetIterator()
+            While (targetsIt.%GetNext(.targetIdx, .target)) {
+                Do item.targets.%Push({
+                    "name": (target.name)
+                })
             }
         }
     }
@@ -123,11 +147,14 @@ Method CreateBusinessOperation(node As %DynamicObject, nodeIdx As %Integer) As %
     Return bo
 }
 
+/* BPL will be redesigned */
+
+/*
 Method ProcessBPL(node As %DynamicObject)
 {
-    If (..mapped.bp.%Size() = 0){
-        Do ..mapped.bp.%Push(..CreateDefaultFlowBP())
-    }
+    #; If (..mapped.bp.%Size() = 0){
+    #;     Do ..mapped.bp.%Push(..CreateDefaultFlowBP())
+    #; }
 
     If (node.targets '= "") {
         Do ..ProcessNodeTargets(node)
@@ -172,5 +199,5 @@ Method CreateBPCallForTarget(targetName As %String)
     }
     Return call
 }
-
+*/
 }

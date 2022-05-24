@@ -1,169 +1,436 @@
 Class dc.irisflow.Test Extends %RegisteredObject
 {
 
-Parameter BusinessHostTypeBS = "BusinessService";
-
-Parameter BusinessHostTypeBP = "BusinessProcess";
-
-Parameter BusinessHostTypeBO = "BusinessOperation";
-
-/// Description
-ClassMethod Run() As %Status
+ClassMethod CreateProductionHelloworld1() As %Status
 {
     Set sc = $$$OK
 
     Set flow = {
-        "name": "Helloworld",
+        "name": "User.irisflow.simple.Helloworld1",
         "nodes": [{
             "name": "FromFile",
             "type": "action",
             "config": {
-                "class": "EnsLib.File.PassthroughService"
+                "className": "dc.components.file.FilePassthroughService",
+                "FilePath": "/tmp/test/in"
             },
-        "targets": [{
-            "name": "ToFile"
-        }]
+            "targets": [{
+                "name": "ToFile"
+            }]
         },{
             "name": "ToFile",
             "type": "action",
             "config": {
-                "class": "EnsLib.File.PassthroughOperation"
+                "className": "dc.components.file.FilePassthroughOperation",
+                "FilePath": "/tmp/test/out"
             },
-        "targets": []
+            "targets": []
         }]
     }
 
-    Set mappedProduction = {
-        "production": {
-            "name": "Helloworld"
-        },
-        "bs": [{
-            "name": "FromFile",
-            "config": {
-                "class": "EnsLib.File.PassthroughService"
-            }
-        }],
-        "bp": [{
-            "name": "DefaultFlowBP",
-            "config": [{
-                "type": "call",
-                "target": "ToFile"
-            }]
-        }],
-        "bo": [{
-            "name": "ToFile",
-            "config": {
-                "class": "EnsLib.File.PassthroughOperation"
-            }
-        }]
-    }
-    
-    Set builder = ..%New()
+    Set mapper = ##class(dc.irisflow.FlowMapper).%New()
+    Set config = mapper.Map(flow)
 
-    Do builder.CreateProduction(mappedProduction.production)
-    Do builder.foreach(mappedProduction.bs, "CreateBusinessService")
-    Do builder.foreach(mappedProduction.bp, "CreateBusinessProcess")
-    Do builder.foreach(mappedProduction.bo, "CreateBusinessOperation")
+    Try{
+        Do $system.OBJ.Delete(config.production.name, "/display=none")
+    } Catch(e){}
     
-    #; Do builder.Production({
-    #;     "name": "dc.irisflow.test.Helloworld"
-    #; }).Item({
-    #;     "name": "dc.irisflow.test.FromFile",
-    #;     "type": (..#BusinessHostTypeBS)
-    #; }).Item({
-    #;     "name": "dc.irisflow.test.DefaultFlowBP",
-    #;     "type": (..#BusinessHostTypeBP)
-    #; }).Item({
-    #;     "name": "dc.irisflow.test.ToFile",
-    #;     "type": (..#BusinessHostTypeBO)
-    #; })
+    Set builder = ##class(dc.irisflow.ProductionBuilder).%New()
+    Do builder.Build(config)
+
+    Write "Production "_config.production.name_" created."
 
     Return sc
 }
 
-Method foreach(array As %DynamicArray, callback)
+ClassMethod CreateProductionHelloworld2() As %Status
 {
-    Set it = array.%GetIterator()
-    While it.%GetNext(.idx, .val) {
-        Do $METHOD($this, callback, val)
-    }
-}
+    Set sc = $$$OK
 
-Method CreateProduction(config As %DynamicObject)
-{
-    Write "[CreateProduction] "
-    ZW config
-}
-
-Method CreateBusinessService(config As %DynamicObject)
-{
-    Write "[CreateBusinessService] "
-    ZW config
-}
-
-Method CreateBusinessProcess(config As %DynamicObject)
-{
-    Write "[CreateBusinessProcess] "
-    ZW config
-}
-
-Method CreateBusinessOperation(config As %DynamicObject)
-{
-    Write "[CreateBusinessOperation] "
-    ZW config
-}
-
-/*
-Method Production(config As %DynamicObject) As Test
-{
-    Write "[Creating production] "
-    ZW config
-
-    Return $this
-}
-
-Method Item(config As %DynamicObject) As Test
-{
-    Write "[Creating production item] "
-    ZW config
-
-    Return $this
-}
-*/
-ClassMethod ListProductions()
-{
-    #; Set rs = ##class(%ResultSet).%New()
-    #; Set rs.ClassName = "EnsPortal.Productions"
-    #; Set rs.QueryName = "Enumerate"
-    #; $$$TOE(st, rs.Execute())
-    #; While (rs.Next()) {
-    #;     Write rs.Production,!
-    #; }
-
-    Set stmt = ##class(%SQL.Statement).%New()
-    #; $$$TOE(st, stmt.%PrepareClassQuery("EnsPortal.Productions", "Enumerate"))
-    $$$TOE(st, stmt.%PrepareClassQuery("Ens.Config.Production", "ProductionStatus"))
-    Set rs = stmt.%Execute()
-    While (rs.%Next()) {
-        Write rs.Production,!
-    }
-}
-
-ClassMethod TestGetItemInfo()
-{
-    w ##class(EnsPortal.Utils).ItemSettings("dc.irisflow.test.template1.NewProduction||FromFileMsg", .pData, .pMetaData)
-    #; w ##class(EnsPortal.Utils).ItemSettings("User.Helloworld||FromFile", .pData, .pMetaData)
-    zw pMetaData
-    s k = $O(pData(""))
-    while (k '= "") {
-        zw $list(pData(k), 1, 3)
-        s k = $O(pData(k))
+    Set flow = {
+        "name": "User.irisflow.simple.Helloworld2",
+        "nodes": [{
+            "name": "FromFile",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughService",
+                "FilePath": "/tmp/test/in"
+            },
+            "targets": [{
+                "name": "ToFile,ToFile1"
+            }]
+        },{
+            "name": "ToFile",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughOperation",
+                "FilePath": "/tmp/test/out"
+            },
+            "targets": []
+        },{
+            "name": "ToFile1",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughOperation",
+                "FilePath": "/tmp/test/out"
+            },
+            "targets": []
+        }]
     }
 
-    s o = ##class(Ens.Config.Item).%OpenId(4)
-    for i = 1:1:o.Settings.Count() {
-        zw o.Settings.GetAt(i)
+    Set mapper = ##class(dc.irisflow.FlowMapper).%New()
+    Set config = mapper.Map(flow)
+
+    Try{
+        Do $system.OBJ.Delete(config.production.name, "/display=none")
+    } Catch(e){}
+    
+    Set builder = ##class(dc.irisflow.ProductionBuilder).%New()
+    Do builder.Build(config)
+    Write "Production "_config.production.name_" created."
+
+    Return sc
+}
+
+ClassMethod CreateProductionHelloworld3() As %Status
+{
+    Set sc = $$$OK
+
+    Set flow = {
+        "name": "User.irisflow.simple.Helloworld3",
+        "nodes": [{
+            "name": "FromFile",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughService",
+                "FilePath": "/tmp/test/in"
+            },
+            "targets": [{
+                "name": "ToFile"
+            }]
+        },{
+            "name": "ToFile",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughOperation",
+                "FilePath": "/tmp/test/out"
+            },
+            "targets": [{
+                "name": "ToFile1"
+            }]
+        },{
+            "name": "ToFile1",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughOperation",
+                "FilePath": "/tmp/test/out"
+            },
+            "targets": []
+        }]
     }
+
+    Set mapper = ##class(dc.irisflow.FlowMapper).%New()
+    Set config = mapper.Map(flow)
+
+    Try{
+        Do $system.OBJ.Delete(config.production.name, "/display=none")
+    } Catch(e){}
+    
+    Set builder = ##class(dc.irisflow.ProductionBuilder).%New()
+    Do builder.Build(config)
+    Write "Production "_config.production.name_" created."
+
+    Return sc
+}
+
+ClassMethod CreateProductionHelloworld4() As %Status
+{
+    Set sc = $$$OK
+
+    Set flow = {
+        "name": "User.irisflow.simple.Helloworld4",
+        "nodes": [{
+            "name": "FromFile",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughService",
+                "FilePath": "/tmp/test/in"
+            },
+            "targets": [{
+                "name": "ToFile"
+            }]
+        },{
+            "name": "FromTelegram",
+            "type": "action",
+            "config": {
+                "className": "dc.components.telegram.TelegramService",
+                "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
+                "Credentials": "telegram"
+            },
+            "targets": [{
+                "name": "ToFile"
+            }]
+        },{
+            "name": "ToFile",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughOperation",
+                "FilePath": "/tmp/test/out"
+            },
+            "targets": [{
+                "name": "ToFile1"
+            }]
+        },{
+            "name": "ToFile1",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughOperation",
+                "FilePath": "/tmp/test/out"
+            },
+            "targets": []
+        }]
+    }
+
+    Set mapper = ##class(dc.irisflow.FlowMapper).%New()
+    Set config = mapper.Map(flow)
+
+    Try{
+        Do $system.OBJ.Delete(config.production.name, "/display=none")
+    } Catch(e){}
+    
+    Set builder = ##class(dc.irisflow.ProductionBuilder).%New()
+    Do builder.Build(config)
+    Write "Production "_config.production.name_" created."
+
+    Return sc
+}
+
+ClassMethod CreateProductionHelloworld5() As %Status
+{
+    Set sc = $$$OK
+
+    Set flow = {
+        "name": "User.irisflow.simple.Helloworld5",
+        "nodes": [{
+            "name": "FromFile",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughService",
+                "FilePath": "/tmp/test/in"
+            },
+            "targets": [{
+                "name": "ToFile"
+            }]
+        },{
+            "name": "ToFile",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughOperation",
+                "FilePath": "/tmp/test/out"
+            },
+            "targets": [{
+                "name": "ToFile1"
+            }]
+        },{
+            "name": "ToFile1",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughOperation",
+                "FilePath": "/tmp/test/out"
+            },
+            "targets": [{
+                "name": "ToTelegram"
+            }]
+        },{
+            "name": "ToTelegram",
+            "type": "action",
+            "config": {
+                "className": "dc.components.telegram.TelegramOperation",
+                "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
+                "Credentials": "telegram",
+                "ChatId": "5364421812"
+            },
+            "targets": []
+        }]
+    }
+
+    Set mapper = ##class(dc.irisflow.FlowMapper).%New()
+    Set config = mapper.Map(flow)
+
+    Try{
+        Do $system.OBJ.Delete(config.production.name, "/display=none")
+    } Catch(e){}
+    
+    Set builder = ##class(dc.irisflow.ProductionBuilder).%New()
+    Do builder.Build(config)
+    Write "Production "_config.production.name_" created."
+
+    Return sc
+}
+
+ClassMethod CreateProductionHelloworld6() As %Status
+{
+    Set sc = $$$OK
+
+    Set flow = {
+        "name": "User.irisflow.simple.Helloworld6",
+        "nodes": [{
+            "name": "FromTelegram",
+            "type": "action",
+            "config": {
+                "className": "dc.components.telegram.TelegramService",
+                "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
+                "Credentials": "telegram"
+            },
+            "targets": [{
+                "name": "ToTelegram"
+            }]
+        },{
+            "name": "ToTelegram",
+            "type": "action",
+            "config": {
+                "className": "dc.components.telegram.TelegramOperation",
+                "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
+                "Credentials": "telegram"
+            },
+            "targets": [{
+                "name": "ToFile"
+            }]
+        },{
+            "name": "ToFile",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughOperation",
+                "FilePath": "/tmp/test/out"
+            },
+            "targets": []
+        }]
+    }
+
+    Set mapper = ##class(dc.irisflow.FlowMapper).%New()
+    Set config = mapper.Map(flow)
+
+    Try{
+        Do $system.OBJ.Delete(config.production.name, "/display=none")
+    } Catch(e){}
+    
+    Set builder = ##class(dc.irisflow.ProductionBuilder).%New()
+    Do builder.Build(config)
+    Write "Production "_config.production.name_" created."
+
+    Return sc
+}
+
+ClassMethod CreateProductionHelloworld7() As %Status
+{
+    Set sc = $$$OK
+    Set flow = {
+        "name": "User.irisflow.simple.Helloworld7",
+        "nodes": [{
+            "name": "FromTelegram",
+            "type": "action",
+            "config": {
+                "className": "dc.components.telegram.TelegramService",
+                "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
+                "Credentials": "telegram"
+            },
+            "targets": [{
+                "name": "SimpleEchoOperation"
+            }]
+        },{
+            "name": "SimpleEchoOperation",
+            "type": "action",
+            "config": {
+                "className": "dc.components.SimpleEchoOperation"
+            },
+            "targets": [{
+                "name": "ToTelegram"
+            }]
+        },{
+            "name": "ToTelegram",
+            "type": "action",
+            "config": {
+                "className": "dc.components.telegram.TelegramOperation",
+                "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
+                "Credentials": "telegram"
+            },
+            "targets": [{
+                "name": "ToFile"
+            }]
+        },{
+            "name": "ToFile",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughOperation",
+                "FilePath": "/tmp/test/out"
+            },
+            "targets": []
+        }]
+    }
+
+    Set mapper = ##class(dc.irisflow.FlowMapper).%New()
+    Set config = mapper.Map(flow)
+
+    Try{
+        Do $system.OBJ.Delete(config.production.name, "/display=none")
+    } Catch(e){}
+    
+    Set builder = ##class(dc.irisflow.ProductionBuilder).%New()
+    Do builder.Build(config)
+    Write "Production "_config.production.name_" created."
+
+    Return sc
+}
+
+ClassMethod CreateProductionHelloworldBPL() As %Status
+{
+    Set sc = $$$OK
+
+    Set config = {
+        "production": {
+            "name": "User.irisflow.bpl.HelloworldBPL"
+        },
+        "bs": [{
+            "name": "FromFile",
+            "className": "dc.components.file.FilePassthroughService",
+            "config": [{
+                "name": "FilePath",
+                "value": "/tmp/test/in"
+            }],
+            "targets": [{
+                "name": "DefaultFlowBP"
+            }]
+        }],
+        "bp": [{
+            "name": "DefaultFlowBP",
+            "className": "User.irisflow.bpl.DefaultFlowBP",
+            "sequence": [{
+                "type": "call",
+                "target": {
+                    "name":"ToFile"
+                }
+            }],
+            "config": []
+        }],
+        "bo": [{
+            "name": "ToFile",
+            "className": "dc.components.file.FilePassthroughOperation",
+            "config": [{
+                "name": "FilePath",
+                "value": "/tmp/test/out"
+            }]
+        }]
+    }
+
+    Try{
+        Do $system.OBJ.Delete("User.irisflow.bpl.*", "/display=none")
+    } Catch(e){}
+    
+    Set builder = ##class(dc.irisflow.ProductionBuilder).%New()
+    Do builder.Build(config)
+    Write "Production "_config.production.name_" created."
+
+    Return sc
 }
 
 }

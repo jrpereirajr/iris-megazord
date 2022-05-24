@@ -16,62 +16,6 @@ Method OnAfterOneTest(testname As %String) As %Status
     Return $$$OK
 }
 
-Method TestMapping1()
-{
-    Set flow = {
-        "name": "Helloworld",
-        "nodes": [{
-            "name": "FromFile",
-            "type": "action",
-            "config": {
-                "className": "EnsLib.File.PassthroughService"
-            },
-            "targets": [{
-                "name": "ToFile"
-            }]
-        },{
-            "name": "ToFile",
-            "type": "action",
-            "config": {
-                "className": "EnsLib.File.PassthroughOperation"
-            },
-            "targets": []
-        }]
-    }
-
-    Set expected = {
-        "production": {
-            "name": "Helloworld"
-        },
-        "bs": [{
-            "name": "FromFile",
-            "config": {
-                "className": "EnsLib.File.PassthroughService"
-            }
-        }],
-        "bp": [{
-            "name": "DefaultFlowBP",
-            "config": {
-                "sequence": [{
-                    "type": "call",
-                    "target": {
-                        "name":"ToFile"
-                    }
-                }]
-            }
-        }],
-        "bo": [{
-            "name": "ToFile",
-            "config": {
-                "className": "EnsLib.File.PassthroughOperation"
-            }
-        }]
-    }
-
-    Set mapped = ..mapper.Map(flow)
-    Do $$$AssertEquals(mapped.%ToJSON(), expected.%ToJSON())
-}
-
 Method TestGetProduction()
 {
     Set flow = {
@@ -105,7 +49,7 @@ Method TestIsBusinessService()
             "name": "FromFile",
             "type": "action",
             "config": {
-                "className": "EnsLib.File.PassthroughService"
+                "className": "dc.components.file.FilePassthroughService"
             },
             "targets": [{
                 "name": "ToFile"
@@ -114,7 +58,7 @@ Method TestIsBusinessService()
             "name": "ToFile",
             "type": "action",
             "config": {
-                "className": "EnsLib.File.PassthroughOperation"
+                "className": "dc.components.file.FilePassthroughOperation"
             },
             "targets": []
         }]
@@ -130,7 +74,7 @@ Method TestIsBusinessOperation()
             "name": "FromFile",
             "type": "action",
             "config": {
-                "className": "EnsLib.File.PassthroughService"
+                "className": "dc.components.file.FilePassthroughService"
             },
             "targets": [{
                 "name": "ToFile"
@@ -139,7 +83,7 @@ Method TestIsBusinessOperation()
             "name": "ToFile",
             "type": "action",
             "config": {
-                "className": "EnsLib.File.PassthroughOperation"
+                "className": "dc.components.file.FilePassthroughOperation"
             },
             "targets": []
         }]
@@ -154,7 +98,7 @@ Method TestCreateBusinessService()
         "name": "FromFile",
         "type": "action",
         "config": {
-            "className": "EnsLib.File.PassthroughService"
+            "className": "dc.components.file.FilePassthroughService"
         },
         "targets": [{
             "name": "ToFile"
@@ -162,9 +106,11 @@ Method TestCreateBusinessService()
     }
     Set expected = {
         "name": "FromFile",
-        "config": {
-            "className": "EnsLib.File.PassthroughService"
-        }
+        "className": "dc.components.file.FilePassthroughService",
+        "config": [],
+        "targets": [{
+            "name": "ToFile"
+        }]
     }
 
     Set mapped = ..mapper.CreateBusinessService(node, 0)
@@ -191,15 +137,15 @@ Method TestCreateBusinessOperation()
         "name": "ToFile",
         "type": "action",
         "config": {
-            "className": "EnsLib.File.PassthroughOperation"
+            "className": "dc.components.file.FilePassthroughOperation"
         },
         "targets": []
     }
     Set expected = {
         "name": "ToFile",
-        "config": {
-            "className": "EnsLib.File.PassthroughOperation"
-        }
+        "className": "dc.components.file.FilePassthroughOperation",
+        "config": [],
+        "targets": []
     }
 
     Set mapped = ..mapper.CreateBusinessOperation(node, 0)
@@ -220,13 +166,16 @@ Method TestCreateBusinessOperationFail()
     Do $$$AssertEquals(errors.%Size(), 2)
 }
 
+/* BPL support will be redesigned */
+
+/*
 Method TestProcessNodeTargets()
 {
     Set node = {
         "name": "FromFile",
         "type": "action",
         "config": {
-            "className": "EnsLib.File.PassthroughService"
+            "className": "dc.components.file.FilePassthroughService"
         },
         "targets": [{
             "name": "ToFile"
@@ -246,6 +195,162 @@ Method TestProcessNodeTargets()
 
     Do ..mapper.ProcessBPL(node)
     Set mapped = ..mapper.mapped.bp
+    Do $$$AssertEquals(mapped.%ToJSON(), expected.%ToJSON())
+}
+*/
+Method TestMappingHelloworld1()
+{
+    Set flow = {
+        "name": "Helloworld1",
+        "nodes": [{
+            "name": "FromFile",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughService",
+                "FilePath": "/tmp/test/in"
+            },
+            "targets": [{
+                "name": "ToFile"
+            }]
+        },{
+            "name": "ToFile",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughOperation",
+                "FilePath": "/tmp/test/out"
+            },
+            "targets": []
+        }]
+    }
+
+    Set expected = {
+        "production": {
+            "name": "Helloworld1"
+        },
+        "bs": [{
+            "name": "FromFile",
+            "className": "dc.components.file.FilePassthroughService",
+            "config": [{
+                "name": "FilePath",
+                "value": "/tmp/test/in"
+            }],
+            "targets": [{
+                "name": "ToFile"
+            }]
+        }],
+        "bp":[],
+        "bo": [{
+            "name": "ToFile",
+            "className": "dc.components.file.FilePassthroughOperation",
+            "config": [{
+                "name": "FilePath",
+                "value": "/tmp/test/out"
+            }],
+            "targets": []
+        }]
+    }
+
+    Set mapped = ..mapper.Map(flow)
+    Do $$$AssertEquals(mapped.%ToJSON(), expected.%ToJSON())
+}
+
+Method TestMappingHelloworld7()
+{
+    Set flow = {
+        "name": "Helloworld7",
+        "nodes": [{
+            "name": "FromTelegram",
+            "type": "action",
+            "config": {
+                "className": "dc.components.telegram.TelegramService",
+                "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
+                "Credentials": "telegram"
+            },
+            "targets": [{
+                "name": "SimpleEchoOperation"
+            }]
+        },{
+            "name": "SimpleEchoOperation",
+            "type": "action",
+            "config": {
+                "className": "dc.components.SimpleEchoOperation"
+            },
+            "targets": [{
+                "name": "ToTelegram"
+            }]
+        },{
+            "name": "ToTelegram",
+            "type": "action",
+            "config": {
+                "className": "dc.components.telegram.TelegramOperation",
+                "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
+                "Credentials": "telegram"
+            },
+            "targets": [{
+                "name": "ToFile"
+            }]
+        },{
+            "name": "ToFile",
+            "type": "action",
+            "config": {
+                "className": "dc.components.file.FilePassthroughOperation",
+                "FilePath": "/tmp/test/out"
+            },
+            "targets": []
+        }]
+    }
+
+    Set expected = {
+        "production": {
+            "name": "Helloworld7"
+        },
+        "bs": [{
+            "name": "FromTelegram",
+            "className": "dc.components.telegram.TelegramService",
+            "config": [{
+                "name": "SSLConfiguration",
+                "value": "ISC.FeatureTracker.SSL.Config"
+            },{
+                "name": "Credentials",
+                "value": "telegram"
+            }],
+            "targets": [{
+                "name": "SimpleEchoOperation"
+            }]
+        }],
+        "bp": [],
+        "bo": [{
+            "name": "SimpleEchoOperation",
+            "className": "dc.components.SimpleEchoOperation",
+            "config": [],
+            "targets": [{
+                "name": "ToTelegram"
+            }]
+        },{
+            "name": "ToTelegram",
+            "className": "dc.components.telegram.TelegramOperation",
+            "config": [{
+                "name": "SSLConfiguration",
+                "value": "ISC.FeatureTracker.SSL.Config"
+            },{
+                "name": "Credentials",
+                "value": "telegram"
+            }],
+            "targets": [{
+                "name": "ToFile"
+            }]
+        },{
+            "name": "ToFile",
+            "className": "dc.components.file.FilePassthroughOperation",
+            "config": [{
+                "name": "FilePath",
+                "value": "/tmp/test/out"
+            }],
+            "targets": []
+        }]
+    }
+
+    Set mapped = ..mapper.Map(flow)
     Do $$$AssertEquals(mapped.%ToJSON(), expected.%ToJSON())
 }
 
