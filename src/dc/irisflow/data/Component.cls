@@ -5,6 +5,8 @@ Index IdxName On Name [ Unique ];
 
 Property Name As %String [ Required ];
 
+Property Description As %String;
+
 Property Icon As %String [ Required ];
 
 Property Input As %Integer [ InitialExpression = 0 ];
@@ -36,6 +38,9 @@ Storage Default
 </Value>
 <Value name="7">
 <Value>Icon</Value>
+</Value>
+<Value name="8">
+<Value>Description</Value>
 </Value>
 </Data>
 <DataLocation>^dc.irisflow.data.ComponentD</DataLocation>
