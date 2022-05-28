@@ -48,3 +48,10 @@ In order to execute the unit tests, run the following command in the shell termi
 ```bash
 iris session iris "##class(%ZPM.PackageManager).Shell(\"test iris-flow -v\",1,1)"
 ```
+
+
+## Dream team
+
+* [Henrique Dias](https://community.intersystems.com/user/henrique-dias-2)
+* [José Roberto Pereira](https://community.intersystems.com/user/jos%C3%A9-roberto-pereira-0)
+* [Henry Pereira](https://community.intersystems.com/user/henry-pereira)
