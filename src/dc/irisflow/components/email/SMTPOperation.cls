@@ -19,8 +19,8 @@ Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage,
         Set context = {}
     }
 
-    Set context.Destination = "ze_sjrp@yahoo.com.br"
-    Set context.Sender = "ze_sjrp@yahoo.com.br"
+    Set context.Destination = ""
+    Set context.Sender = ""
     Set context.Text = "teste"
 
 	Set pRequest.Context = context
