@@ -382,6 +382,67 @@ ClassMethod CreateProductionHelloworld7() As %Status
     Return sc
 }
 
+ClassMethod CreateProductionHelloworld8() As %Status
+{
+    Set sc = $$$OK
+    Set flow = {
+        "name": "User.irisflow.simple.Helloworld8",
+        "nodes": [{
+            "name": "FromTelegram",
+            "type": "action",
+            "config": {
+                "className": "dc.irisflow.components.telegram.TelegramService",
+                "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
+                "Credentials": "telegram"
+            },
+            "targets": [{
+                "name": "SimpleEchoOperation"
+            }]
+        },{
+            "name": "SimpleEchoOperation",
+            "type": "action",
+            "config": {
+                "className": "dc.irisflow.components.SimpleEchoOperation"
+            },
+            "targets": [{
+                "name": "ToTelegram"
+            }]
+        },{
+            "name": "ToTelegram",
+            "type": "action",
+            "config": {
+                "className": "dc.irisflow.components.telegram.TelegramOperation",
+                "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
+                "Credentials": "telegram"
+            },
+            "targets": [{
+                "name": "ToFile"
+            }]
+        },{
+            "name": "ToFile",
+            "type": "action",
+            "config": {
+                "className": "dc.irisflow.components.file.FilePassthroughOperation",
+                "FilePath": "/tmp/test/out"
+            },
+            "targets": []
+        }]
+    }
+
+    Set mapper = ##class(dc.irisflow.FlowMapper).%New()
+    Set config = mapper.Map(flow)
+
+    Try{
+        Do $system.OBJ.Delete(config.production.name, "/display=none")
+    } Catch(e){}
+    
+    Set builder = ##class(dc.irisflow.ProductionBuilder).%New()
+    Do builder.Build(config)
+    Write "Production "_config.production.name_" created."
+
+    Return sc
+}
+
 ClassMethod CreateProductionHelloworldBPL() As %Status
 {
     Set sc = $$$OK

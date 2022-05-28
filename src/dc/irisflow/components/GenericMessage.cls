@@ -1,7 +1,7 @@
 Class dc.irisflow.components.GenericMessage Extends Ens.StreamContainer
 {
 
-Property Context As %String;
+Property Context As %String(MAXLEN = "");
 
 Storage Default
 {

@@ -20,7 +20,7 @@ Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage,
 
     Try {
         If (context '= "") {
-            Set context = {}.%FromJSON(pRequest.Context)
+            Set context = {}.%FromJSON(context)
         }
     } Catch(e) {
         $$$TRACE(e.DisplayString())
@@ -42,8 +42,8 @@ Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage,
 
 Method SendMessage(pInput As Telegram.Msg.TextRequest, Output pOutput As Ens.Response) As %Status
 {
-    $$$TRACE(pInput.ChatId)
-    $$$TRACE(pInput.Text)
+    #; $$$TRACE(pInput.ChatId)
+    #; $$$TRACE(pInput.Text)
 	Quit ..Adapter.SendMessage(pInput.ChatId,pInput.Text,1)
 }
 

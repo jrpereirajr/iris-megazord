@@ -5,6 +5,12 @@ Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage,
 {
     $$$TRACE("OnConsumeMessage")
     Set inputMessage = pRequest.Stream.Read()
+    
+    // todo: create a GetContext() method to do this
+    Set context = pRequest.Context
+    If ('$IsObject(context)) {
+        Set context = {}
+    }
     Set context = pRequest.Context
 
 	Set message = ##class(dc.irisflow.components.GenericMessage).%New()
