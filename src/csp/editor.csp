@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="IRIS Flow Editor" />
+	<meta property="og:title" content="IRIS Megazord Portal" />
+	<meta property="og:description" content="IRIS Flow Editor" />
+	<meta property="og:image" content="https:/fillow.dexignlab.com/xhtml/social-image.png" />
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- PAGE TITLE HERE -->
+	<title>IRIS Flow Editor</title>
+
+	<!-- FAVICONS ICON -->
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <link rel="icon" href="resources/img/ISC_IRIS_icon.ico" type="image/x-icon" />
+
+	<link href="resources/plugins/fillow/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+	<link href="resources/plugins/fillow/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+	<link rel="stylesheet" href="resources/plugins/fillow/vendor/nouislider/nouislider.min.css">
+
+	<!-- Style css -->
+    <link href="resources/plugins/fillow/css/style.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+		<div class="lds-ripple">
+			<div></div>
+			<div></div>
+		</div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+		<div class="nav-header">
+            <a href="index.html" class="brand-logo">
+
+				<div class="brand-title">
+					<h2 class="">IRIS</h2>
+					<span class="brand-sub-title">Megazord Portal</span>
+				</div>
+            </a>
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span><span class="line"></span><span class="line"></span>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+		<!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header border-bottom">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                        <div class="header-left">
+							<div class="dashboard_bar">
+                                Dashboard | #($piece($SYSTEM,":",1))# | #($piece($SYSTEM,":",2))#
+                            </div>
+                        </div>
+                    </div>
+				</nav>
+			</div>
+		</div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="dlabnav">
+            <div class="dlabnav-scroll">
+				<ul class="metismenu" id="menu">
+                    <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
+							<i class="fas fa-chart-line"></i>
+							<span class="nav-text">System Monitor</span>
+						</a>
+                        <ul aria-expanded="false">
+							<li><a href="index.csp">System Dashboard</a></li>
+							<li><a href="systemprocesses.csp">System Processes</a></li>
+						</ul>
+                    </li>
+
+                    <li><a class="has-arrow " href="javascript:void()" aria-expanded="true">
+						<i class="fas fa-history"></i>
+							<span class="nav-text">History Monitor</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="historylicense.csp">License</a></li>
+							<li><a href="historydatabase.csp">Database Growth</a></li>
+							<li><a href="historycspsessions.csp">CSP Sessions</a></li>
+                        </ul>
+                    </li>
+
+					<li><a class="has-arrow " href="javascript:void()" aria-expanded="true">
+						<i class="far fa-comment-alt"></i>
+							<span class="nav-text">Message Viewer</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="messageviewer.csp">Message Viewer</a></li>
+                        </ul>
+                    </li>
+
+					<li><a class="has-arrow " href="javascript:void()" aria-expanded="true">
+						<i class="fas fa-search"></i>
+							<span class="nav-text">ZPM Explorer</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="overview.html">Overview</a></li>
+							<li><a href="explorer.html">Explorer</a></li>
+							<li><a href="installed.html">Installed</a></li>
+                        </ul>
+                    </li>
+
+					<li><a class="has-arrow " href="javascript:void()" aria-expanded="true">
+						<i class="fas fa-plug"></i>
+							<span class="nav-text">Plug & Play</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="resources/plugins/fillow/app-profile.html">Profile</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+			</div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+		<!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <!-- row -->
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-2 sidebar">
+						<ul class="metismenu" id="flow-menu">
+
+				        </ul>
+					</div>
+					<div class="col-md-10 content">
+						<div class="card board" >
+
+
+							<div class="card-body ">
+
+
+								<div class="btn btn-outline-secondary" onclick="handleExport()">Generate</div>
+							    <div class="btn btn-outline-primary" onclick="editor.clearModuleSelected()">Clear</div>
+
+
+								<div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)" >
+
+
+							        <div class="btn-lock">
+							          <i id="lock" class="fas fa-lock" onclick="editor.editor_mode='fixed'; changeMode('lock');"></i>
+							          <i id="unlock" class="fas fa-lock-open" onclick="editor.editor_mode='edit'; changeMode('unlock');" style="display:none;"></i>
+							        </div>
+							        <div class="bar-zoom">
+							          <i class="fas fa-search-minus" onclick="editor.zoom_out()"></i>
+							          <i class="fas fa-search" onclick="editor.zoom_reset()"></i>
+							          <i class="fas fa-search-plus" onclick="editor.zoom_in()"></i>
+							        </div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+			</div>
+          </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; IRIS Megazord Portal 2022</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+	</div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="resources/plugins/fillow/vendor/global/global.min.js"></script>
+	<script src="resources/plugins/fillow/vendor/chart.js/Chart.bundle.min.js"></script>
+	<script src="resources/plugins/fillow/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+
+	<!-- Apex Chart -->
+	<script src="resources/plugins/fillow/vendor/apexchart/apexchart.js"></script>
+	<script src="resources/plugins/fillow/vendor/chart.js/Chart.bundle.min.js"></script>
+
+	<!-- Chart piety plugin files -->
+    <script src="resources/plugins/fillow/vendor/peity/jquery.peity.min.js"></script>
+
+	<!-- Chart Circle -->
+	<script src="resources/plugins/atlantis-lite/assets/js/plugin/chart-circle/circles.min.js"></script>
+
+	<!-- Dashboard 1 -->
+	<script src="resources/plugins/fillow/js/dashboard/dashboard-1.js"></script>
+
+	<script src="resources/plugins/fillow/vendor/owl-carousel/owl.carousel.js"></script>
+
+    <script src="resources/plugins/fillow/js/custom.js"></script>
+	<script src="resources/plugins/fillow/js/dlabnav-init.js"></script>
+
+	<!-- Highcharts -->
+	<script src="resources/plugins/charts/highcharts/code/highcharts.js"></script>
+
+	<script src="resources/plugins/drawflow/drawflow.min.js"></script>
+	<link rel="stylesheet" href="resources/plugins/drawflow/drawflow.min.css">
+	<link rel="stylesheet" href="resources/css/beautiful.css">
+	<script src="resources/js/flow.js"></script>
+
+
+
+</body>
+</html>

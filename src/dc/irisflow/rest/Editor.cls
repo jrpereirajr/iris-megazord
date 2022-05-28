@@ -4,7 +4,7 @@ Class dc.irisflow.rest.Editor
 Query select() As %SQLQuery
 {
   SELECT
-    ID, Icon, "Input", Name, "Output"
+    ID, Icon, "Input", Name, Description, "Output"
   FROM dc_irisflow_data.Component
   ORDER BY ID DESC
 }
@@ -51,6 +51,13 @@ ClassMethod ListAllComponents() As %Status
 	do jsonTop.%Set("data",arrayMessage)
 	Write jsonTop.%ToJSON()
 
+	Quit tSC
+}
+
+ClassMethod GenerateProduction() As %Status
+{
+	Set tSC = $System.Status.OK()
+	// Call parser method
 	Quit tSC
 }
 
