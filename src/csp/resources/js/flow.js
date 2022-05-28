@@ -70,7 +70,7 @@ var id = document.getElementById("drawflow");
       pos_y = pos_y * ( editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)) - (editor.precanvas.getBoundingClientRect().y * ( editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)));
       console.log(obj);
       node = JSON.parse(obj);
-	  let content = '<div><div class="title-box"><i class="' + node.icon + '" style="margin-right:5px"></i>' + node.name +'</div><div class="box">'+ node.Fields + '</div></div>';
+	  let content = '<div><div class="title-box"><i class="' + node.icon + '" style="margin-right:5px"></i>' + node.name +'</div><div class="box"><textarea>'+ node.Fields + '</textarea></div></div>';
 	  console.log(content);
 	  editor.addNode(node.name, node.input,  node.output, pos_x, pos_y, node.name, {}, content );
 
@@ -136,7 +136,7 @@ const loadFlowMenu = (data) => {
     li = document.createElement("li"),
     draggable = document.createElement("div"),
     textNode = document.createTextNode(menu.name);
-    nav.appendChild(textNode);
+    nav.appendChild(' ' + textNode);
     nav.classList.add('nav-text');
     menu.icon.split(' ').forEach(el => {icon.classList.add(el)})
     draggable.classList.add('drag-drawflow');
