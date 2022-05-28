@@ -6,17 +6,20 @@ Property TargetConfigNames As %String(MAXLEN = 1000);
 
 Parameter SETTINGS = "TargetConfigNames:Basic:selector?multiSelect=1&context={Ens.ContextSearch/ProductionItems?targets=1&productionName=@productionId}";
 
+/// Copied from ##class(EnsLib.File.PassthroughService).OnProcessInput()
 Method SendRequestToTargets(pRequest)
 {
-	Set tWorkAsync = 0
+	// todo: think on how to send request async
+	#; Set tWorkAsync = 0
 	For iTarget=1:1:$L(..TargetConfigNames, ",") {
         Set tOneTarget = $ZStrip($P(..TargetConfigNames, ",", iTarget), "<>W")
         Continue:("" = tOneTarget)
-		If tWorkAsync {
-			$$$TOE(st, ..SendRequestAsync(tOneTarget, pRequest))
-		} Else {
-			$$$TOE(st, ..SendRequestSync(tOneTarget, pRequest))
-		}
+		#; If tWorkAsync {
+		#; 	$$$TOE(st, ..SendRequestAsync(tOneTarget, pRequest))
+		#; } Else {
+		#; 	$$$TOE(st, ..SendRequestSync(tOneTarget, pRequest))
+		#; }
+		$$$TOE(st, ..SendRequestSync(tOneTarget, pRequest))
 	}
 }
 

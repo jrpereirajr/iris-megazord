@@ -12,6 +12,7 @@ Method OnProcessInput(pInput As %RegisteredObject, pOutput As %RegisteredObject)
 
 Method OnCreateMessage(pInput As %RegisteredObject) As dc.irisflow.components.GenericMessage
 {
+    Return ##class(dc.irisflow.components.GenericMessage).%New()
 }
 
 Method OnAfterSendMessage(pInput As %RegisteredObject)
