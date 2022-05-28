@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<script language="Cache" runat="server">
+	set URLPreparacao = "dc.irishistorymonitor.dashboard.dashboard.cls"
+</script>
+
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="IRIS Megazord it's History Monitor, Message Viewer, and ZPM Explorer all together in a seamless portal" />
+	<meta property="og:title" content="IRIS Megazord Portal" />
+	<meta property="og:description" content="IRIS Megazord it's History Monitor, Message Viewer, and ZPM Explorer all together in a seamless portal" />
+	<meta property="og:image" content="https:/fillow.dexignlab.com/xhtml/social-image.png" />
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- PAGE TITLE HERE -->
+	<title>IRIS Megazord Portal</title>
+
+	<!-- FAVICONS ICON -->
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <link rel="icon" href="resources/img/ISC_IRIS_icon.ico" type="image/x-icon" />
+
+	<link href="resources/plugins/fillow/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+	<link href="resources/plugins/fillow/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+	<link rel="stylesheet" href="resources/plugins/fillow/vendor/nouislider/nouislider.min.css">
+
+	<!-- Style css -->
+    <link href="resources/plugins/fillow/css/style.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+		<div class="lds-ripple">
+			<div></div>
+			<div></div>
+		</div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+		<div class="nav-header">
+            <a href="index.html" class="brand-logo">
+
+				<div class="brand-title">
+					<h2 class="">IRIS</h2>
+					<span class="brand-sub-title">Megazord Portal</span>
+				</div>
+            </a>
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span><span class="line"></span><span class="line"></span>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+		<!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header border-bottom">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                        <div class="header-left">
+							<div class="dashboard_bar">
+                                Dashboard | #($piece($SYSTEM,":",1))# | #($piece($SYSTEM,":",2))#
+                            </div>
+                        </div>
+                    </div>
+				</nav>
+			</div>
+		</div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="dlabnav">
+            <div class="dlabnav-scroll">
+				<ul class="metismenu" id="menu">
+                    <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
+							<i class="fas fa-chart-line"></i>
+							<span class="nav-text">System Monitor</span>
+						</a>
+                        <ul aria-expanded="false">
+							<li><a href="index.csp">System Dashboard</a></li>
+							<li><a href="systemprocesses.csp">System Processes</a></li>
+						</ul>
+                    </li>
+
+                    <li><a class="has-arrow " href="javascript:void()" aria-expanded="true">
+						<i class="fas fa-history"></i>
+							<span class="nav-text">History Monitor</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="historylicense.csp">License</a></li>
+							<li><a href="historydatabase.csp">Database Growth</a></li>
+							<li><a href="historycspsessions.csp">CSP Sessions</a></li>
+                        </ul>
+                    </li>
+
+					<li><a class="has-arrow " href="javascript:void()" aria-expanded="true">
+						<i class="far fa-comment-alt"></i>
+							<span class="nav-text">Message Viewer</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="messageviewer.csp">Message Viewer</a></li>
+                        </ul>
+                    </li>
+
+					<li><a class="has-arrow " href="javascript:void()" aria-expanded="true">
+						<i class="fas fa-search"></i>
+							<span class="nav-text">ZPM Explorer</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="overview.html">Overview</a></li>
+							<li><a href="explorer.html">Explorer</a></li>
+							<li><a href="installed.html">Installed</a></li>
+                        </ul>
+                    </li>
+
+					<li><a class="has-arrow " href="javascript:void()" aria-expanded="true">
+						<i class="fas fa-plug"></i>
+							<span class="nav-text">Plug & Play</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="resources/plugins/fillow/app-profile.html">Profile</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+			</div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+		<!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <!-- row -->
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xl-12">
+						<div class="row">
+							<div class="col-xl-6">
+								<div class="col-xl-12">
+									<div class="card">
+										<div class="card-header border-0">
+											<div>
+												<h4 class="fs-20 font-w700">System Time</h4>
+											</div>
+										</div>
+										<div class="card-body px-0">
+											<div class="d-flex justify-content-between recent-emails">
+												<div class="d-flex">
+													<div class="profile-k">
+														<i class="fa fa-desktop fa-2x text-primary"></i>
+													</div>
+													<div class="ms-3">
+														<h4 class="fs-18 font-w500">System Up Time</h4>
+														<span class="font-w400 d-block">Elapsed time since this system was started</span>
+													</div>
+													<div class="d-flex ml-auto align-items-center">
+														<h3 id="upTime" class="text-info fw-bold"></h3>
+													</div>
+												</div>
+											</div>
+
+											<div class="d-flex justify-content-between recent-emails">
+												<div class="d-flex">
+													<div class="profile-k">
+														<i class="fa fa-database fa-2x text-primary"></i>
+													</div>
+													<div class="ms-3">
+														<h4 class="fs-18 font-w500">Last Backup</h4>
+														<span class="font-w400 d-block">Date and time of the last full system backup</span>
+													</div>
+													<div class="d-flex ml-auto align-items-center">
+														<h3 id="lastBackup" class="text-info fw-bold"></h3>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xl-6">
+								<div class="col-xl-12">
+									<div class="card">
+										<div class="card-header border-0">
+											<div>
+												<h4 class="fs-20 font-w700">Licesing</h4>
+											</div>
+										</div>
+										<div class="card-body px-0">
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xl-12">
+								<div class="row">
+									<div class="col-xl-12">
+										<div class="row">
+											<div class="col-xl-4 col-sm-4">
+												<div class="card">
+													<div class="card-header border-0 pb-0">
+														<h4 class="fs-20 font-w700 mb-0">Application Errors</h4>
+													</div>
+													<div class="card-body pb-0">
+														<div id="revenueMap" class="revenueMap"></div>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-xl-4 col-sm-4">
+												<div class="card">
+													<div class="card-header border-0 pb-0">
+														<h4 class="fs-20 font-w700 mb-0">Cache Processes</h4>
+													</div>
+													<div class="card-body pb-0">
+														<div id="revenueMap" class="revenueMap"></div>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-xl-4 col-sm-4">
+												<div class="card">
+													<div class="card-header border-0 pb-0">
+														<h4 class="fs-20 font-w700 mb-0">CSP Sessions</h4>
+													</div>
+													<div class="card-body pb-0">
+														<div id="revenueMap" class="revenueMap"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-xl-12">
+									<div class="row">
+										<div class="col-xl-2 col-sm-2">
+											<div class="card">
+												<div class="card-body px-4 pb-0">
+													<h4 class="fs-30 font-w600 mb-5 text-center">Normal</h4>
+													<div class="d-flex align-items-end mt-2 pb-3 justify-content-between">
+														<span>Lock Table</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xl-2 col-sm-2">
+											<div class="card">
+												<div class="card-body px-4 pb-0">
+													<h4 class="fs-30 font-w600 mb-5 text-center">Normal</h4>
+													<div class="d-flex align-items-end mt-2 pb-3 justify-content-between">
+														<span>Journal Space</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xl-2 col-sm-2">
+											<div class="card">
+												<div class="card-body px-4 pb-0">
+													<h4 class="fs-30 font-w600 mb-5 text-center">Normal</h4>
+													<div class="d-flex align-items-end mt-2 pb-3 justify-content-between">
+														<span>Journal Status</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xl-2 col-sm-2">
+											<div class="card">
+												<div class="card-body px-4 pb-0">
+													<h4 class="fs-30 font-w600 mb-5 text-center">OK</h4>
+													<div class="d-flex align-items-end mt-2 pb-3 justify-content-between">
+														<span>ECP AppServer</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xl-2 col-sm-2">
+											<div class="card">
+												<div class="card-body px-4 pb-0">
+													<h4 class="fs-30 font-w600 mb-5 text-center">OK</h4>
+													<div class="d-flex align-items-end mt-2 pb-3 justify-content-between">
+														<span>ECP DataServer</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xl-2 col-sm-2">
+											<div class="card">
+												<div class="card-body px-4 pb-0">
+													<h4 class="fs-30 font-w600 mb-5 text-center">Normal</h4>
+													<div class="d-flex align-items-end mt-2 pb-3 justify-content-between">
+														<span>Write Daemon</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="col-xl-12">
+									<div class="row">
+
+										<div class="col-xl-6 col-sm-6">
+											<div class="card">
+												<div class="card-header border-0 pb-0">
+													<h4 class="fs-20 font-w700 mb-0">Cache Efficiency</h4>
+												</div>
+												<div class="card-body pb-0">
+													<div id="revenueMap" class="revenueMap"></div>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xl-6 col-sm-6">
+											<div class="card">
+												<div class="card-header border-0 pb-0">
+													<h4 class="fs-20 font-w700 mb-0">Serious Alerts</h4>
+												</div>
+												<div class="card-body pb-0">
+													<div id="revenueMap" class="revenueMap"></div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; IRIS Megazord Portal 2022</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+	</div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="resources/plugins/fillow/vendor/global/global.min.js"></script>
+	<script src="resources/plugins/fillow/vendor/chart.js/Chart.bundle.min.js"></script>
+	<script src="resources/plugins/fillow/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+
+	<!-- Apex Chart -->
+	<script src="resources/plugins/fillow/vendor/apexchart/apexchart.js"></script>
+	<script src="resources/plugins/fillow/vendor/chart.js/Chart.bundle.min.js"></script>
+
+	<!-- Chart piety plugin files -->
+    <script src="resources/plugins/fillow/vendor/peity/jquery.peity.min.js"></script>
+
+	<!-- Chart Circle -->
+	<script src="resources/plugins/atlantis-lite/assets/js/plugin/chart-circle/circles.min.js"></script>
+
+	<!-- Dashboard 1 -->
+	<script src="resources/plugins/fillow/js/dashboard/dashboard-1.js"></script>
+
+	<script src="resources/plugins/fillow/vendor/owl-carousel/owl.carousel.js"></script>
+
+    <script src="resources/plugins/fillow/js/custom.js"></script>
+	<script src="resources/plugins/fillow/js/dlabnav-init.js"></script>
+
+	<!-- Highcharts -->
+	<script src="resources/plugins/charts/highcharts/code/highcharts.js"></script>
+
+	<script type="text/javascript">
+		var urlPreparacao = '#(URLPreparacao)#'
+		var chartAppErrors, chartCacheProcesses, chartCSPSessions, divCacheEfficiency, divSeriourAlerts;
+
+		// Gauges Licensing
+		function createGauges(licObject) {
+			// Current License Use
+			Circles.create({
+				id: 'circles-1',
+				radius: 45,
+				value: licObject.licCurrent,
+				maxValue: licObject.licLimit,
+				width: 7,
+				text: licObject.licCurrentPct + "%",
+				colors: ['#f1f1f1', '#2BB930'],
+				duration: 0,
+				wrpClass: 'circles-wrp',
+				textClass: 'circles-text',
+				styleWrapper: true,
+				styleText: true
+			});
+
+			// Highest License Use
+			Circles.create({
+				id: 'circles-2',
+				radius: 45,
+				value: licObject.licHighest,
+				maxValue: licObject.licLimit,
+				width: 7,
+				text: licObject.licHighestPct + "%",
+				colors: ['#f1f1f1', '#FF9E27'],
+				duration: 0,
+				wrpClass: 'circles-wrp',
+				textClass: 'circles-text',
+				styleWrapper: true,
+				styleText: true
+			});
+
+			// License Limit
+			Circles.create({
+				id: 'circles-3',
+				radius: 45,
+				value: licObject.licLimit,
+				maxValue: 100,
+				width: 7,
+				text: licObject.licLimit,
+				colors: ['#146FE3', '#146FE3'],
+				duration: 0,
+				wrpClass: 'circles-wrp',
+				textClass: 'circles-text',
+				styleWrapper: true,
+				styleText: true
+			});
+		}
+
+		// ************* Charts ************* //
+
+		// Application Errors
+		chartAppErrors = Highcharts.chart("divAppErrors", {
+			chart: {
+				type: "spline"
+			},
+			title: false,
+			xAxis: {
+				type: "datetime",
+				tickPixelInterval: 150
+			},
+			yAxis: {
+				title: false
+			},
+			time: {
+				useUTC: false
+			},
+			legend: {
+				enabled: false
+			},
+			credits: {
+				enabled: false
+			},
+			series: [{
+				name: "Application Errors",
+				data: []
+			}],
+			exporting: false
+		});
+
+		// Chart Cache Processes
+		chartCacheProcesses = Highcharts.chart("divCacheProcesses", {
+			chart: {
+				type: "spline"
+			},
+			title: false,
+			xAxis: {
+				type: "datetime",
+				tickPixelInterval: 150
+			},
+			yAxis: {
+				title: false
+			},
+			time: {
+				useUTC: false
+			},
+			legend: {
+				enabled: false
+			},
+			credits: {
+				enabled: false
+			},
+			series: [{
+				name: "Cache Processes",
+				data: []
+			}],
+			exporting: false
+		});
+
+		// Chart CSP Sessions
+		chartCSPSessions = Highcharts.chart("divCSPSessions", {
+			chart: {
+				type: "spline"
+			},
+			title: false,
+			xAxis: {
+				type: "datetime",
+				tickPixelInterval: 150
+			},
+			yAxis: {
+				title: false
+			},
+			time: {
+				useUTC: false
+			},
+			legend: {
+				enabled: false
+			},
+			credits: {
+				enabled: false
+			},
+			series: [{
+				name: "CSP Sessions",
+				data: []
+			}],
+			exporting: false
+		});
+
+		// Chart Cache Efficiency
+		chartCacheEfficiency = Highcharts.chart("divCacheEfficiency", {
+			chart: {
+				type: "spline"
+			},
+			title: false,
+			xAxis: {
+				type: "datetime",
+				tickPixelInterval: 150
+			},
+			yAxis: {
+				title: false
+			},
+			time: {
+				useUTC: false
+			},
+			legend: {
+				enabled: false
+			},
+			credits: {
+				enabled: false
+			},
+			series: [{
+				name: "Cache Efficiency",
+				data: []
+			}],
+			exporting: false
+		});
+
+		// Chart Serious Alerts
+		chartSeriourAlerts = Highcharts.chart("divSeriourAlerts", {
+			chart: {
+				type: "spline"
+			},
+			title: false,
+			xAxis: {
+				type: "datetime",
+				tickPixelInterval: 150
+			},
+			yAxis: {
+				title: false
+			},
+			time: {
+				useUTC: false
+			},
+			legend: {
+				enabled: false
+			},
+			credits: {
+				enabled: false
+			},
+			series: [{
+				name: "Serious Alerts",
+				data: []
+			}],
+			exporting: false
+		});
+
+
+		function getSamples() {
+			$.getJSON(urlPreparacao, {
+				method: "getMetrics"
+			}, function (retornoMetricas) {
+				console.log(retornoMetricas);
+				var datetimeNow = (new Date()).getTime();
+
+				// Licensing
+				// -----------------------------------------------------
+				var licObject = {}
+				licObject.licCurrent = retornoMetricas.LicenseCurrent;
+				licObject.licCurrentPct = retornoMetricas.LicenseCurrentPct;
+				licObject.licHighest = retornoMetricas.LicenseHigh;
+				licObject.licHighestPct = retornoMetricas.LicenseHighPct;
+				licObject.licLimit = retornoMetricas.LicenseLimit;
+				createGauges(licObject);
+
+				// System Time
+				// -----------------------------------------------------
+				$("#upTime").html(retornoMetricas.SystemUpTime);
+
+				if (retornoMetricas.LastBackup) {
+					$("#lastBackup").html(retornoMetricas.LastBackup);
+				} else {
+					$("#lastBackup").html("Never")
+				}
+
+
+				// Charts
+				// -----------------------------------------------------
+
+				// Application Errors
+				if (chartAppErrors) {
+					var shiftAppErrors;
+					if (chartAppErrors.series[0].data.length > 20) {
+						shiftAppErrors = true;
+					} else {
+						shiftAppErrors = false;
+					}
+					chartAppErrors.series[0].addPoint([datetimeNow, parseInt(retornoMetricas.ApplicationErrors)], true, shiftAppErrors);
+				}
+
+				// Cache Processes
+				if (chartCacheProcesses) {
+					var shiftCacheProcesses;
+					if (chartCacheProcesses.series[0].data.length > 20) {
+						shiftCacheProcesses = true;
+					} else {
+						shiftCacheProcesses = false;
+					}
+					chartCacheProcesses.series[0].addPoint([datetimeNow, parseInt(retornoMetricas.Processes)], true, shiftCacheProcesses);
+				}
+
+				// CSP Sessions
+				if (chartCSPSessions) {
+					var shiftCSPSessions;
+					if (chartCSPSessions.series[0].data.length > 20) {
+						shiftCSPSessions = true;
+					} else {
+						shiftCSPSessions = false;
+					}
+					chartCSPSessions.series[0].addPoint([datetimeNow, parseInt(retornoMetricas.CSPSessions)], true, shiftCSPSessions);
+				}
+
+				// Cache Efficiency
+				if (chartCacheEfficiency) {
+					var shiftCacheEfficiency;
+					if (chartCacheEfficiency.series[0].data.length > 20) {
+						shiftCacheEfficiency = true;
+					} else {
+						shiftCacheEfficiency = false;
+					}
+					chartCacheEfficiency.series[0].addPoint([datetimeNow, parseInt(retornoMetricas.CacheEfficiency)], true, shiftCacheEfficiency);
+				}
+
+				// Seriour Alerts
+				if (chartSeriourAlerts) {
+					var shiftSeriourAlerts;
+					if (chartSeriourAlerts.series[0].data.length > 20) {
+						shiftSeriourAlerts = true;
+					} else {
+						shiftSeriourAlerts = false;
+					}
+					chartSeriourAlerts.series[0].addPoint([datetimeNow, parseInt(retornoMetricas.SeriousAlerts)], true, shiftSeriourAlerts);
+				}
+
+				// Single Stats
+				// -----------------------------------------------------
+
+				// LockTable
+				$("#idLockTable").html(retornoMetricas.LockTable);
+				if (retornoMetricas.LockTable == "Normal") {
+					$("#idIconLockTable").removeClass().addClass("text-right text-success");
+					$("#idIconLockTable").empty().append("<i class='fas fa-check-circle fa-2x'></i>");
+				} else {
+					$("#idIconLockTable").removeClass().addClass("text-right text-danger");
+					$("#idIconLockTable").empty().append("<i class='fas fa-exclamation-triangle fa-2x'></i>");
+				}
+
+				// Journal Space
+				$("#idJournalSpace").html(retornoMetricas.JournalSpace);
+				if (retornoMetricas.JournalSpace == "Normal") {
+					$("#idIconJournalSpace").removeClass().addClass("text-right text-success");
+					$("#idIconJournalSpace").empty().append("<i class='fas fa-check-circle fa-2x'></i>");
+				} else {
+					$("#idIconJournalSpace").removeClass().addClass("text-right text-danger");
+					$("#idIconJournalSpace").empty().append("<i class='fas fa-exclamation-triangle fa-2x'></i>");
+				}
+
+				// Journal Status
+				$("#idJournalStatus").html(retornoMetricas.JournalStatus);
+				if (retornoMetricas.JournalStatus == "Normal") {
+					$("#idIconJournalStatus").removeClass().addClass("text-right text-success");
+					$("#idIconJournalStatus").empty().append("<i class='fas fa-check-circle fa-2x'></i>");
+				} else {
+					$("#idIconJournalStatus").removeClass().addClass("text-right text-danger");
+					$("#idIconJournalStatus").empty().append("<i class='fas fa-exclamation-triangle fa-2x'></i>");
+				}
+
+				// ECP AppServer
+				$("#idECPAppServer").html(retornoMetricas.ECPAppServer);
+				if (retornoMetricas.ECPAppServer == "OK") {
+					$("#idIconECPAppServer").removeClass().addClass("text-right text-success");
+					$("#idIconECPAppServer").empty().append("<i class='fas fa-check-circle fa-2x'></i>");
+				} else {
+					$("#idIconECPAppServer").removeClass().addClass("text-right text-danger");
+					$("#idIconECPAppServer").empty().append("<i class='fas fa-exclamation-triangle fa-2x'></i>");
+				}
+
+				// ECP DataServer
+				$("#idECPDataServer").html(retornoMetricas.ECPDataServer);
+				if (retornoMetricas.ECPDataServer == "OK") {
+					$("#idIconECPDataServer").removeClass().addClass("text-right text-success");
+					$("#idIconECPDataServer").empty().append("<i class='fas fa-check-circle fa-2x'></i>");
+				} else {
+					$("#idIconECPDataServer").removeClass().addClass("text-right text-danger");
+					$("#idIconECPDataServer").empty().append("<i class='fas fa-exclamation-triangle fa-2x'></i>");
+				}
+
+				// Write Daemon
+				$("#idWriteDaemon").html(retornoMetricas.WriteDaemon);
+				if (retornoMetricas.WriteDaemon == "Normal") {
+					$("#idIconWriteDaemon").removeClass().addClass("text-right text-success");
+					$("#idIconWriteDaemon").empty().append("<i class='fas fa-check-circle fa-2x'></i>");
+				} else {
+					$("#idIconWriteDaemon").removeClass().addClass("text-right text-danger");
+					$("#idIconWriteDaemon").empty().append("<i class='fas fa-exclamation-triangle fa-2x'></i>");
+				}
+			});
+		}
+
+
+		$(document).ready(function () {
+			var urlOrigin = window.location.origin;
+			var newUrl = urlOrigin + "/csp/sys/UtilHome.csp"
+			$("#urlPortal").attr("href", newUrl);
+
+			getSamples();
+			setInterval(function () {
+				getSamples();
+			}, 5000);
+		});
+	</script>
+
+</body>
+</html>

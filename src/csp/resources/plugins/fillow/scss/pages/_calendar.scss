@@ -1,0 +1,47 @@
+.fullcalendar{
+	.fc-toolbar-chunk{
+		div:first-child {
+			display:flex;	
+			@include respond ('phone'){
+				margin-bottom:1.5rem;	
+			}
+		}
+		.fc-toolbar-title{
+			margin-right:15px;	
+		}
+		button{
+			background: transparent;
+			color: black;
+			border: 0;	
+		}
+	}	
+	.fc-button-group{
+		background:var(--rgba-primary-1);	
+		border-radius:50px;
+		.fc-dayGridMonth-button,
+		.fc-timeGridWeek-button,
+		.fc-timeGridDay-button{
+			padding:8px 18px;	
+			border:0;
+			&.fc-button-active{
+				background:$white;
+				color:black;
+				border-radius:50px;
+			}
+			&:hover{
+				background:transparent;	
+				color:black;
+			}
+		}
+	}
+	.fc-today-button{
+		background:transparent!important;
+		border:1px solid var(--primary)!important;
+		color:var(--primary)!important;
+		border-radius: 50px;
+		padding: 8px 25px;
+	}
+	.fc-toolbar-chunk button{
+		margin-right: 12px;	
+	} 
+}

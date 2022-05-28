@@ -1,0 +1,283 @@
+.kanbanimg{
+	display:flex;	
+	img{
+		height:40px;
+		width:40px;
+		border-radius:50px;
+		object-fit:cover;
+		border:1px solid $white;
+	}	
+	li{
+		margin-right: -10px;	
+		span{
+			height:40px;
+			width:40px;
+			border-radius:50px;
+			background:var(--primary);
+			color:white;
+			line-height:40px;
+			display:block;
+			font-size:18px;
+			font-weight:600;
+			text-align:center;
+			border:1px solid $white;
+		}
+	}
+}
+.invite{
+	a{
+		font-size:1rem!important
+	}
+}
+.facebook-icon{
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.12);
+	border-radius: 14px;	
+	width: 68px;
+	background: #FFFFFF;
+	height: 68px;
+	position: relative;
+	a{
+		height:47px;
+		width:47px;
+		display:block;
+		border-radius:47px;
+		line-height:47px;
+		text-align:center;
+		background: linear-gradient(209.74deg, #886CC0 4.05%, #AA5DE8 95.37%);
+		color:$white;
+		font-size:30px;
+		position:absolute;
+		top: 12px;
+		left: 12px;
+	}	
+}
+
+.flex-1{
+	flex:1;
+}
+.plus-bx{
+	a{
+		width: 49px;
+		height: 49px;
+		background:var(--primary);
+		line-height:49px;
+		text-align:center;
+		display:block;
+		color: white;
+		border-radius: 49px;
+		font-size: 30px;
+	}
+	@include respond('phone'){
+		a{
+			width: 35px;
+			height: 35px;	
+			line-height:35px;	
+			font-size:20px;
+		}
+	}
+}
+.sub-title{
+	color:#FFA7D7;	
+}
+.kanban-user{
+	.users{
+		display:flex;
+		li{
+			margin-right:-10px;
+			img{
+				border-radius: 32px;
+				height: 32px;
+				width: 32px;
+				border: 2px solid #fff;	
+			}	
+		}	
+	}	
+}
+.bg-design{
+	background:#FFA7D7;
+}
+
+.kanban-bx {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+	.col {
+		width: 360px;
+		min-width: 360px;
+		flex-grow: unset;
+		flex-basis: unset;
+		.card {
+			height: auto;
+			cursor: all-scroll;	
+		}
+	}
+	&::-webkit-scrollbar {
+		background-color: #ECECEC;
+		width: 8px;
+		height: 8px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: #7e7e7e;
+		border-radius: 10px;
+	}
+}
+.draggable.card{
+	transition:none;
+}
+
+
+/////message-box
+
+.chat-bx{
+	padding:12px 20px;
+	&.active{
+		background:var(--rgba-primary-1);	
+		position:relative;
+		&:before{
+			position:absolute;
+			background:var(--primary);
+			height:100%;
+			width:7px;
+			top:0;
+			left:0;
+			content:"";
+			
+		}
+	}
+}
+.chat-img{
+	img{
+		height:50px;
+		width:50px;
+		border-radius:50px;
+		margin-right:15px;
+	}	
+}
+.fillow-design{
+	a{
+		height:60px;
+		width:60px;
+		border-radius:60px;
+		text-align:center;
+		background:#3E3452;
+		display: block;
+		color: white;
+		font-size: 30px;
+		line-height: 60px;
+		
+	}	
+}
+.activity{
+	ul{
+		li{
+			a{
+				padding:0 15px;	
+				font-size:20px;
+			}	
+		}	
+	}	
+}
+.chat-box-area{
+	height:630px;	
+}
+.image-box{
+	position: relative;
+	display: inline-block;	
+	.img-1{
+		width: 58px;
+		height: 58px;	
+	}
+	span{
+		&.active1{
+			position: absolute;
+			bottom: -5px;
+			right: -5px;
+			height: 24px;
+			width: 24px;
+			background: #43DC80;
+			border: 4px solid #fff;
+			border-radius: 3rem;	
+		}	
+	}
+}	
+.message-received {
+	width: 62%;
+    text-align: left;	
+	p{
+		background: rgba(110,110,110,0.14);
+		text-align: left;
+		font-size: 14px;
+		border-radius: 0 20px 20px 20px;
+		padding: 10px 20px;
+		color: #000;
+		font-weight: 400;	
+	}
+	@include respond('phone'){
+		width:100%;	
+	}
+}
+.media{
+	display: flex;
+    align-items: flex-start;	
+}
+.message-sent{
+	width: 62%;
+    text-align: right;	
+	@include respond('phone'){
+		width:100%;	
+	}
+}
+.message-sent p {
+	background: #717579;
+    text-align: left;
+    border-radius: 20px 20px 0 20px;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 300;	
+}
+.group-pic{
+	margin-right: 15px;
+	img{
+		height: 25px;
+		width: 25px;
+		border-radius: 25px;
+		object-fit: cover;	
+		margin: 2px 2px;
+	}	
+}
+.type-massage{
+	.input-group{
+		textarea{
+			height:5rem;
+			border:0;
+			border-bottom:2px solid var(--primary);
+			background:var(--rgba-primary-1);
+			border-radius: 15px 15px 0px 0px;
+			padding:15px
+		}	
+	}	
+	.input-group-append{
+		button{
+			padding: 10px 15px;
+			margin: 15px 0;
+			@include respond('phone'){
+				padding: 0px 9px;	
+			}
+		}	
+	}
+}
+.chat-box-area{
+	height: 630px;
+    padding:0  15px;
+}
+
+.chat-sidebar{
+	height:700px;
+}
+.message-tab{
+	.card-tabs .nav-tabs .nav-link{
+		padding: 12px 15px;	
+	}		
+}
