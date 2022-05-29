@@ -18,7 +18,6 @@
       "links": {
         "UnitTest Portal": "${serverUrl}/csp/sys/%25UnitTest.Portal.Home.cls?$NAMESPACE=IRISAPP",
         "Megazord": "${serverUrl}/csp/irisflow/index.csp"
-
       }
     }
 
