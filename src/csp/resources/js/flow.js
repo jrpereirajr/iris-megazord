@@ -136,7 +136,7 @@ const loadFlowMenu = (data) => {
     li = document.createElement("li"),
     draggable = document.createElement("div"),
     textNode = document.createTextNode(menu.name);
-    nav.appendChild(' ' + textNode);
+    nav.appendChild(textNode);
     nav.classList.add('nav-text');
     menu.icon.split(' ').forEach(el => {icon.classList.add(el)})
     draggable.classList.add('drag-drawflow');
