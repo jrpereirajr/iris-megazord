@@ -32,8 +32,8 @@
     <link href="resources/plugins/fillow/css/style.css" rel="stylesheet">
 
 	<!-- DevExtreme themes -->
-	<link rel="stylesheet" type="text/css" href="resources/plugins/extreme20.1.4/css/dx.common.css" />
-	<link rel="stylesheet" type="text/css" href="resources/plugins/extreme20.1.4/css/dx.light.css" />
+	<link rel="stylesheet" type="text/css" href="resources/plugins/extreme18.2.3/css/dx.common.css" />
+	<link rel="stylesheet" type="text/css" href="resources/plugins/extreme18.2.3/css/dx.light.css" />
 
 </head>
 <body>
@@ -201,14 +201,14 @@
 	<script src="resources/plugins/fillow/js/dlabnav-init.js"></script>
 
 	<!-- JSZip library -->
-	<script type="text/javascript" src="resources/plugins/extreme20.1.4/js/jszip.min.js"></script>
+	<script type="text/javascript" src="resources/plugins/extreme18.2.3/js/jszip.min.js"></script>
 
 	<!-- A DevExtreme library -->
-	<script type="text/javascript" src="resources/plugins/extreme20.1.4/js/dx.all.js"></script>
+	<script type="text/javascript" src="resources/plugins/extreme18.2.3/js/dx.all.js"></script>
 
 	<!-- DevExtreme-Intl module -->
-	<script type="text/javascript" src="resources/plugins/extreme20.1.4/js/devextreme-intl.min.js"></script>
-	<script type="text/javascript" src="resources/plugins/extreme20.1.4/js/localization/dx.messages.pt.js"></script>
+	<script type="text/javascript" src="resources/plugins/extreme18.2.3/js/devextreme-intl.min.js"></script>
+	<script type="text/javascript" src="resources/plugins/extreme18.2.3/js/localization/dx.messages.pt.js"></script>
 
 	<!-- BEGIN Message Viewer Custom -->
   	<script type="text/javascript" src="resources/js/messageviewer.js"></script>
