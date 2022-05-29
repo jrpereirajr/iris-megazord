@@ -105,12 +105,12 @@
             <!-- row -->
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-md-2 sidebar">
+					<div class="col-md-3 sidebar">
 						<ul class="metismenu" id="flow-menu">
 
 				        </ul>
 					</div>
-					<div class="col-md-10 content">
+					<div class="col-md-9 content">
 						<div class="card board" >
 
 
