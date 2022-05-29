@@ -35,6 +35,15 @@ const menuZord = () => {
                     </li>
 
 					<li><a class="has-arrow " href="javascript:void()" aria-expanded="true">
+						<i class="fas fa-project-diagram"></i>
+							<span class="nav-text">Flow Editor</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="editor.csp">Flow</a></li>
+                        </ul>
+                    </li>
+
+					<li><a class="has-arrow " href="javascript:void()" aria-expanded="true">
 						<i class="fas fa-search"></i>
 							<span class="nav-text">ZPM Explorer</span>
 						</a>
@@ -42,15 +51,6 @@ const menuZord = () => {
                             <li><a href="overview.html">Overview</a></li>
 							<li><a href="explorer.html">Explorer</a></li>
 							<li><a href="installed.html">Installed</a></li>
-                        </ul>
-                    </li>
-
-					<li><a class="has-arrow " href="javascript:void()" aria-expanded="true">
-						<i class="fas fa-plug"></i>
-							<span class="nav-text">Plug & Play</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="resources/plugins/fillow/app-profile.html">Profile</a></li>
                         </ul>
                     </li>
 

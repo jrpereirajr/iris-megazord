@@ -79,7 +79,7 @@
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
 							<div class="dashboard_bar">
-                                Dashboard | #($piece($SYSTEM,":",1))# | #($piece($SYSTEM,":",2))#
+                                Flow Editor | #($piece($SYSTEM,":",1))# | #($piece($SYSTEM,":",2))#
                             </div>
                         </div>
                     </div>
