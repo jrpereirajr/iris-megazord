@@ -58,6 +58,7 @@ Method CreateBusinessService(bs As %DynamicObject)
         $$$TOE(st, production.%Save())
 
         Do ..ProcessTargets(bs, item)
+        Do ..SaveConfig(bs, item)
     }
 
     Return $this
@@ -79,8 +80,8 @@ Method CreateBusinessOperation(bo As %DynamicObject)
         Do production.Items.Insert(item)
         $$$TOE(st, production.%Save())
 
-        Do ..SaveConfig(bo, item)
         Do ..ProcessTargets(bo, item)
+        Do ..SaveConfig(bo, item)
     }
 
     Return $this
@@ -155,7 +156,6 @@ Method ProcessTargets(host As Ens.Host, item As Ens.Config.Item)
                 "name": "TargetConfigNames",
                 "value": (target.name)
             })
-            Do ..SaveConfig(host, item)
         }
     }
 }
