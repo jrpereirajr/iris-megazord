@@ -197,22 +197,26 @@ const handleExport = () => {
   if (!jsn.drawflow) return;
   if (!jsn.drawflow.Home) return;
   const flow = {};
-  flow.bs = [];
-  flow.bo = [];
-  flow.bp = [];
+  flow.nodes = [];
+  flow.name = "Production1";
   production = jsn.drawflow.Home.data;
   Object.getOwnPropertyNames(production).forEach(el => {
     let element = production[el],
       thing = {};
     thing.name = element.name;
-    thing.config = {"classname":element.class};
+    if (!!production.html) {
+      const parser = new DOMParser();
+      const details = parser.parseFromString(production.html, "text/html");
+      if (!!details.querySelector('.box textarea')) thing.config = JSON.parse( edocument.querySelector('.box textarea').innerHTML);
+    }
+
 
     let sequence = [];
     for (output in element.outputs) {
       element.outputs[output].connections.forEach( conn => {
         let dest = production[conn.node],
         connection = {};
-        connection.type = "call";
+        connection.type = "action";
         connection.target = {"name": dest.name};
         sequence.push(connection);
       }
@@ -221,20 +225,10 @@ const handleExport = () => {
 
     }
     if (sequence.length > 0) {
-      thing.config.sequence = sequence;
+      thing.targets = sequence;
     }
 
-    if ((Object.getOwnPropertyNames(element.outputs).length > 0)&& (Object.getOwnPropertyNames(element.inputs).length == 0)) {
-      // BS
-      flow.bs.push(thing)
-    } else if ((Object.getOwnPropertyNames(element.inputs).length > 0)&& (Object.getOwnPropertyNames(element.outputs).length == 0)) {
-      // BO
-      flow.bo.push(thing)
-    } else {
-      flow.bp.push(thing)
-    }
-
-
+    flow.nodes.push(thing);
   });
 
   console.log(flow);
