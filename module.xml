@@ -16,6 +16,9 @@
       <CSPApplication CookiePath="/csp/irisflow/" DefaultTimeout="900" DeployPath="{cspdir}/csp/${namespace}/" Description="Interoperability Management Portal" MatchRoles=":{$dbrole}" PasswordAuthEnabled="1" Recurse="1" ServeFiles="1" ServeFilesTimeout="3600" SourcePath="/src/csp" UnauthenticatedEnabled="0" Url="/csp/irisflow" UseSessionCookie="2"/>
       <CSPApplication CookiePath="/csp/msgviewer/" DefaultTimeout="900" DeployPath="{cspdir}/csp/${namespace}/" Description="Interoperability Management Portal" MatchRoles=":{$dbrole}" PasswordAuthEnabled="1" Recurse="1" ServeFiles="1" ServeFilesTimeout="3600" SourcePath="/src/csp" UnauthenticatedEnabled="0" Url="/csp/msgviewer" UseSessionCookie="2"/>
       <CSPApplication CookiePath="/csp/msgviewer/api/" DefaultTimeout="900" DispatchClass="dc.irismessageviewer.REST.Dispatch" MatchRoles=":%All" PasswordAuthEnabled="1" Recurse="1" ServeFiles="1" ServeFilesTimeout="3600" UnauthenticatedEnabled="0" Url="/csp/msgviewer/api" UseSessionCookie="2"/>
+      <Invokes>
+          <Invoke Class="dc.irisflow.util.Setup" Method="InitialComponents"></Invoke>
+      </Invokes>
     </Module>
   </Document>
 </Export>
