@@ -265,6 +265,11 @@ cursor: pointer;
 .drawflow .title-box svg {
   position: initial;
 }
+
+.drag-drawflow .nav-text {
+    padding-left: 5px;
+}
+
 .drawflow-node .box {
   padding: 10px 20px 20px 20px;
   font-size: 14px;
@@ -366,4 +371,3 @@ cursor: pointer;
     width: 80%;
   }
 }
-
