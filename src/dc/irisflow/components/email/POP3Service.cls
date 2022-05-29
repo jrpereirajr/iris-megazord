@@ -33,9 +33,7 @@ Method OnCreateMessage(pInput As %RegisteredObject) As dc.irisflow.components.Ge
 	$$$TOE(st, message.Stream.Write(emailMessage))
 
 	Set message.Context = {
-        "dc.irisflow.components.email.POP3Service": {
-            "From": (input.From)
-        }
+        "From": (input.From)
     }.%ToJSON()
 
 	Return message

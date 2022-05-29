@@ -11,13 +11,14 @@ Property Adapter As Telegram.TelegramOutboundAdapter;
 /// Id for Telegram user who message will sent for, when no one ChatId field is found in the input message
 Property ChatId As %String;
 
-Parameter SETTINGS = "ChatId";
+Parameter SETTINGS = "ChatId::credentialsSelector";
 
 Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage, Output pResponse As Ens.Response)
 {
     Set inputMessage = pRequest.Stream.Read()
+    
+    // todo: create a GetContext() method to do this
     Set context = pRequest.Context
-
     Try {
         If (context '= "") {
             Set context = {}.%FromJSON(context)
@@ -25,6 +26,11 @@ Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage,
     } Catch(e) {
         $$$TRACE(e.DisplayString())
     }
+    If ('$IsObject(context)) {
+        Set context = {}
+    }
+
+	Set pRequest.Context = context
     
     Set message = ##class(Telegram.Msg.TextRequest).%New()
     Set message.Text = inputMessage
@@ -34,7 +40,8 @@ Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage,
         Set message.ChatId = context.ChatId
     } Else {
         $$$TRACE("Using ChatId from configurations")
-        Set message.ChatId = ..ChatId
+        $$$TOE(st, ##class(Ens.Config.Credentials).GetCredentialsObj(.credObj, "", "Ens.Config.Credentials", ..ChatId))
+        Set message.ChatId = credObj.Password
     }
 
     Do ..SendMessage(message, .pResponse)
@@ -42,8 +49,6 @@ Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage,
 
 Method SendMessage(pInput As Telegram.Msg.TextRequest, Output pOutput As Ens.Response) As %Status
 {
-    #; $$$TRACE(pInput.ChatId)
-    #; $$$TRACE(pInput.Text)
 	Quit ..Adapter.SendMessage(pInput.ChatId,pInput.Text,1)
 }
 

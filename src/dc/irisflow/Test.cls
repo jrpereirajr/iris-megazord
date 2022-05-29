@@ -399,31 +399,46 @@ ClassMethod CreateProductionHelloworld8() As %Status
                 "name": "SimpleEchoOperation"
             }]
         },{
+            "name": "FromEmail",
+            "type": "action",
+            "config": {
+                "className": "dc.irisflow.components.email.POP3Service",
+                "POP3Port": "995",
+                "POP3Server": "pop.mail.yahoo.com",
+                "Credentials": "imap-test",
+                "SSLConfig": "ISC.FeatureTracker.SSL.Config"
+            },
+            "targets": [{
+                "name": "ToTelegram"
+            }]
+        },{
             "name": "SimpleEchoOperation",
             "type": "action",
             "config": {
                 "className": "dc.irisflow.components.SimpleEchoOperation"
             },
             "targets": [{
-                "name": "ToTelegram"
+                "name": "ToEmail"
             }]
+        },{
+            "name": "ToEmail",
+            "type": "action",
+            "config": {
+                "className": "dc.irisflow.components.email.SMTPOperation",
+                "SMTPPort": "465",
+                "SMTPServer": "smtp.mail.yahoo.com",
+                "Credentials": "imap-test",
+                "SSLConfig": "ISC.FeatureTracker.SSL.Config"
+            },
+            "targets": []
         },{
             "name": "ToTelegram",
             "type": "action",
             "config": {
                 "className": "dc.irisflow.components.telegram.TelegramOperation",
                 "SSLConfiguration": "ISC.FeatureTracker.SSL.Config",
+                "ChatId": "telegram-chat-id",
                 "Credentials": "telegram"
-            },
-            "targets": [{
-                "name": "ToFile"
-            }]
-        },{
-            "name": "ToFile",
-            "type": "action",
-            "config": {
-                "className": "dc.irisflow.components.file.FilePassthroughOperation",
-                "FilePath": "/tmp/test/out"
             },
             "targets": []
         }]
