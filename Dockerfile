@@ -6,7 +6,7 @@ FROM $IMAGE
 
 WORKDIR /home/irisowner/irisbuild
 
-ARG MODULE=iris-flow
+ARG MODULE=iris-megazord
 ARG TESTS=1
 
 RUN --mount=type=bind,src=.,dst=. \

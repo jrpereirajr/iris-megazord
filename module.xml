@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-  <Document name="iris-flow.ZPM">
+  <Document name="iris-megazord.ZPM">
     <Module>
-      <Name>iris-flow</Name>
+      <Name>iris-megazord</Name>
       <Version>1.0.0</Version>
-      <Description>An API for create IRIS Interoperability from graphical flows</Description>
+      <Description>A portal joing different tools for easing interoperability tasks</Description>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
       <Resource Name="Telegram.PKG"/>

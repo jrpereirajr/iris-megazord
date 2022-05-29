@@ -1,12 +1,12 @@
- [![Gitter](https://img.shields.io/badge/Available%20on-Intersystems%20Open%20Exchange-00b2a9.svg)](https://openexchange.intersystems.com/package/iris-flow)
+ [![Gitter](https://img.shields.io/badge/Available%20on-Intersystems%20Open%20Exchange-00b2a9.svg)](https://openexchange.intersystems.com/package/iris-megazord)
  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat&logo=AdGuard)](LICENSE)
 
 <!--
- [![Quality Gate Status](https://community.objectscriptquality.com/api/project_badges/measure?project=intersystems_iris_community%2Firis-flow&metric=alert_status)](https://community.objectscriptquality.com/dashboard?id=intersystems_iris_community%2Firis-flow)
- [![Reliability Rating](https://community.objectscriptquality.com/api/project_badges/measure?project=intersystems_iris_community%2Firis-flow&metric=reliability_rating)](https://community.objectscriptquality.com/dashboard?id=intersystems_iris_community%2Firis-flow)
+ [![Quality Gate Status](https://community.objectscriptquality.com/api/project_badges/measure?project=intersystems_iris_community%2Firis-megazord&metric=alert_status)](https://community.objectscriptquality.com/dashboard?id=intersystems_iris_community%2Firis-megazord)
+ [![Reliability Rating](https://community.objectscriptquality.com/api/project_badges/measure?project=intersystems_iris_community%2Firis-megazord&metric=reliability_rating)](https://community.objectscriptquality.com/dashboard?id=intersystems_iris_community%2Firis-megazord)
 -->
 
-## iris-flow
+## iris-megazord
 
 ## Online demo
 
@@ -17,7 +17,7 @@ If you'd like to test the project in your environment, make sure you have [git](
 ## ZPM installation
 
 ```
-USER>zpm "install iris-flow"
+USER>zpm "install iris-megazord"
 ```
 
 ## Docker installation
@@ -27,7 +27,7 @@ If the online demo is not available anymore or you would like to play with the p
 Clone/git pull the repo into any local directory
 
 ```
-$ git clone git@github.com:jrpereirajr/iris-flow.git
+$ git clone git@github.com:jrpereirajr/iris-megazord.git
 ```
 
 Open the terminal in this directory and run:
@@ -47,7 +47,7 @@ $ docker-compose up -d
 In order to execute the unit tests, run the following command in the shell terminal:
 
 ```bash
-iris session iris "##class(%ZPM.PackageManager).Shell(\"test iris-flow -v\",1,1)"
+iris session iris "##class(%ZPM.PackageManager).Shell(\"test iris-megazord -v\",1,1)"
 ```
 
 
