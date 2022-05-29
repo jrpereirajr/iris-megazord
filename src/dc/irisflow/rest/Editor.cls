@@ -57,7 +57,21 @@ ClassMethod ListAllComponents() As %Status
 ClassMethod GenerateProduction() As %Status
 {
 	Set tSC = $System.Status.OK()
-	// Call parser method
+	Try {
+		Set data = %request.Content
+		Set production = {}.%FromJSON(data.Read())
+		Set builder = ##class(dc.irisflow.ProductionBuilder).%New()
+		Do builder.Build(production)
+		Set resp = {}
+		Set %response.Status = 200
+		If (builder.errors.%Size() > 0) {
+			Set %response.Status = 200
+			Set resp.errors = builder.errors
+		}
+		Write resp.%ToJSON()
+	} Catch tException {
+		Set:$$$ISOK(tSC) tSC = tException.AsStatus()
+	}
 	Quit tSC
 }
 

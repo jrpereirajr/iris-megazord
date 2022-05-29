@@ -117,22 +117,27 @@
 							<div class="card-body ">
 
 
-								<div class="btn btn-outline-secondary" onclick="handleExport()">Generate</div>
-							    <div class="btn btn-outline-primary" onclick="editor.clearModuleSelected()">Clear</div>
-
+							<div class="row">
+								<div class="col-md-6">
+									<input type="text" class="form-control" placeholder="Production name" id="production-name" >
+								</div>
+								<div class="col-md-5">
+									<div class="btn btn-outline-secondary" onclick="handleExport()">Generate</div>
+									<div class="btn btn-outline-primary" onclick="editor.clearModuleSelected()">Clear</div>
+								</div>
+								<div class="col-md-1">
+									<i class="fas fa-search-minus" onclick="editor.zoom_out()"></i>
+									<i class="fas fa-search" onclick="editor.zoom_reset()"></i>
+									<i class="fas fa-search-plus" onclick="editor.zoom_in()"></i>
+									<i id="lock" class="fas fa-lock" onclick="editor.editor_mode='fixed'; changeMode('lock');"></i>
+									<i id="unlock" class="fas fa-lock-open" onclick="editor.editor_mode='edit'; changeMode('unlock');" style="display:none;"></i>
+								</div>
+							</div>
 
 								<div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)" >
 
-
-							        <div class="btn-lock">
-							          <i id="lock" class="fas fa-lock" onclick="editor.editor_mode='fixed'; changeMode('lock');"></i>
-							          <i id="unlock" class="fas fa-lock-open" onclick="editor.editor_mode='edit'; changeMode('unlock');" style="display:none;"></i>
-							        </div>
-							        <div class="bar-zoom">
-							          <i class="fas fa-search-minus" onclick="editor.zoom_out()"></i>
-							          <i class="fas fa-search" onclick="editor.zoom_reset()"></i>
-							          <i class="fas fa-search-plus" onclick="editor.zoom_in()"></i>
-							        </div>
+									<div class="btn-lock">
+									</div>
 
 								</div>
 							</div>
