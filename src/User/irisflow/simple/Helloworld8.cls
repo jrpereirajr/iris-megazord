@@ -11,7 +11,7 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="Credentials">telegram</Setting>
     <Setting Target="Host" Name="TargetConfigNames">SimpleEchoOperation</Setting>
   </Item>
-  <Item Name="SimpleEchoOperation" Category="" ClassName="dc.irisflow.components.SimpleEchoOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="SimpleEchoOperation" Category="" ClassName="dc.irisflow.components.misc.SimpleEchoOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="TargetConfigNames">ToEmail</Setting>
   </Item>
   <Item Name="ToTelegram" Category="" ClassName="dc.irisflow.components.telegram.TelegramOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">

@@ -43,12 +43,12 @@ Method TestBuildHelloworld7()
                 "value": "telegram"
             }],
             "targets": [{
-                "name": "dc.irisflow.components.SimpleEchoOperation"
+                "name": "SimpleEchoOperation"
             }]
         }],
         "bo": [{
-            "name": "dc.irisflow.components.SimpleEchoOperation",
-            "className": "dc.irisflow.components.SimpleEchoOperation",
+            "name": "SimpleEchoOperation",
+            "className": "dc.irisflow.components.misc.SimpleEchoOperation",
             "config": [],
             "targets": [{
                 "name": "ToTelegram"
@@ -86,7 +86,7 @@ Method TestBuildHelloworld7()
 
     Set sql = "select * from Ens_Config.Item where Production = ? and Name = ? and ClassName = ?"
     Set rs = ##class(%SQL.Statement).%ExecDirect(, sql, ..#ProductionName, bs.%Get(0).name, bs.%Get(0).className)
-    Set expected = $lb($lb($lb("SSLConfiguration","Adapter","ISC.FeatureTracker.SSL.Config")),$lb($lb("Credentials","Adapter","telegram")),$lb($lb("TargetConfigNames","Host","dc.irisflow.components.SimpleEchoOperation")))
+    Set expected = $lb($lb($lb("SSLConfiguration","Adapter","ISC.FeatureTracker.SSL.Config")),$lb($lb("Credentials","Adapter","telegram")),$lb($lb("TargetConfigNames","Host","SimpleEchoOperation")))
     Do $$$AssertTrue(rs.%Next())
     Do $$$AssertEquals(rs.Settings, expected)
 

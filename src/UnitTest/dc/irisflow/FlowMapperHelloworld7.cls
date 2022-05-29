@@ -35,7 +35,7 @@ Method TestMappingHelloworld7()
             "name": "SimpleEchoOperation",
             "type": "action",
             "config": {
-                "className": "dc.irisflow.components.SimpleEchoOperation"
+                "className": "dc.irisflow.components.misc.SimpleEchoOperation"
             },
             "targets": [{
                 "name": "ToTelegram"
@@ -83,7 +83,7 @@ Method TestMappingHelloworld7()
         "bp": [],
         "bo": [{
             "name": "SimpleEchoOperation",
-            "className": "dc.irisflow.components.SimpleEchoOperation",
+            "className": "dc.irisflow.components.misc.SimpleEchoOperation",
             "config": [],
             "targets": [{
                 "name": "ToTelegram"

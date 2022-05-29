@@ -341,7 +341,7 @@ ClassMethod CreateProductionHelloworld7() As %Status
             "name": "SimpleEchoOperation",
             "type": "action",
             "config": {
-                "className": "dc.irisflow.components.SimpleEchoOperation"
+                "className": "dc.irisflow.components.misc.SimpleEchoOperation"
             },
             "targets": [{
                 "name": "ToTelegram"
@@ -415,7 +415,7 @@ ClassMethod CreateProductionHelloworld8() As %Status
             "name": "SimpleEchoOperation",
             "type": "action",
             "config": {
-                "className": "dc.irisflow.components.SimpleEchoOperation"
+                "className": "dc.irisflow.components.misc.SimpleEchoOperation"
             },
             "targets": [{
                 "name": "ToEmail"

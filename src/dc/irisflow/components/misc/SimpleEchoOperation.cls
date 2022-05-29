@@ -1,4 +1,4 @@
-Class dc.irisflow.components.SimpleEchoOperation Extends dc.irisflow.components.IrisFlowBusinessOperation
+Class dc.irisflow.components.misc.SimpleEchoOperation Extends dc.irisflow.components.IrisFlowBusinessOperation
 {
 
 Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage, Output pResponse As Ens.Response)
