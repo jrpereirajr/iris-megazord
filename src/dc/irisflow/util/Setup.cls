@@ -7,11 +7,11 @@ ClassMethod InitialComponents() As %Status
 	Try {
     $$$TOE(tSC, ..AddComponent("ToFile", "fas fa-file-signature", 1, 0, {"className": "dc.irisflow.components.file.FilePassthroughOperation"}))
     $$$TOE(tSC, ..AddComponent("ToTelegram","fab fa-telegram", 1, 0,{"className": "dc.irisflow.components.telegram.TelegramOperation","SSLConfiguration": "ISC.FeatureTracker.SSL.Config","Credentials": "telegram"}))
-    $$$TOE(tSC, ..AddComponent("ToEmail","fab fa-inbox-out", 1, 0,{"className": "dc.irisflow.components.email.SMTPOperation","SSLConfig": "ISC.FeatureTracker.SSL.Config","Credentials": "test-imap", "SMTPPort": "465", "SMTPServer": "smtp.mail.yahoo.com"}))
+    $$$TOE(tSC, ..AddComponent("ToEmail","fas fa-envelope", 1, 0,{"className": "dc.irisflow.components.email.SMTPOperation","SSLConfig": "ISC.FeatureTracker.SSL.Config","Credentials": "test-imap", "SMTPPort": "465", "SMTPServer": "smtp.mail.yahoo.com"}))
     $$$TOE(tSC, ..AddComponent("FromFile", "fas fa-file-signature", 0, 1, {"className": "dc.irisflow.components.file.FilePassthroughService"}))
     $$$TOE(tSC, ..AddComponent("FromTelegram", "fab fa-telegram", 0, 1, {"className": "dc.irisflow.components.telegram.TelegramService","SSLConfiguration": "ISC.FeatureTracker.SSL.Config","Credentials": "telegram"}))
-    $$$TOE(tSC, ..AddComponent("FromEmail(POP3)", "fab fa-inbox-in", 0, 1, {"className": "dc.irisflow.components.email.POP3Service","SSLConfig": "ISC.FeatureTracker.SSL.Config","Credentials": "test-imap", "SMTPPort": "465", "SMTPServer": "smtp.mail.yahoo.com"}))
-    $$$TOE(tSC, ..AddComponent("SimpleEchoOperation", "fal fa-gear", 1, 1, {"className": "dc.irisflow.components.misc.SimpleEchoOperation"}))
+    $$$TOE(tSC, ..AddComponent("FromEmail(POP3)", "fas fa-envelope", 0, 1, {"className": "dc.irisflow.components.email.POP3Service","SSLConfig": "ISC.FeatureTracker.SSL.Config","Credentials": "test-imap", "SMTPPort": "465", "SMTPServer": "smtp.mail.yahoo.com"}))
+    $$$TOE(tSC, ..AddComponent("SimpleEchoOperation", "fas fa-cog", 1, 1, {"className": "dc.irisflow.components.misc.SimpleEchoOperation"}))
 	} Catch tException {
 		Set:$$$ISOK(tSC) tSC = tException.AsStatus()
 	}
