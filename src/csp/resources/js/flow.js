@@ -58,8 +58,16 @@ editor.on('removeReroute', function (id) {
     console.log("Reroute removed " + id);
 })
 
-
-
+const fields2html = (fields) => {
+    const json = JSON.parse(fields), form = [];;
+    Object.getOwnPropertyNames(json).forEach(field => {
+        hml = `<label class="col-form-label" for="${field}">${field}
+                </label>
+                <input type="text" class="form-control input-sm" id="${field}" placeholder="${field}" value="${json[field]}">`
+        form.push(hml);
+    })
+    return form.join('');
+}
 
 const addNodeToDrawFlow = (obj, pos_x, pos_y) => {
 
@@ -70,7 +78,7 @@ const addNodeToDrawFlow = (obj, pos_x, pos_y) => {
     pos_y = pos_y * (editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)) - (editor.precanvas.getBoundingClientRect().y * (editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)));
     console.log(obj);
     node = JSON.parse(obj);
-    let content = '<div><div class="title-box"><i class="' + node.icon + '" style="margin-right:5px"></i>' + node.name + '</div><div class="box"><textarea>' + node.Fields + '</textarea></div></div>';
+    let content = '<div><div class="title-box"><i class="' + node.icon + '" style="margin-right:5px"></i>' + node.name + '</div><div class="box">' + fields2html(node.Fields)  + '</div></div>';
     console.log(content);
     editor.addNode(node.name, node.input, node.output, pos_x, pos_y, node.name, {}, content);
 
@@ -207,11 +215,14 @@ const handleExport = () => {
         thing.type = "action";
         thing.name = element.name;
         if (!!element.html) {
-            const parser = new DOMParser();
-            const details = parser.parseFromString(element.html, "text/html");
-            if (!!details.querySelector('.box textarea')) {
-                thing.config = JSON.parse(details.querySelector('.box textarea').innerHTML);
-            }
+            const config = {},
+                parser = new DOMParser(),
+                details = parser.parseFromString(element.html, "text/html");
+            details.querySelectorAll('input').forEach(node => {
+                box_element = document.querySelector(`#node-${element.id} #${node.id}`);
+                if (!!box_element) config[node.id] = box_element.value;
+            })
+            thing.config = config;
         }
 
         let sequence = [];
