@@ -12,7 +12,15 @@ A lot of ideas together. Different projects, one goal.
 
 Integration of previous tools, like IRIS Monitor, with a wizard for easy development of interoperability flows.
 
+## Video
+
+[![Flow Editor - IRIS Megazord](https://img.youtube.com/vi/KkG0_-ahfjI/0.jpg)](https://www.youtube.com/watch?v=KkG0_-ahfjI)
+
+If you'd like to try the same process shown in the video, you can follow [this steps](https://github.com/jrpereirajr/iris-chatbot#setting-up-a-telegram-bot) and set a Telegram Bot to use in your test.
+
 ## Online demo
+
+TODO:
 
 ## Installation prerequisites
 

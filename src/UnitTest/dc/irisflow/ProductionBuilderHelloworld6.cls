@@ -87,7 +87,7 @@ Method TestBuildHelloworld6()
 
     Set sql = "select * from Ens_Config.Item where Production = ? and Name = ? and ClassName = ?"
     Set rs = ##class(%SQL.Statement).%ExecDirect(, sql, ..#ProductionName, bo.%Get(0).name, bo.%Get(0).className)
-    Set expected = $lb($lb($lb("SSLConfiguration","Adapter","ISC.FeatureTracker.SSL.Config")),$lb($lb("Credentials","Adapter","telegram")),$lb($lb("SSLConfiguration","Adapter","ISC.FeatureTracker.SSL.Config")),$lb($lb("Credentials","Adapter","telegram")),$lb($lb("TargetConfigNames","Host","ToFile")))
+    Set expected = $lb($lb($lb("SSLConfiguration","Adapter","ISC.FeatureTracker.SSL.Config")),$lb($lb("Credentials","Adapter","telegram")),$lb($lb("TargetConfigNames","Host","ToFile")))
     Do $$$AssertTrue(rs.%Next())
     Do $$$AssertEquals(rs.Settings, expected)
 
