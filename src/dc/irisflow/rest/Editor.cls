@@ -59,7 +59,9 @@ ClassMethod GenerateProduction() As %Status
 	Set tSC = $System.Status.OK()
 	Try {
 		Set data = %request.Content
-		Set production = {}.%FromJSON(data.Read())
+		Set flow = {}.%FromJSON(data.Read())
+		Set mapper = ##class(dc.irisflow.FlowMapper).%New()
+		Set production = mapper.Map(flow)
 		Set builder = ##class(dc.irisflow.ProductionBuilder).%New()
 		Do builder.Build(production)
 		Set resp = {}
