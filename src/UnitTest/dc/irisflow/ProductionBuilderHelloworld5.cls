@@ -97,13 +97,13 @@ Method TestBuildHelloworld5()
 
     Set sql = "select * from Ens_Config.Item where Production = ? and Name = ? and ClassName = ?"
     Set rs = ##class(%SQL.Statement).%ExecDirect(, sql, ..#ProductionName, bo.%Get(0).name, bo.%Get(0).className)
-    Set expected = $lb($lb($lb("FilePath","Adapter","/tmp/test/out")),$lb($lb("FilePath","Adapter","/tmp/test/out")),$lb($lb("TargetConfigNames","Host","ToFile1")))
+    Set expected = $lb($lb($lb("FilePath","Adapter","/tmp/test/out")),$lb($lb("TargetConfigNames","Host","ToFile1")))
     Do $$$AssertTrue(rs.%Next())
     Do $$$AssertEquals(rs.Settings, expected)
 
     Set sql = "select * from Ens_Config.Item where Production = ? and Name = ? and ClassName = ?"
     Set rs = ##class(%SQL.Statement).%ExecDirect(, sql, ..#ProductionName, bo.%Get(1).name, bo.%Get(1).className)
-    Set expected = $lb($lb($lb("FilePath","Adapter","/tmp/test/out")),$lb($lb("FilePath","Adapter","/tmp/test/out")),$lb($lb("TargetConfigNames","Host","ToTelegram")))
+    Set expected = $lb($lb($lb("FilePath","Adapter","/tmp/test/out")),$lb($lb("TargetConfigNames","Host","ToTelegram")))
     Do $$$AssertTrue(rs.%Next())
     Do $$$AssertEquals(rs.Settings, expected)
 
