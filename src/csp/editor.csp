@@ -204,8 +204,11 @@
 		<script src="resources/plugins/drawflow/drawflow.min.js"></script>
 		<link rel="stylesheet" href="resources/plugins/drawflow/drawflow.min.css">
 		<link rel="stylesheet" href="resources/css/beautiful.css">
+		<link rel="stylesheet" href="resources/plugins/fillow/vendor/sweetalert2/dist/sweetalert2.min.css">
+		<link rel="stylesheet" href="resources/plugins/fillow/vendor/toastr/css/toastr.min.css">
+		<script src="resources/plugins/fillow/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
+		<script src="resources/plugins/fillow/vendor/toastr/js/toastr.min.js"></script>
 		<script src="resources/js/flow.js"></script>
-
 
 
 </body>

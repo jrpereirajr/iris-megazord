@@ -202,6 +202,28 @@ function drop(ev) {
 
 const handleExport = () => {
     const prod_name = document.getElementById('production-name').value;
+    if (!prod_name) {
+        toastr.warning("Please enter the production name", "Warning", {
+            positionClass: "toast-bottom-right",
+            timeOut: 5e3,
+            closeButton: !0,
+            debug: !1,
+            newestOnTop: !0,
+            progressBar: !0,
+            preventDuplicates: !0,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+            tapToDismiss: !1
+        })
+
+        return false;
+    }
     const jsn = editor.export();
     if (!jsn.drawflow) return;
     if (!jsn.drawflow.Home) return;
@@ -239,8 +261,33 @@ const handleExport = () => {
     });
 
     console.log(flow);
+    const data = {"flow": flow, "diagram": jsn};
     postData('/csp/irisflow/api/generate', flow)
         .then(data => {
+            if (!!data.errors) {
+                let errors = data.errors.map(err => err.description);
+
+                swal("Something went wrong!", errors.length > 0 ? errors.join(' ') : data.summary, "error");
+            } else {
+                toastr.success("", "Success!", {
+                    positionClass: "toast-bottom-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
+            }
             console.log(data); // JSON data parsed by `data.json()` call
         });
 }
