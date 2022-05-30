@@ -300,7 +300,6 @@ function reloadProcesses(pInterval) {
 
 
 $(document).ready(function () {
-    alert("teste");
     var urlOrigin = window.location.origin;
     var newUrl = urlOrigin + "/csp/sys/UtilHome.csp"
     $("#urlPortal").attr("href", newUrl);

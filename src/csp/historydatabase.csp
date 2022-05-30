@@ -1,37 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <script language="Cache" runat="server">
-	set URLPreparacao = "dc.irishistorymonitor.dashboard.database.cls"
+	set URLPreparacao = "dc.irishistorymonitor.dashboard.license.cls"
 </script>
 
 <head>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>IRIS Monitor Dashboard</title>
-	<meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-	<link rel="icon" href="resources/img/ISC_IRIS_icon.ico" type="image/x-icon" />
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="IRIS Megazord it's History Monitor, Message Viewer, and ZPM Explorer all together in a seamless portal" />
+	<meta property="og:title" content="IRIS Megazord Portal" />
+	<meta property="og:description" content="IRIS Megazord it's History Monitor, Message Viewer, and ZPM Explorer all together in a seamless portal" />
+	<meta property="og:image" content="https:/fillow.dexignlab.com/xhtml/social-image.png" />
+	<meta name="format-detection" content="telephone=no">
 
-	<!-- Fonts and icons -->
-	<script src="resources/plugins/atlantis-lite/assets/js/plugin/webfont/webfont.min.js"></script>
-	<script type="text/javascript">
-		WebFont.load({
-			google: {
-				"families": ["Lato:300,400,700,900"]
-			},
-			custom: {
-				"families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular",
-					"Font Awesome 5 Brands", "simple-line-icons"
-				],
-				urls: ['resources/plugins/atlantis-lite/assets/css/fonts.min.css']
-			},
-			active: function () {
-				sessionStorage.fonts = true;
-			}
-		});
-	</script>
+	<!-- PAGE TITLE HERE -->
+	<title>IRIS Megazord Portal</title>
 
-	<!-- CSS Files -->
-	<link rel="stylesheet" href="resources/plugins/atlantis-lite/assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="resources/plugins/atlantis-lite/assets/css/atlantis.min.css">
+	<!-- FAVICONS ICON -->
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <link rel="icon" href="resources/img/ISC_IRIS_icon.ico" type="image/x-icon" />
+
+	<link href="resources/plugins/fillow/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+	<link href="resources/plugins/fillow/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+	<link rel="stylesheet" href="resources/plugins/fillow/vendor/nouislider/nouislider.min.css">
+
+	<!-- Style css -->
+    <link href="resources/plugins/fillow/css/style.css" rel="stylesheet">
 
 	<!-- DateRange Picker CSS -->
 	<link rel="stylesheet" type="text/css" href="resources/plugins/daterangepicker/daterangepicker.css" />
@@ -39,198 +37,178 @@
 	<!-- DevExtreme themes -->
 	<link rel="stylesheet" type="text/css" href="resources/plugins/extreme18.2.3/css/dx.common.css" />
 	<link rel="stylesheet" type="text/css" href="resources/plugins/extreme18.2.3/css/dx.light.css" />
+
 </head>
-
 <body>
-	<div class="wrapper overlay-sidebar">
-		<div class="main-header">
-			<!-- Logo Header -->
-			<div class="logo-header" data-background-color="white">
 
-				<div class="logo">
-					<img src="resources/img/InterSystemsIRIS.png" alt="navbar brand" height="35" class="navbar-brand">
-				</div>
-				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon">
-						<i class="icon-menu"></i>
-					</span>
-				</button>
-				<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
-				<div class="nav-toggle">
-					<button class="btn btn-toggle sidenav-overlay-toggler">
-						<i class="icon-menu"></i>
-					</button>
-				</div>
-			</div>
-			<!-- End Logo Header -->
-
-			<!-- Navbar Header -->
-			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="white">
-				<div class="container-fluid">
-					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-						<div class="input-icon">
-							<span class="input-icon-addon">
-								<i class="text-white far fa-calendar-alt"></i>
-							</span>
-							<input id="daterange" type="text" class="form-control text-white" style="border: none;background: transparent;" size="24px">
-						</div>
-					</ul>
-				</div>
-			</nav>
-			<!-- End Navbar -->
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+		<div class="lds-ripple">
+			<div></div>
+			<div></div>
 		</div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
 
-		<!-- Sidebar -->
-		<div class="sidebar sidebar-style-2">
-			<div class="scroll-wrapper sidebar-wrapper scrollbar scrollbar-inner">
-				<div class="sidebar-content">
-					<ul class="nav nav-primary">
-						<li class="nav-item">
-							<a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
-								<i class="fas fa-home"></i>
-								<p>System Dashboard</p>
-								<span class="caret"></span>
-							</a>
-							<div class="collapse" id="dashboard">
-								<ul class="nav nav-collapse">
-									<li class="">
-										<a href="dashboard.csp">
-											<span class="sub-item">System Dashboard</span>
-										</a>
-									</li>
-									<li class="">
-										<a href="dashboardapi.csp">
-											<span class="sub-item">System Dashboard 2.0</span>
-										</a>
-									</li>
-									<li>
-										<a href="systemprocesses.csp">
-											<span class="sub-item">System Processes</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-						<li class="nav-item active">
-							<a data-toggle="collapse" href="#history" class="collapsed" aria-expanded="false">
-								<i class="fas fa-history"></i>
-								<p>History Monitor</p>
-								<span class="caret"></span>
-							</a>
-							<div class="collapse" id="history">
-								<ul class="nav nav-collapse">
-									<li>
-										<a href="historylicense.csp">
-											<span class="sub-item">License</span>
-										</a>
-									</li>
-									<li class="active">
-										<a href="historydatabase.csp">
-											<span class="sub-item">Database Growth</span>
-										</a>
-									</li>
-									<li>
-										<a href="historycspsessions.csp">
-											<span class="sub-item">CSP Sessions</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-					</ul>
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+		<div class="nav-header">
+            <a href="index.csp" class="brand-logo">
+
+				<div class="brand-title">
+					<h2 class="">IRIS</h2>
+					<span class="brand-sub-title">Megazord Portal</span>
 				</div>
+            </a>
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span><span class="line"></span><span class="line"></span>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+		<!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header border-bottom">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                        <div class="header-left">
+							<div class="dashboard_bar">
+                                History Monitor Database Growth | #($piece($SYSTEM,":",1))# | #($piece($SYSTEM,":",2))#
+                            </div>
+                        </div>
+						<ul class="navbar-nav header-right">
+							<li class="nav-item dropdown notification_dropdown">
+                                <div class="media">
+									<div class="media-body text-white text-end">
+										<i class="far fa-calendar-alt white"></i>
+										<input id="daterange" type="text" class="form-control" style="border: none;background: transparent; color: white;" size="24px">
+									</div>
+								</div>
+							</li>
+						</ul>
+                    </div>
+					
+				</nav>
 			</div>
 		</div>
-		<!-- End Sidebar -->
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
 
-		<!-- Begin Dashboard Content -->
-		<div class="main-panel">
-			<div class="content">
-				<div class="panel-header bg-primary-gradient">
-					<div class="page-inner py-5">
-						<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
-							<!-- Dashboard Name + Server | Instance -->
-							<div>
-								<h2 class="text-white pb-2 fw-bold">History Monitor | Database Growth</h2>
-								<h5 class="text-white pb-2 mb-2">#($piece($SYSTEM,":",1))# | #($piece($SYSTEM,":",2))#</h5>
-							</div>
-						</div>
-					</div>
-				</div>
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+				<div class="dlabnav" id="sideBarMenu"></div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
 
-				<!-- Begin Widgets -->
-				<div class="page-inner mt--5">
-
-					<!-- Database Size Daily -->
-					<div class="row mt--2">
-						<div class="col-md-12">
-							<div class="card full-height">
-								<div class="card-header">
-									<div class="card-head-row">
-										<div class="card-title">Daily (Gb)</div>
-										<div class="card-tools">
-											<ul class="nav nav-pills nav-primary nav-pills-no-bd nav-sm" id="pills-tab" role="tablist">
-												<li class="nav-item">
-													<a class="nav-link active" id="dayChart" data-toggle="pill" href="#" role="tab" aria-selected="true">Chart</a>
-												</li>
-												<li class="nav-item">
-													<a class="nav-link" id="dayDataTable" data-toggle="pill" href="#" role="tab" aria-selected="false">Data Table</a>
-												</li>
-											</ul>
+		<!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <!-- row -->
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xl-12">
+						<div class="col-xl-12">
+							<div class="row">
+								<div class="col-xl-12">
+									<div class="row">
+										<div class="col-xl-12 col-sm-12">
+											<div class="card">
+												<div class="card-header border-0 pb-0">
+													<div class="card-title">Daily (Gb)</div>
+													<div class="card-tools">
+														<ul class="nav nav-pills nav-primary nav-pills-no-bd" id="pills-tab" role="tablist">
+															<li class="nav-item">
+																<a class="nav-link active" id="dayChart" data-toggle="pill" href="#" role="tab" aria-selected="true">Chart</a>
+															</li>
+															<li class="nav-item">
+																<a class="nav-link" id="dayDataTable" data-toggle="pill" href="#" role="tab" aria-selected="false">Data
+																	Table</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+												<div id="LicDayBody" class="card-body">
+													<div id="divDBDia"></div>
+													<div id="divDBDiaDataTable"></div>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
-								<div id="LicDayBody" class="card-body">
-									<div id="divDBDia"></div>
-									<div id="divDBDiaDataTable"></div>
-								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- End Widgets -->
-			</div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
 
-			<!-- Begin Footer -->
-			<footer class="footer">
-				<div class="container-fluid">
-					<nav class="pull-left">
-						<ul class="nav">
-							<li class="nav-item">
-								<a class="nav-link" id="urlPortal" href="#">
-									Management Portal
-								</a>
-							</li>
-						</ul>
-					</nav>
-					<div class="copyright ml-auto">2020 <i class="far fa-copyright"></i> by
-						<a href="https://github.com/diashenrique/iris-history-monitor" target="_blank">
-							Henrique Dias
-						</a>
-					</div>
-				</div>
-			</footer>
-			<!-- End Footer -->
-		</div>
-		<!-- End Conteudo Dashboard -->
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; IRIS Megazord Portal 2022</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
 	</div>
-	<!-- End Wrapper -->
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
 
-	<!--   Core JS Files   -->
-	<script src="resources/plugins/atlantis-lite/assets/js/core/jquery.3.2.1.min.js"></script>
-	<script src="resources/plugins/atlantis-lite/assets/js/core/popper.min.js"></script>
-	<script src="resources/plugins/atlantis-lite/assets/js/core/bootstrap.min.js"></script>
+    <!--**********************************
+        Scripts
+    ***********************************-->
+	<script src="resources/js/menuZord.js"></script>
+	
+    <!-- Required vendors -->
+    <script src="resources/plugins/fillow/vendor/global/global.min.js"></script>
+	<script src="resources/plugins/fillow/vendor/chart.js/Chart.bundle.min.js"></script>
+	<script src="resources/plugins/fillow/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 
-	<!-- jQuery UI -->
-	<script src="resources/plugins/atlantis-lite/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-	<script src="resources/plugins/atlantis-lite/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+	<!-- Apex Chart -->
+	<script src="resources/plugins/fillow/vendor/apexchart/apexchart.js"></script>
+	<script src="resources/plugins/fillow/vendor/chart.js/Chart.bundle.min.js"></script>
 
-	<!-- jQuery Scrollbar -->
-	<script src="resources/plugins/atlantis-lite/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+	<!-- Chart piety plugin files -->
+    <script src="resources/plugins/fillow/vendor/peity/jquery.peity.min.js"></script>
 
-	<!-- Atlantis JS -->
-	<script src="resources/plugins/atlantis-lite/assets/js/atlantis.min.js"></script>
+	<!-- Chart Circle -->
+	<script src="resources/plugins/atlantis-lite/assets/js/plugin/chart-circle/circles.min.js"></script>
+
+	<!-- Dashboard 1 -->
+	<script src="resources/plugins/fillow/js/dashboard/dashboard-1.js"></script>
+
+	<script src="resources/plugins/fillow/vendor/owl-carousel/owl.carousel.js"></script>
+
+    <script src="resources/plugins/fillow/js/custom.js"></script>
+	<script src="resources/plugins/fillow/js/dlabnav-init.js"></script>
 
 	<!-- Highcharts -->
 	<script src="resources/plugins/charts/highcharts/code/highcharts.js"></script>
@@ -254,22 +232,22 @@
 		var urlPreparacao = '#(URLPreparacao)#'
 		var chartDailyLicense;
 
-		// ************* Charts ************* //
+		// ************* Charts ************* // 
 
-		// ********** Highcharts Daily Database Size ********** //
+		// ********** Highcharts Daily Database Size ********** // 
 		function getDBSizeDailyHistory(dataInicio, dataFim) {
 			$.getJSON(urlPreparacao, {
 				method: "getDatabaseDailySize",
 				dayFrom: dataInicio,
 				dayTo: dataFim
 			}, function (retornoDatabaseDailySize) {
-
+				
 				if (retornoDatabaseDailySize.length == 0) {
 					$("#dayDataTable").hide();
 				} else {
 					$("#dayDataTable").show();
 				}
-
+				
 				chartDailyLicense = new Highcharts.Chart({
 					chart: {
 						renderTo: "divDBDia",
@@ -321,8 +299,8 @@
 
 			});
 		}
-
-		// ************* DevExtreme - DataGrid ************* //
+		
+		// ************* DevExtreme - DataGrid ************* // 
 		// ********** DataGrid DevExtreme Daily ********** //
 		function dataGridDaily(dataInicio, dataFim) {
 			$("#divDBDiaDataTable").dxDataGrid({
@@ -373,7 +351,7 @@
 			$("#urlPortal").attr("href", newUrl);
 
 			var dataInicio, dataFim
-
+			
 			$("#divDBDiaDataTable").hide();
 
 			if (dataInicio == null) {
@@ -381,8 +359,8 @@
 				dataFim = moment().format("DD/MM/YYYY");
 				getDBSizeDailyHistory(dataInicio, dataFim);
 			}
-
-			// ********** Data Range Picker ********** //
+			
+			// ********** Data Range Picker ********** // 
 			$("#daterange").daterangepicker({
 				opens: "left",
 				timePicker24Hour: true,
@@ -405,16 +383,16 @@
 				getDBSizeDailyHistory(dataInicio, dataFim);
 				dataGridDaily(dataInicio, dataFim);
 			});
+			
 
-
-			// ********** Daily License ********** //
+			// ********** Daily License ********** // 
 			// Button Chart
 			$("#dayChart").click(function () {
 				$("#divDBDiaDataTable").hide();
 				$("#divDBDia").show();
 			});
 
-			// Data Table
+			// Data Table 
 			$("#dayDataTable").click(function () {
 				$("#divDBDia").hide();
 				$("#divDBDiaDataTable").show();
@@ -422,6 +400,6 @@
 			});
 		});
 	</script>
-</body>
 
+</body>
 </html>
