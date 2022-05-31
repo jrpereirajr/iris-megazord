@@ -163,6 +163,17 @@ const loadFlowMenu = (data) => {
     })
 }
 
+const loadDashboard = () => {
+    const prod_name = document.getElementById('production-name').value;
+    if (!prod_name) return;
+
+    getData('/csp/irisflow/api/production/' + prod_name)
+        .then(data => {
+            console.log(data);
+        } )
+
+}
+
 /* DRAG EVENT */
 
 /* Mouse and Touch Actions */
@@ -262,7 +273,7 @@ const handleExport = () => {
 
     console.log(flow);
     const data = {"flow": flow, "diagram": jsn};
-    postData('/csp/irisflow/api/generate', flow)
+    postData('/csp/irisflow/api/generate', data)
         .then(data => {
             if (!!data.errors) {
                 let errors = data.errors.map(err => err.description);
@@ -309,6 +320,24 @@ async function postData(url = '', data = {}) {
     });
     return response.json(); // parses JSON response into native JavaScript objects
 }
+
+async function getData(url = '') {
+    // Default options are marked with *
+    const response = await fetch(url, {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer' // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+}
+
 
 document.onreadystatechange = function (event) {
     if (document.readyState === "complete") {

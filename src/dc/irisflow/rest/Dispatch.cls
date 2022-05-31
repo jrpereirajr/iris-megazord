@@ -7,6 +7,7 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 
 <Route Url="/" Method="GET" Call="Test" Cors="true"/>
 <Route Url="/components" Method="GET" Call="dc.irisflow.rest.Editor:ListAllComponents" Cors="true"/>
+<Route Url="/production/:productionName" Method="GET" Call="dc.irisflow.rest.Editor:GetProduction" Cors="true"/>
 <Route Url="/generate" Method="POST" Call="dc.irisflow.rest.Editor:GenerateProduction" Cors="true"/>
 
 </Routes>
