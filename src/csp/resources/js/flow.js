@@ -3,9 +3,9 @@ const editor = new Drawflow(id);
 editor.reroute = true;
 editor.start();
 
-/*
-editor.addNode('welcome', 0, 0, 50, 50, 'welcome', {}, welcome );
-*/
+const welcome = {"drawflow":{"Home":{"data":{"1":{"id":1,"name":"welcome","data":{},"class":"welcome","html":"\n    <div>\n      <div class=\"title-box\">👏 Welcome to IRIS Flow!!</div>\n    <p>🎹 <b>Delete</b> for remove selected<br>\n        💠 Mouse Left Click == Move<br>\n        ❌ Mouse Right == Delete Option<br>\n        🔍 Ctrl + Wheel == Zoom<br>\n    </p>\n      </div>\n    </div>\n    ","typenode": false, "inputs":{},"outputs":{},"pos_x":50,"pos_y":50}}}}}
+editor.import(welcome);
+
 
 // Events!
 editor.on('nodeCreated', function (id) {
@@ -164,12 +164,19 @@ const loadFlowMenu = (data) => {
 }
 
 const loadDashboard = () => {
+    console.log('change');
     const prod_name = document.getElementById('production-name').value;
     if (!prod_name) return;
+
+    const dash = editor.export();
+    if (!!dash.drawflow.Home) return;
 
     getData('/csp/irisflow/api/production/' + prod_name)
         .then(data => {
             console.log(data);
+            if (!data.drawflow) {
+                editor.import(data);
+            }
         } )
 
 }
@@ -271,10 +278,13 @@ const handleExport = () => {
         flow.nodes.push(thing);
     });
 
-    console.log(flow);
-    const data = {"flow": flow, "diagram": jsn};
-    postData('/csp/irisflow/api/generate', data)
+    const req = {};
+    req.flow = flow;
+    //req.diagram = jsn; // VM80:1 Uncaught (in promise) SyntaxError: Unexpected token { in JSON at position 127
+    console.log(req);
+    postData('/csp/irisflow/api/generate', req)
         .then(data => {
+            console.table(data);
             if (!!data.errors) {
                 let errors = data.errors.map(err => err.description);
 
@@ -301,6 +311,7 @@ const handleExport = () => {
             }
             console.log(data); // JSON data parsed by `data.json()` call
         });
+    return true;
 }
 
 async function postData(url = '', data = {}) {
@@ -339,6 +350,7 @@ async function getData(url = '') {
 }
 
 
+
 document.onreadystatechange = function (event) {
     if (document.readyState === "complete") {
         const getComponentOptions = () => {
@@ -347,5 +359,7 @@ document.onreadystatechange = function (event) {
                 .then(data => loadFlowMenu(data.data))
         }
         getComponentOptions();
+        document.getElementById('production-name')
+            .addEventListener("blur", loadDashboard());
     }
 };
