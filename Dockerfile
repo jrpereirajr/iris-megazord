@@ -4,6 +4,10 @@ ARG IMAGE=containers.intersystems.com/intersystems/iris:2021.1.0.215.0
 ARG IMAGE=intersystemsdc/iris-community
 FROM $IMAGE
 
+USER root   
+## add git
+RUN apt update && apt-get -y install git
+
 WORKDIR /home/irisowner/irisbuild
 
 ARG MODULE=iris-megazord
