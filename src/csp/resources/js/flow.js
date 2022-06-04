@@ -359,7 +359,9 @@ document.onreadystatechange = function (event) {
                 .then(data => loadFlowMenu(data.data))
         }
         getComponentOptions();
+        /*
         document.getElementById('production-name')
             .addEventListener("blur", loadDashboard());
+        */
     }
 };
