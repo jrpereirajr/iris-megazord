@@ -9,6 +9,8 @@ USER root
 RUN apt update && apt-get -y install git
 
 WORKDIR /home/irisowner/irisbuild
+RUN chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /home/irisowner/irisbuild
+USER ${ISC_PACKAGE_MGRUSER}
 
 ARG MODULE=iris-megazord
 ARG TESTS=1
