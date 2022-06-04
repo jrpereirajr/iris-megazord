@@ -1,5 +1,5 @@
 var urlOrigin = window.location.origin;
-var urlREST = urlOrigin + "/csp/msgviewer/api";
+var urlREST = urlOrigin + "/csp/megazord/api";
 var urlPreparacao = 'dc.irismessageviewer.MessageViewer.cls';
 var dataBag;
 
