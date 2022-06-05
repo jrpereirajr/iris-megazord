@@ -13,10 +13,9 @@ RUN chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /home/irisowner/irisbu
 USER ${ISC_PACKAGE_MGRUSER}
 
 ARG MODULE=iris-megazord
-ARG TESTS=1
+ARG TESTS=0
 
 RUN --mount=type=bind,src=.,dst=. \
-    mkdir -p /tmp/test/in && mkdir -p /tmp/test/out && \
     iris start IRIS && \
 	iris session IRIS < iris.script && \
     ([ $TESTS -eq 0 ] || iris session iris "##class(%ZPM.PackageManager).Shell(\"test $MODULE -v -only\",1,1)") && \
