@@ -15,7 +15,11 @@ USER ${ISC_PACKAGE_MGRUSER}
 ARG MODULE=iris-megazord
 ARG TESTS=0
 
-RUN iris start IRIS && \
+COPY src src
+COPY iris.script iris.script
+
+RUN mkdir -p /tmp/test/in && mkdir -p /tmp/test/out && \
+    iris start IRIS && \
 	iris session IRIS < iris.script && \
     ([ $TESTS -eq 0 ] || iris session iris "##class(%ZPM.PackageManager).Shell(\"test $MODULE -v -only\",1,1)") && \
     iris stop IRIS quietly
