@@ -41,7 +41,7 @@ XData ProductionDefinition
     <Setting Target="Host" Name="TargetConfigNames">ToTelegram</Setting>
     <Setting Target="Host" Name="Expression">Set input = {}.%FromJSON(input)
 Do ##class(Ens.Util.Trace).WriteTrace("user",$classname(),"","Patient ID: "_input.id)
-Quit input.name.%Get(0).given.%Get(0)</Setting>
+Quit "👋 Hi "_input.name.%Get(0).given.%Get(0)_"! This is a reminder for your appointment! 📆"</Setting>
     <Setting Target="Host" Name="ContextExpression">Set input = {}.%FromJSON(input)
 
 Set record = $G(^MyDatabase(input.id))
