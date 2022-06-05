@@ -14,6 +14,8 @@ Integration of previous tools, like IRIS Monitor, with a wizard for easy develop
 
 ## Videos
 
+![FHIRaaS sample](https://github.com/jrpereirajr/iris-megazord/blob/master/img/chrome_Xs1BYHGxqm.gif?raw=true)
+
  ![IRIS Megazord Flow](https://github.com/jrpereirajr/iris-megazord/blob/6d41f60d2494c9c1b3c87e4e2dd996cd01c7a203/img/chrome_DcCKlFrEix.gif?raw=true)
 
 [![Flow Editor - IRIS Megazord](https://img.youtube.com/vi/KkG0_-ahfjI/0.jpg)](https://www.youtube.com/watch?v=KkG0_-ahfjI)
