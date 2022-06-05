@@ -7,7 +7,7 @@ Property ContextExpression As %String(MAXLEN = "");
 
 Parameter SETTINGS = "Expression,ContextExpression";
 
-Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage, Output pResponse As Ens.Response)
+Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage)
 {
     Set inputMessage = pRequest.Stream.Read()
     

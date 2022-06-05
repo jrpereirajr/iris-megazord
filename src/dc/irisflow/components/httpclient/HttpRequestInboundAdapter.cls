@@ -19,7 +19,7 @@ Method OnInit() As %Status
 {
     Set st = $$$OK
     $$$TRACE(..%ClassName(1)_":OnInit")
-    Quit $$$OK
+    Quit st
 }
 
 Method OnTearDown() As %Status
