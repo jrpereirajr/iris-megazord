@@ -17,6 +17,7 @@ ARG TESTS=0
 
 COPY src src
 COPY iris.script iris.script
+COPY module.xml module.xml
 
 RUN mkdir -p /tmp/test/in && mkdir -p /tmp/test/out && \
     iris start IRIS && \
