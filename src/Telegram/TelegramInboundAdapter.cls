@@ -30,6 +30,7 @@ Method ProcessUpdates(pOutput)
 	set updateObj = ..Updates.%Get(0) 
 	return:(updateObj="") $$$OK
 	
+	$$$TRACE("TelegramInboundAdapter:ProcessUpdates")
 	set st = ..BusinessHost.ProcessInput(updateObj,.pOutput)
 	if ($$$ISOK(st)) {
 		set ^Telegram.ProcessedUpdateId = updateObj."update_id"

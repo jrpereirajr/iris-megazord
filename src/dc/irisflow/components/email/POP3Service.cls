@@ -3,27 +3,25 @@ Class dc.irisflow.components.email.POP3Service Extends dc.irisflow.components.Ir
 
 Parameter ADAPTER = "EnsLib.EMail.InboundAdapter";
 
-Method OnCreateMessage(pInput As %RegisteredObject) As dc.irisflow.components.GenericMessage
+Method OnCreateMessage(pInput As %Net.MailMessage) As dc.irisflow.components.GenericMessage
 {
-    #Dim input As %Net.MailMessage = pInput
-
 	Set message = ##class(dc.irisflow.components.GenericMessage).%New()
 	Set message.Stream = ##class(%Stream.GlobalCharacter).%New()
     Set emailMessage = ""
-    If (input.IsMultiPart) {
-        Set partsCount = input.Parts.Count()
+    If (pInput.IsMultiPart) {
+        Set partsCount = pInput.Parts.Count()
         For i = 1:1:partsCount {
-            Set part = input.Parts.GetAt(i)
+            Set part = pInput.Parts.GetAt(i)
             Set emailMessage = emailMessage_part.TextData.Read()
         }
         #; Set part = input.Parts.GetAt(1)
         #; Set emailMessage = part.TextData.Read()
-    } ElseIf (input.IsBinary) {
+    } ElseIf (pInput.IsBinary) {
         Throw ##class(%Exception.General).%New("Not implemented")
-    } ElseIf (input.IsHTML) {
+    } ElseIf (pInput.IsHTML) {
         Throw ##class(%Exception.General).%New("Not implemented")
     } Else {
-        Set emailMessage = input.TextData.Read()
+        Set emailMessage = pInput.TextData.Read()
         #; Set partsCount = input.Parts.Count()
         #; For i = 1:1:partsCount {
         #;     Set part = input.Parts.GetAt(i)
@@ -33,7 +31,7 @@ Method OnCreateMessage(pInput As %RegisteredObject) As dc.irisflow.components.Ge
 	$$$TOE(st, message.Stream.Write(emailMessage))
 
 	Set message.Context = {
-        "From": (input.From)
+        "From": (pInput.From)
     }.%ToJSON()
 
 	Return message

@@ -509,4 +509,41 @@ ClassMethod CreateProductionHelloworldBPL() As %Status
     Return sc
 }
 
+ClassMethod TestFHIRaaS()
+{
+    #dim httprequest as %Net.HttpRequest
+    #dim httpResponse as %DynamicObject
+    Set deployId = "mrxfu71pjkah"
+    Set server = "fhir."_deployId_".static-test-account.isccloud.io"
+    Set sslconfig = "ISC.FeatureTracker.SSL.Config"
+    Set apikey = ""
+    Set headers = {
+        "x-api-key" : (apikey)
+    }
+    
+    Try {
+        Set httprequest = ##class(%Net.HttpRequest).%New()
+        Do httprequest.SSLConfigurationSet(sslconfig)
+        Set httprequest.Https = 1
+        Set httprequest.Server = server
+        Set headersIt = headers.%GetIterator()
+        While (headersIt.%GetNext(.headerName, .headerValue)) {
+            Do httprequest.SetHeader(headerName, headerValue)
+        }
+        Set requestString = "/Patient?_count=2"
+        $$$TOE(st, httprequest.Get(requestString))
+        Set httpResponse = httprequest.HttpResponse
+        If (httpResponse.StatusCode '=200) {
+            $$$ThrowStatus($$$ERROR(5001, "HTTP StatusCode = "_httpResponse.StatusCode))
+        }
+        Set jo = {}.%FromJSON(httpResponse.Data)
+        zw jo.entry.%Size()
+        zw httpResponse
+        #; w httpResponse.ReturnHeaders(),!
+    } Catch ex {
+        zw ex
+        w ex.DisplayString(),!
+    }
+}
+
 }
