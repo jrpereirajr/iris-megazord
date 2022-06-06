@@ -4,7 +4,8 @@ Class dc.irismessageviewer.Operation.ConsumeMessageClass Extends Ens.BusinessOpe
 Method Consume(input As dc.irismessageviewer.Message.SimpleMessage, ByRef output As Ens.Response) As %Status
 {
     Set sc = $$$OK
-	$$$TRACE(pRequest.ClassMessage)
+	$$$TRACE(input.ClassMessage)
+    Set output = $$$NULLOREF
     Return sc
 }
 

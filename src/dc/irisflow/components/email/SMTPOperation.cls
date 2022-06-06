@@ -31,9 +31,9 @@ Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage,
     If (context.Subject = "") {
         Set context.Subject = "(no subject)"
     }
-    Set context.Text = inputMessage
 
-	Set pRequest.Context = context
+	Set pRequest.Context = context.%ToJSON()
+    Set context.Text = inputMessage
 
 	If (pRequest.Context.Destination = "") {
         $$$TRACE("no email address.")

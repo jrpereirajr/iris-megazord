@@ -117,11 +117,11 @@ ClassMethod BuildWordCloudDatasource() As %Status
     If (start = "") {
         Set loadingStatus = "NO_DATA"
     } ElseIf (start < finish) {
-        Set msg = "ZPM data loaded (last update: "_^zpmXplorerTaskInfo("RunLoadPackages", "finish")_")"
+        #; Set msg = "ZPM data loaded (last update: "_^zpmXplorerTaskInfo("RunLoadPackages", "finish")_")"
         Set loadingStatus = "DONE"
         Set lastUpdate = ^zpmXplorerTaskInfo("RunLoadPackages", "finish")
     } Else {
-        Set msg = "Updating ZPM data... displaying partial info."
+        #; Set msg = "Updating ZPM data... displaying partial info."
         Set loadingStatus = "LOADING"
     }
     Set resp = {

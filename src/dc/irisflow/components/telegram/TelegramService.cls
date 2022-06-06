@@ -5,6 +5,7 @@ Parameter ADAPTER = "Telegram.TelegramInboundAdapter";
 
 Method OnCreateMessage(pInput As %RegisteredObject) As dc.irisflow.components.GenericMessage
 {
+	$$$TRACE("TelegramService:OnCreateMessage")
 	if (pInput.message = "") {
 		return "" // skipping, if update type not equal to "message" 
 	}
