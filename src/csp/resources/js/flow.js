@@ -239,7 +239,7 @@ const handleExport = () => {
     });
 
     console.log(flow);
-    postData('/csp/irisflow/api/generate', flow)
+    postData('/csp/megazord/api/generate', flow)
         .then(data => {
             console.log(data); // JSON data parsed by `data.json()` call
         });
@@ -266,7 +266,7 @@ async function postData(url = '', data = {}) {
 document.onreadystatechange = function (event) {
     if (document.readyState === "complete") {
         const getComponentOptions = () => {
-            const response = fetch('/csp/irisflow/api/components');
+            const response = fetch('/csp/megazord/api/components');
             response.then(res => res.json())
                 .then(data => loadFlowMenu(data.data))
         }
