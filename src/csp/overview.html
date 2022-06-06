@@ -4,261 +4,201 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- End Required meta tags -->
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="IRIS Flow Editor" />
+	<meta property="og:title" content="IRIS Megazord Portal" />
+	<meta property="og:description" content="IRIS Flow Editor" />
+	<meta property="og:image" content="https:/fillow.dexignlab.com/xhtml/social-image.png" />
+	<meta name="format-detection" content="telephone=no">
+
     <!-- Begin SEO tag -->
     <title>ZPM | Explorer</title>
-    <meta property="og:title" content="ZPM Explorer" />
-    <meta name="author" content="Henrique Dias & Jose R. Pereira Jr." />
-    <meta property="og:locale" content="en_US" />
-    <meta name="description"
-        content="A graphic interface to explorer the applications inside InterSystems Package Manager" />
-    <meta property="og:description"
-        content="A graphic interface to explorer the applications inside InterSystems Package Manager" />
-    <link rel="canonical" href="https://github.com/diashenrique/zpm-explorer" />
-    <meta property="og:url" content="https://github.com/diashenrique/zpm-explorer" />
-    <meta property="og:site_name" content="zpm,UI,explorer" />
-    <script type="application/ld+json">
-        {
-            "name": "ZPM Explorer",
-            "description": "A graphic interface to explorer the applications inside InterSystems Package Manager"
-        }
-    </script>
-    <!-- End SEO tag -->
-    <!-- FAVICONS -->
-    <link rel="apple-touch-icon" sizes="144x144" href="resources/img/forms2.svg" />
-    <link rel="shortcut icon" href="resources/img/forms2.svg" />
-    <meta name="theme-color" content="#3063A0" />
-    <!-- End FAVICONS -->
-    <!-- GOOGLE FONT -->
-    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet" />
-    <!-- End GOOGLE FONT -->
-    <!-- BEGIN PLUGINS STYLES -->
-    <link rel="stylesheet"
-        href="resources/plugins/looper/assets/vendor/open-iconic/css/open-iconic-bootstrap.min.css" />
-    <link rel="stylesheet" href="resources/plugins/looper/assets/vendor/fontawesome/css/all.css" />
-    <!-- END PLUGINS STYLES -->
-    <!-- BEGIN THEME STYLES -->
-    <link rel="stylesheet" href="resources/plugins/looper/assets/stylesheets/theme.min.css" data-skin="default" />
-    <link rel="stylesheet" href="resources/plugins/looper/assets/stylesheets/theme-dark.min.css" data-skin="dark" />
-    <link rel="stylesheet" href="resources/plugins/looper/assets/stylesheets/custom.css" />
-    <!-- DevExtreme themes -->
+	<!-- FAVICONS ICON -->
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <link rel="icon" href="resources/img/ISC_IRIS_icon.ico" type="image/x-icon" />
+
+	<link href="resources/plugins/fillow/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+	<link href="resources/plugins/fillow/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+	<link rel="stylesheet" href="resources/plugins/fillow/vendor/nouislider/nouislider.min.css">
+
+	<!-- Style css -->
+    <link href="resources/plugins/fillow/css/style.css" rel="stylesheet">
+
+    <link rel="dx-theme" data-theme="generic.dark" href="resources/plugins/extreme20.1.4/css/dx.generic.custom-dark.css"
+        data-active="false" />
     <link rel="stylesheet" type="text/css" href="resources/plugins/extreme20.1.4/css/dx.common.css" />
     <link rel="dx-theme" data-theme="generic.light" href="resources/plugins/extreme20.1.4/css/dx.light.css"
         data-active="false" />
-    <link rel="dx-theme" data-theme="generic.dark" href="resources/plugins/extreme20.1.4/css/dx.generic.custom-dark.css"
-        data-active="false" />
-    <!-- Disable unused skin immediately -->
-    <script>
-        var skin = localStorage.getItem("skin") || "default";
-        var unusedLink = document.querySelector('link[data-skin]:not([data-skin="' + skin + '"])');
-        unusedLink.setAttribute("rel", "");
-        unusedLink.setAttribute("disabled", true);
-    </script>
 
-    <style>
-        .repoLink {
-            cursor: pointer;
-            font-weight: normal;
-            color: #1A68D6 !important;
-        }
 
-        #package-list {
-            height: 430px;
-        }
-
-        @keyframes fadeIn { 
-            from { opacity: 0; } 
-        }
-
-        .loadPending {
-            animation: fadeIn 1s infinite alternate
-        }
-    </style>
-    <!-- END THEME STYLES -->
 </head>
-
 <body>
-    <!-- .app -->
-    <div class="app has-fullwidth">
-        <header class="app-header app-header-dark">
-            <!-- .top-bar -->
-            <div class="top-bar">
-                <!-- .top-bar-brand -->
-                <div class="top-bar-brand bg-transparent">
-                    <!-- toggle menu -->
-                    <button class="hamburger hamburger-squeeze mr-2" type="button" data-toggle="aside"
-                        aria-label="toggle menu">
-                        <span class="hamburger-box">
-                            <span class="hamburger-inner"></span>
-                        </span>
-                    </button>
-                    <!-- /toggle menu -->
-                    <span class="update-available badge badge-warning" style="font-size: 9px; display: none">
-                        Update available
-                    </span>
-                </div>
-                <!-- .top-bar-list -->
-                <div class="top-bar-list">
-                    <!-- .top-bar-item -->
-                    <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
-                        <!-- toggle menu -->
-                        <button class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="Menu">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button> <!-- /toggle menu -->
-                    </div><!-- /.top-bar-item -->
-                </div>
-                <!-- /.top-bar-brand -->
-                <div class="card-body" style="text-align: right;">
-                    <figure class="highcharts-figure">
-                        <div id="container-updating"></div>
-                    </figure>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+		<div class="lds-ripple">
+			<div></div>
+			<div></div>
+		</div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+		<div class="nav-header">
+            <a href="index.html" class="brand-logo">
+
+				<div class="brand-title">
+					<h2 class="">IRIS</h2>
+					<span class="brand-sub-title">Megazord Portal</span>
+				</div>
+            </a>
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span><span class="line"></span><span class="line"></span>
                 </div>
             </div>
-            <!-- /.top-bar -->
-        </header>
-        <!-- /.app-header -->
-        <!-- .app-aside -->
-        <aside class="app-aside app-aside-light">
-            <!-- .aside-content -->
-            <div class="aside-content">
-                <!-- .aside-menu -->
-                <div class="aside-menu overflow-hidden">
-                    <!-- .stacked-menu -->
-                    <nav id="stacked-menu" class="stacked-menu">
-                        <!-- .menu -->
-                        <ul id="menu" class="menu">
-                            <!-- .menu-item -->
-                            <li class="menu-item">
-                                <a href="explorer.html" class="menu-link">
-                                    <span class="menu-icon fab fa-wpexplorer"></span>
-                                    <span class="menu-text">Explorer</span>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="installed.html" class="menu-link">
-                                    <span class="menu-icon fas fa-download"></span>
-                                    <span class="menu-text">Installed</span>
-                                    <span class="update-available badge badge-warning" style="display: none;">Update available</span>
-                                </a>
-                            </li>
-                            <li class="menu-item has-active">
-                                <a href="overview.html" class="menu-link">
-                                    <span class="menu-icon fas fa-chart-pie"></span>
-                                    <span class="menu-text">Overview</span>
-                                </a>
-                            </li>
-                            <!-- /.menu-item -->
-                        </ul>
-                        <!-- /.menu-item -->
-                    </nav>
-                    <!-- /.stacked-menu -->
-                </div>
-                <!-- /.aside-menu -->
-                <!-- Skin changer -->
-                <footer class="aside-footer border-top p-3">
-                    <button class="btn btn-light btn-block text-primary" data-toggle="skin">Night mode <i
-                            class="fas fa-moon ml-1"></i></button>
-                </footer>
-                <!-- /Skin changer -->
-            </div>
-            <!-- /.aside-content -->
-        </aside>
-        <!-- /.app-aside -->
-        <!-- .app-main -->
-        <main class="app-main">
-            <!-- .wrapper -->
-            <div class="wrapper">
-                <!-- .page -->
-                <div class="page">
-                    <!-- .page-inner -->
-                    <div class="page-inner page-inner-fill">
-                        <!-- .page-navs -->
-                        <header class="page-navs shadow-sm pr-3">
-                            <!-- .btn-account -->
-                            <div class="has-badge">
-                                <span>
-                                    <img src="resources/img/business-report.png" width="32" height="32">
-                                </span>
-                            </div>
-                            <div class="account-summary" style="margin-left:5px">
-                                <h1 class="card-title"> ZPM Overview </h1>
-                                <h6 class="card-subtitle text-muted"> A quick look inside the world of ZPM </h6>
-                            </div>
-                            <!-- /.btn-account -->
-                        </header>
-                        <!-- /.page-navs -->
-                        <!-- .page-section -->
-                        <div class="page-section">
-                            <div class="section-block">
-                                <div class="col-lg-12">
-                                    <!-- .card -->
-                                    <div class="card">
-                                        <!-- .card-body -->
-                                        <div class="card-body">
-                                            <figure class="highcharts-figure">
-                                                <div id="container-wordcloud"></div>
-                                            </figure>
-                                        </div>
-                                        <!-- /.card-body -->
-                                    </div><!-- /.card -->
-                                    <!-- .card -->
-                                    <div class="card">
-                                        <!-- .card-body -->
-                                        <div class="card-body">
-                                            <figure class="highcharts-figure">
-                                                <div id="container-sankey"></div>
-                                            </figure>
-                                        </div>
-                                        <!-- /.card-body -->
-                                    </div><!-- /.card -->
-                                </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+		<!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header border-bottom">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                        <div class="header-left">
+							<div class="dashboard_bar">
+                                ZPM Explorer
                             </div>
                         </div>
                     </div>
-                    <!-- /.page-section -->
+				</nav>
+			</div>
+		</div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+		<div class="dlabnav" id="sideBarMenu"></div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+		<!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <!-- row -->
+			<div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- .card -->
+                        <div class="card">
+                            <!-- .card-body -->
+                            <div class="card-body">
+                                <figure class="highcharts-figure">
+                                    <div id="container-wordcloud"></div>
+                                </figure>
+                            </div>
+                            <!-- /.card-body -->
+                        </div><!-- /.card -->
+                        <!-- .card -->
+                        <div class="card">
+                            <!-- .card-body -->
+                            <div class="card-body">
+                                <figure class="highcharts-figure">
+                                    <div id="container-sankey"></div>
+                                </figure>
+                            </div>
+                            <!-- /.card-body -->
+                        </div><!-- /.card -->
+                    </div>
                 </div>
-                <!-- /.page-inner -->
+
+			</div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; IRIS Megazord Portal 2022</p>
             </div>
-            <!-- /.page-inner -->
-    </div>
-    <!-- /.page -->
-    </div>
-    <!-- /.wrapper -->
-    </main>
-    <!-- /.app-main -->
-    </div>
-    <!-- /.app -->
-    <!-- BEGIN BASE JS -->
-    <script src="resources/plugins/looper/assets/vendor/jquery/jquery.min.js"></script>
-    <script src="resources/plugins/looper/assets/vendor/bootstrap/js/popper.min.js"></script>
-    <script src="resources/plugins/looper/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!-- END BASE JS -->
-    <!-- BEGIN PLUGINS JS -->
-    <script src="resources/plugins/looper/assets/vendor/pace/pace.min.js"></script>
-    <script src="resources/plugins/looper/assets/vendor/stacked-menu/stacked-menu.min.js"></script>
-    <script src="resources/plugins/looper/assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="resources/plugins/looper/assets/vendor/sortablejs/Sortable.min.js"></script>
-    <!-- END PLUGINS JS -->
-    <!-- BEGIN THEME JS -->
-    <script src="resources/plugins/looper/assets/javascript/theme.min.js"></script>
-    <!-- BEGIN DevExtreme library -->
-    <script type="text/javascript" src="resources/plugins/extreme20.1.4/js/dx.web.js"></script>
-    <!-- END DevExtreme library -->
-    <!-- BEGIN HIGHCHARTS -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/wordcloud.js"></script>
-    <script src="https://code.highcharts.com/modules/sankey.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <!-- END HIGHCHARTS -->
-    <!-- BEGIN ISProject Custom -->
-    <script type="text/javascript" src="resources/js/custom-theme-changer.js"></script>
-    <script type="text/javascript" src="resources/js/util.js"></script>
-    <script type="text/javascript" src="resources/js/overview.js"></script>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+	</div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+		<script src="resources/js/menuZord.js"></script>
+    <!-- Required vendors -->
+    <script src="resources/plugins/fillow/vendor/global/global.min.js"></script>
+		<script src="resources/plugins/fillow/vendor/chart.js/Chart.bundle.min.js"></script>
+		<script src="resources/plugins/fillow/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+
+		<!-- Apex Chart -->
+		<script src="resources/plugins/fillow/vendor/apexchart/apexchart.js"></script>
+		<script src="resources/plugins/fillow/vendor/chart.js/Chart.bundle.min.js"></script>
+
+		<!-- Chart piety plugin files -->
+			<script src="resources/plugins/fillow/vendor/peity/jquery.peity.min.js"></script>
+
+		<!-- Chart Circle -->
+		<script src="resources/plugins/atlantis-lite/assets/js/plugin/chart-circle/circles.min.js"></script>
+
+		<!-- Dashboard 1 -->
+		<script src="resources/plugins/fillow/js/dashboard/dashboard-1.js"></script>
+
+		<script src="resources/plugins/fillow/vendor/owl-carousel/owl.carousel.js"></script>
+
+			<script src="resources/plugins/fillow/js/custom.js"></script>
+		<script src="resources/plugins/fillow/js/dlabnav-init.js"></script>
+
+		<!-- Highcharts -->
+		<script src="resources/plugins/charts/highcharts/code/highcharts.js"></script>
+
+        <script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+        <script src="https://code.highcharts.com/modules/sankey.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <!-- END HIGHCHARTS -->
+
+        <!-- BEGIN ISProject Custom -->
+        <script type="text/javascript" src="resources/js/custom-theme-changer.js"></script>
+        <script type="text/javascript" src="resources/js/util.js"></script>
+        <script type="text/javascript" src="resources/js/overview.js"></script>
     <!-- END ISProject Custom -->
 </body>
 
