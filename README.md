@@ -24,7 +24,7 @@ If you'd like to try the same process shown in the video, you can follow [this s
 
 ## Online demo
 
-You can check the application out [here](https://iris-megazord.demo.community.intersystems.com/csp/irisflow/index.csp).
+You can check the application out [here](https://iris-megazord.demo.community.intersystems.com/csp/megazord/index.csp).
 
 If the system ask you for a user/password, use this: _system/SYS
 
