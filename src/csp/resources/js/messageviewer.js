@@ -1,5 +1,5 @@
 var urlOrigin = window.location.origin;
-var urlREST = urlOrigin + "/csp/msgviewer/api";
+var urlREST = urlOrigin + "/csp/megazord/api";
 
 var urlPreparacao = 'dc.irismessageviewer.MessageViewer.cls';
 var interval = null;
@@ -7,7 +7,7 @@ var arrMessages = [];
 
 function openDetails(pselectedNamespace, pSessionID) {
     // var urlDetails = urlOrigin + "/csp/" + pselectedNamespace.toLowerCase() + "/EnsPortal.VisualTrace.zen?SESSIONID=" + pSessionID;
-    var urlDetails = `${urlOrigin}/csp/msgviewer/diagram.csp?namespace=${pselectedNamespace.toUpperCase()}&sessionId=${pSessionID}`;
+    var urlDetails = `${urlOrigin}/csp/megazord/diagram.csp?namespace=${pselectedNamespace.toUpperCase()}&sessionId=${pSessionID}`;
     window.open(urlDetails, '_blank');
 }
 

@@ -12,3 +12,5 @@ services:
       - 53773
     volumes:
       - ./:/irisrun/repo
+      - ./src/csp:/home/irisowner/irisbuild/src/csp
+      
