@@ -29,8 +29,11 @@ Method Build(config As %DynamicObject)
 Method CreateProduction(config As %DynamicObject)
 {
     If (config.name '= "") {
+        If ##class(%Dictionary.ClassDefinition).%ExistsId(config.name) {
+            $$$TOE(st, ##class(%Dictionary.ClassDefinition).%DeleteId(config.name))
+        }
+
         Set class = ##class(%Dictionary.ClassDefinition).%New(config.name)
-        #; Set class.ProcedureBlock = 1
         Set class.Super = "Ens.Production"
 
         Set xdata = ##class(%Dictionary.XDataDefinition).%New()
