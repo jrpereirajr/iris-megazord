@@ -13,7 +13,7 @@
           <Version>1.*</Version>
         </ModuleReference>
       </Dependencies>
-      <Resource Name="Telegram.PKG"/>
+      <Resource Name="dc.Telegram.PKG"/>
       <Resource Name="dc.irisflow.PKG"/>
       <Resource Name="dc.irishistorymonitor.PKG"/>
       <Resource Name="dc.irismessageviewer.PKG"/>
