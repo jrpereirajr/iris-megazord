@@ -3,15 +3,13 @@ Author: Nikolay Soloviev
 Repo: https://github.com/intersystems-community/TelegramAlerts
 */
 
-Class Telegram.Msg.ButtonRequest Extends Ens.Request
+Class dc.Telegram.Msg.ButtonRequest Extends Ens.Request
 {
 
 Property ChatId As %Integer;
 
-/// ����� ���������
 Property Text As %String(MAXLEN = 5000);
 
-/// ����� �� ������
 Property Button As %String;
 
 Storage Default

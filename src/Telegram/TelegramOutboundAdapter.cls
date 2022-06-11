@@ -3,18 +3,18 @@ Author: Nikolay Soloviev
 Repo: https://github.com/intersystems-community/TelegramAlerts
 */
 
-Class Telegram.TelegramOutboundAdapter Extends Ens.OutboundAdapter
+Class dc.Telegram.TelegramOutboundAdapter Extends Ens.OutboundAdapter
 {
 
 Property SSLConfiguration As %String;
 
-Property API As Telegram.API [ Private ];
+Property API As dc.Telegram.API [ Private ];
 
 Parameter SETTINGS = "Credentials:Basic:credentialsSelector,SSLConfiguration";
 
 Method OnInit() As %Status
 {
-	set ..API = ##class(Telegram.API).%New(..%CredentialsObj.Password, ..SSLConfiguration)
+	set ..API = ##class(dc.Telegram.API).%New(..%CredentialsObj.Password, ..SSLConfiguration)
 	if '$isobject(..API) {
 		return 0
 	}

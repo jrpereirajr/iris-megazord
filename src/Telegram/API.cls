@@ -3,8 +3,8 @@ Author: Nikolay Soloviev
 Repo: https://github.com/intersystems-community/TelegramAlerts
 */
 
-/// ����� ��� ������ � API Telegram
-Class Telegram.API Extends %RegisteredObject
+/// API Telegram
+Class dc.Telegram.API Extends %RegisteredObject
 {
 
 Property Token As %String;
@@ -69,8 +69,8 @@ Method SendMessage(chatId As %Integer, text As %String, parseMode As %String = "
 	return ..ExecuteRequest(request, "sendMessage")
 }
 
-/// First create instance of Telegram.API: 
-///    set api = ##class(Telegram.API).%New(token, <ssl_configuration_name)
+/// First create instance of dc.Telegram.API: 
+///    set api = ##class(dc.Telegram.API).%New(token, <ssl_configuration_name)
 /// Set webhook with
 ///    write api.SetWebhook(url,certificate_folder, certificate_filename).%ToJSON()
 Method SetWebhook(url As %String, filedir As %String, filename As %String) As %DynamicObject

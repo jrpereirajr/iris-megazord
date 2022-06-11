@@ -3,12 +3,12 @@ Author: Nikolay Soloviev
 Repo: https://github.com/intersystems-community/TelegramAlerts
 */
 
-Class Telegram.AlertOperation Extends Ens.BusinessOperation
+Class dc.Telegram.AlertOperation Extends Ens.BusinessOperation
 {
 
-Parameter ADAPTER = "Telegram.TelegramOutboundAdapter";
+Parameter ADAPTER = "dc.Telegram.TelegramOutboundAdapter";
 
-Property Adapter As Telegram.TelegramOutboundAdapter;
+Property Adapter As dc.Telegram.TelegramOutboundAdapter;
 
 Parameter INVOCATION = "Queue";
 

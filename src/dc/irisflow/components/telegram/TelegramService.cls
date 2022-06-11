@@ -1,7 +1,7 @@
 Class dc.irisflow.components.telegram.TelegramService Extends dc.irisflow.components.IrisFlowBusinessService
 {
 
-Parameter ADAPTER = "Telegram.TelegramInboundAdapter";
+Parameter ADAPTER = "dc.Telegram.TelegramInboundAdapter";
 
 Method OnCreateMessage(pInput As %RegisteredObject) As dc.irisflow.components.GenericMessage
 {

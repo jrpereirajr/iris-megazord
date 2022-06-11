@@ -3,10 +3,10 @@ Author: Nikolay Soloviev
 Repo: https://github.com/intersystems-community/TelegramAlerts
 */
 
-Class Telegram.TelegramService Extends Ens.BusinessService
+Class dc.Telegram.TelegramService Extends Ens.BusinessService
 {
 
-Parameter ADAPTER = "Telegram.TelegramInboundAdapter";
+Parameter ADAPTER = "dc.Telegram.TelegramInboundAdapter";
 
 Property TableName As %String;
 
@@ -14,7 +14,7 @@ Parameter SETTINGS = "TableName";
 
 Method OnProcessInput(pInput As %RegisteredObject, Output pOutput As %RegisteredObject) As %Status
 {
-	set msg = ##class(Telegram.Msg.TextRequest).%New()
+	set msg = ##class(dc.Telegram.Msg.TextRequest).%New()
 	if (pInput.message="") {
 		return $$$OK // skipping, if update type not equal to "message" 
 	}
@@ -28,7 +28,7 @@ Method OnProcessInput(pInput As %RegisteredObject, Output pOutput As %Registered
 			"/alert - throw out a test alert (it will be send to ALL subscribers)"
 		
 	} elseif(pInput.message.text="/subscribe") {
-		set msg = ##class(Telegram.Msg.ButtonRequest).%New()
+		set msg = ##class(dc.Telegram.Msg.ButtonRequest).%New()
 		set msg.ChatId = pInput.message.chat.id
 		set msg.Text = "Click on the button below this message to subscribe to alerts"
 		set msg.Button = "Subscribe"
@@ -49,7 +49,7 @@ Method OnProcessInput(pInput As %RegisteredObject, Output pOutput As %Registered
 		}
 	}
 	if (msg.Text'="") {
-		return ..SendRequestAsync("Telegram.TelegramOperation",msg)
+		return ..SendRequestAsync("dc.Telegram.TelegramOperation",msg)
 	}
 	return $$$OK
 }

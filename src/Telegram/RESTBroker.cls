@@ -3,7 +3,7 @@ Author: Nikolay Soloviev
 Repo: https://github.com/intersystems-community/TelegramAlerts
 */
 
-Class Telegram.RESTBroker Extends %CSP.REST
+Class dc.Telegram.RESTBroker Extends %CSP.REST
 {
 
 XData UrlMap
@@ -21,7 +21,7 @@ ClassMethod ProcessUpdate() As %Status
 	
 	Set tSC=$$$OK
 	do {
-		Set tSC=##class(Ens.Director).CreateBusinessService("Telegram.TelegramService",.tService)
+		Set tSC=##class(Ens.Director).CreateBusinessService("dc.Telegram.TelegramService",.tService)
 		If ($$$ISERR(tSC)) Quit
 		Set tSC=tService.ProcessInput(obj,.output)
 		If ($$$ISERR(tSC)) Quit

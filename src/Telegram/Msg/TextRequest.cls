@@ -3,7 +3,7 @@ Author: Nikolay Soloviev
 Repo: https://github.com/intersystems-community/TelegramAlerts
 */
 
-Class Telegram.Msg.TextRequest Extends Ens.Request
+Class dc.Telegram.Msg.TextRequest Extends Ens.Request
 {
 
 Property ChatId As %Integer;
