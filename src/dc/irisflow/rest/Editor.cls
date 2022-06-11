@@ -59,9 +59,10 @@ ClassMethod GenerateProduction() As %Status
 	Set tSC = $System.Status.OK()
 	Try {
 		Set data = %request.Content
-		Set flow = {}.%FromJSON(data.Read())
+		Set payload = data.Read()
+		Set flow = {}.%FromJSON(payload)
 		Set mapper = ##class(dc.irisflow.FlowMapper).%New()
-		Set production = mapper.Map(flow.flow)
+		Set production = mapper.Map(flow)
 		Set builder = ##class(dc.irisflow.ProductionBuilder).%New()
 		Do builder.Build(production)
 		Set resp = {}
@@ -70,11 +71,10 @@ ClassMethod GenerateProduction() As %Status
 			Set %response.Status = 200
 			Set resp.errors = builder.errors
 		}
+		Write resp.%ToJSON()
 	} Catch tException {
-		Set:$$$ISOK(tSC) tSC = tException.AsStatus()
-		Set resp = {"errors": {"summary": ($System.Status.GetErrorText(tSC))}}
+		Set tSC = tException.AsStatus()
 	}
-	Write resp.%ToJSON()
 	Quit tSC
 }
 
