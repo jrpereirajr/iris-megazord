@@ -278,11 +278,8 @@ const handleExport = () => {
         flow.nodes.push(thing);
     });
 
-    const req = {};
-    req.flow = flow;
-    //req.diagram = jsn; // VM80:1 Uncaught (in promise) SyntaxError: Unexpected token { in JSON at position 127
-    console.log(req);
-    postData('/csp/irisflow/api/generate', req)
+    console.log(flow);
+    postData('/csp/megazord/api/generate', flow)
         .then(data => {
             console.table(data);
             if (!!data.errors) {
@@ -354,7 +351,7 @@ async function getData(url = '') {
 document.onreadystatechange = function (event) {
     if (document.readyState === "complete") {
         const getComponentOptions = () => {
-            const response = fetch('/csp/irisflow/api/components');
+            const response = fetch('/csp/megazord/api/components');
             response.then(res => res.json())
                 .then(data => loadFlowMenu(data.data))
         }

@@ -30,7 +30,7 @@ Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage,
         Set context = {}
     }
 
-	Set pRequest.Context = context
+	Set pRequest.Context = context.%ToJSON()
     
     Set message = ##class(Telegram.Msg.TextRequest).%New()
     Set message.Text = inputMessage

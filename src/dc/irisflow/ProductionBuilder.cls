@@ -57,7 +57,7 @@ Method CreateBusinessService(bs As %DynamicObject)
         Do production.Items.Insert(item)
         $$$TOE(st, production.%Save())
 
-        Do ..ProcessTargets(bs, item)
+        Do ..ProcessTargets(bs)
         Do ..SaveConfig(bs, item)
     }
 
@@ -80,7 +80,7 @@ Method CreateBusinessOperation(bo As %DynamicObject)
         Do production.Items.Insert(item)
         $$$TOE(st, production.%Save())
 
-        Do ..ProcessTargets(bo, item)
+        Do ..ProcessTargets(bo)
         Do ..SaveConfig(bo, item)
     }
 
@@ -147,7 +147,7 @@ Method foreach(array As %DynamicArray, callback)
     }
 }
 
-Method ProcessTargets(host As Ens.Host, item As Ens.Config.Item)
+Method ProcessTargets(host As Ens.Host)
 {
     If (host.targets '= "") {
         Set targetsIt = host.targets.%GetIterator()

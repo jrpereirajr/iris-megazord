@@ -4,13 +4,22 @@ ARG IMAGE=containers.intersystems.com/intersystems/iris:2021.1.0.215.0
 ARG IMAGE=intersystemsdc/iris-community
 FROM $IMAGE
 
+USER root   
+## add git
+RUN apt update && apt-get -y install git
+
 WORKDIR /home/irisowner/irisbuild
+RUN chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /home/irisowner/irisbuild
+USER ${ISC_PACKAGE_MGRUSER}
 
 ARG MODULE=iris-megazord
-ARG TESTS=1
+ARG TESTS=0
 
-RUN --mount=type=bind,src=.,dst=. \
-    mkdir -p /tmp/test/in && mkdir -p /tmp/test/out && \
+COPY src src
+COPY iris.script iris.script
+COPY module.xml module.xml
+
+RUN mkdir -p /tmp/test/in && mkdir -p /tmp/test/out && \
     iris start IRIS && \
 	iris session IRIS < iris.script && \
     ([ $TESTS -eq 0 ] || iris session iris "##class(%ZPM.PackageManager).Shell(\"test $MODULE -v -only\",1,1)") && \

@@ -48,9 +48,9 @@ const menuZord = () => {
 							<span class="nav-text">ZPM Explorer</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="overview.html">Overview</a></li>
-							<li><a href="explorer.html">Explorer</a></li>
-							<li><a href="installed.html">Installed</a></li>
+							<li><a href="explorer.csp">Explorer</a></li>
+							<li><a href="installed.csp">Installed</a></li>
+                            <li><a href="overview.csp">Overview</a></li>
                         </ul>
                     </li>
 

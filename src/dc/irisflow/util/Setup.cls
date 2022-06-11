@@ -11,7 +11,9 @@ ClassMethod InitialComponents() As %Status
     $$$TOE(tSC, ..AddComponent("FromFile", "fas fa-file-signature", 0, 1, {"className": "dc.irisflow.components.file.FilePassthroughService"}))
     $$$TOE(tSC, ..AddComponent("FromTelegram", "fab fa-telegram", 0, 1, {"className": "dc.irisflow.components.telegram.TelegramService","SSLConfiguration": "ISC.FeatureTracker.SSL.Config","Credentials": "telegram"}))
     $$$TOE(tSC, ..AddComponent("FromEmail(POP3)", "fas fa-envelope", 0, 1, {"className": "dc.irisflow.components.email.POP3Service","SSLConfig": "ISC.FeatureTracker.SSL.Config","Credentials": "test-imap", "POP3Port": "995", "POP3Server": "pop.mail.yahoo.com"}))
+    $$$TOE(tSC, ..AddComponent("FromFHIRaaS", "fab fa-free-code-camp", 0, 1, {"className": "dc.irisflow.components.fhiraas.FHIRaaSService","SSLConfig": "ISC.FeatureTracker.SSL.Config","Https": "1", "ApiKey": "fhiraas-apikey", "FHIRaaSDeploymentId": "mrxfu71pjkah", "FHIRResource": "Patient", "FHIRResourceId": "1431", "FHIRQueryString": ""}))
     $$$TOE(tSC, ..AddComponent("SimpleEchoOperation", "fas fa-cog", 1, 1, {"className": "dc.irisflow.components.misc.SimpleEchoOperation"}))
+    $$$TOE(tSC, ..AddComponent("ObjectScriptOperation", "fas fa-cog", 1, 1, {"className": "dc.irisflow.components.misc.ObjectScriptOperation", "Expression": "", "ContextExpression": ""}))
 	} Catch tException {
 		Set:$$$ISOK(tSC) tSC = tException.AsStatus()
 	}
