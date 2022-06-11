@@ -32,7 +32,7 @@ Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage,
         Set context.Subject = "(no subject)"
     }
 
-	Set pRequest.Context = context.%ToJSON()
+	Set pRequest.Context = context
     Set context.Text = inputMessage
 
 	If (pRequest.Context.Destination = "") {
