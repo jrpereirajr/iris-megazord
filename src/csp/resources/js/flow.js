@@ -283,7 +283,7 @@ const handleExport = () => {
         .then(data => {
             console.table(data);
             if (!!data.errors) {
-                let errors = data.errors.map(err => err.description);
+                let errors = data.errors.map(err => err.description || err.error);
 
                 swal("Something went wrong!", errors.length > 0 ? errors.join(' ') : data.summary, "error");
             } else {
