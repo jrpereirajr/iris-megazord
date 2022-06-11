@@ -3,9 +3,9 @@ const editor = new Drawflow(id);
 editor.reroute = true;
 editor.start();
 
-/*
-editor.addNode('welcome', 0, 0, 50, 50, 'welcome', {}, welcome );
-*/
+const welcome = {"drawflow":{"Home":{"data":{"1":{"id":1,"name":"welcome","data":{},"class":"welcome","html":"\n    <div>\n      <div class=\"title-box\">👏 Welcome to IRIS Flow!!</div>\n    <p>🎹 <b>Delete</b> for remove selected<br>\n        💠 Mouse Left Click == Move<br>\n        ❌ Mouse Right == Delete Option<br>\n        🔍 Ctrl + Wheel == Zoom<br>\n    </p>\n      </div>\n    </div>\n    ","typenode": false, "inputs":{},"outputs":{},"pos_x":50,"pos_y":50}}}}}
+editor.import(welcome);
+
 
 // Events!
 editor.on('nodeCreated', function (id) {
@@ -163,6 +163,24 @@ const loadFlowMenu = (data) => {
     })
 }
 
+const loadDashboard = () => {
+    console.log('change');
+    const prod_name = document.getElementById('production-name').value;
+    if (!prod_name) return;
+
+    const dash = editor.export();
+    if (!!dash.drawflow.Home) return;
+
+    getData('/csp/irisflow/api/production/' + prod_name)
+        .then(data => {
+            console.log(data);
+            if (!data.drawflow) {
+                editor.import(data);
+            }
+        } )
+
+}
+
 /* DRAG EVENT */
 
 /* Mouse and Touch Actions */
@@ -202,6 +220,28 @@ function drop(ev) {
 
 const handleExport = () => {
     const prod_name = document.getElementById('production-name').value;
+    if (!prod_name) {
+        toastr.warning("Please enter the production name", "Warning", {
+            positionClass: "toast-bottom-right",
+            timeOut: 5e3,
+            closeButton: !0,
+            debug: !1,
+            newestOnTop: !0,
+            progressBar: !0,
+            preventDuplicates: !0,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+            tapToDismiss: !1
+        })
+
+        return false;
+    }
     const jsn = editor.export();
     if (!jsn.drawflow) return;
     if (!jsn.drawflow.Home) return;
@@ -241,8 +281,34 @@ const handleExport = () => {
     console.log(flow);
     postData('/csp/megazord/api/generate', flow)
         .then(data => {
+            console.table(data);
+            if (!!data.errors) {
+                let errors = data.errors.map(err => err.description);
+
+                swal("Something went wrong!", errors.length > 0 ? errors.join(' ') : data.summary, "error");
+            } else {
+                toastr.success("", "Success!", {
+                    positionClass: "toast-bottom-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
+            }
             console.log(data); // JSON data parsed by `data.json()` call
         });
+    return true;
 }
 
 async function postData(url = '', data = {}) {
@@ -263,6 +329,25 @@ async function postData(url = '', data = {}) {
     return response.json(); // parses JSON response into native JavaScript objects
 }
 
+async function getData(url = '') {
+    // Default options are marked with *
+    const response = await fetch(url, {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer' // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+}
+
+
+
 document.onreadystatechange = function (event) {
     if (document.readyState === "complete") {
         const getComponentOptions = () => {
@@ -271,5 +356,9 @@ document.onreadystatechange = function (event) {
                 .then(data => loadFlowMenu(data.data))
         }
         getComponentOptions();
+        /*
+        document.getElementById('production-name')
+            .addEventListener("blur", loadDashboard());
+        */
     }
 };
