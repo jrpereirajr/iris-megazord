@@ -84,7 +84,7 @@ Method SetWebhook(url As %String, filedir As %String, filename As %String) As %D
                     _$CHAR(34)_""_filename_""_$CHAR(34)
     Do BinaryMIMEPart.SetHeader("Content-Disposition",contentdisp)
     
-    Set stream=##class(%FileBinaryStream).%New()
+    Set stream=##class(%Stream.FileBinary).%New()
     Set stream.Filename=filedir_filename
     Do stream.LinkToFile(filedir_filename)
      
@@ -94,7 +94,7 @@ Method SetWebhook(url As %String, filedir As %String, filename As %String) As %D
     Do RootMIMEPart.Parts.Insert(BinaryMIMEPart)
     
     Set TextMIMEPart=##class(%Net.MIMEPart).%New()
-    Set TextMIMEPart.Body=##class(%GlobalCharacterStream).%New()
+    Set TextMIMEPart.Body=##class(%Stream.GlobalCharacter).%New()
     Do TextMIMEPart.Body.Write(url)
     
     Set contentdisp = "form-data; name="_$CHAR(34)_"url"_$CHAR(34)_";"
