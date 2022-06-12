@@ -13,7 +13,12 @@
           <Version>1.*</Version>
         </ModuleReference>
       </Dependencies>
-      <Resource Name="dc.Telegram.PKG"/>
+      <Dependencies>
+        <ModuleReference>
+          <Name>appmsw-telestat</Name>
+          <Version>1.*</Version>
+        </ModuleReference>
+      </Dependencies>
       <Resource Name="dc.irisflow.PKG"/>
       <Resource Name="dc.irishistorymonitor.PKG"/>
       <Resource Name="dc.irismessageviewer.PKG"/>
