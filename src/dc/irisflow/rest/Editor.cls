@@ -78,17 +78,33 @@ ClassMethod GenerateProduction() As %Status
 	Quit tSC
 }
 
-ClassMethod GetProduction(productionName As %String) As %Status
+ClassMethod SaveDiagram() As %Status
 {
 	Set tSC = $$$OK
 	Try {
 		Set %response.ContentType = "application/json"
-		Set resp = {}
-		Set production = ##class(dc.irisflow.data.Diagram).IdxNameOpen(productionName)
+		Set data = %request.Content
+		Set payload = data.Read()
+		Set payload = {}.%FromJSON(payload)
+		Set diagramName = payload.name
+		Set diagramDef = payload.def
+		$$$TOE(st, ##class(dc.irisflow.data.Diagram).UpdateOrCreateByName(diagramName, diagramDef))
+		Set %response.Status = 200
+	} Catch tException {
+		Set:$$$ISOK(tSC) tSC = tException.AsStatus()
+	}
+	Quit tSC
+}
+
+ClassMethod GetDiagram(diagramName As %String) As %Status
+{
+	Set tSC = $$$OK
+	Try {
+		Set %response.ContentType = "application/json"
+		Set production = ##class(dc.irisflow.data.Diagram).IdxNameOpen(diagramName)
 		Set %response.Status = 200
 		If ('$Iso(production)) {
-			Write "{}"
-			Return tSC
+			Throw ##class(%Exception.General).%New("Flow not found.")
 		}
 		Write production.Dashboard.Read()
 	} Catch tException {
