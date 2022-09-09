@@ -63,7 +63,7 @@ const fields2html = (fields) => {
     Object.getOwnPropertyNames(json).forEach(field => {
         hml = `<label class="col-form-label" for="${field}">${field}
                 </label>
-                <input type="text" class="form-control input-sm" id="${field}" placeholder="${field}" value="${json[field]}">`
+                <input type="text" class="form-control input-sm" id="${field}" placeholder="${field}" value="${json[field]}" oninput="this.setAttribute('value', this.value)">`
         form.push(hml);
     })
     return form.join('');
@@ -76,12 +76,12 @@ const addNodeToDrawFlow = (obj, pos_x, pos_y) => {
     }
     pos_x = pos_x * (editor.precanvas.clientWidth / (editor.precanvas.clientWidth * editor.zoom)) - (editor.precanvas.getBoundingClientRect().x * (editor.precanvas.clientWidth / (editor.precanvas.clientWidth * editor.zoom)));
     pos_y = pos_y * (editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)) - (editor.precanvas.getBoundingClientRect().y * (editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)));
-    console.log(obj);
-    node = JSON.parse(obj);
-    let content = '<div><div class="title-box"><i class="' + node.icon + '" style="margin-right:5px"></i>' + node.name + '</div><div class="box">' + fields2html(node.Fields)  + '</div></div>';
-    console.log(content);
+    const node = JSON.parse(obj);
+    const nodeId = `${node.name + editor.nodeId}`;
+    const nodeRamdonId = `${node.name}_${btoa(Math.random()*10000).slice(-6, -1)}`;
+    const nodeNameTextbox = `<input type="text" id="${nodeId}" value="${nodeRamdonId}" oninput="this.setAttribute('value', this.value)"/>`;
+    let content = '<div id="divHtmlNode_' + nodeId + '"><div class="title-box"><i class="' + node.icon + '" style="margin-right:5px"></i>' + nodeNameTextbox + '</div><div class="box">' + fields2html(node.Fields)  + '</div></div>';
     editor.addNode(node.name, node.input, node.output, pos_x, pos_y, node.name, {}, content);
-
 }
 
 var transform = '';
@@ -253,12 +253,14 @@ const handleExport = () => {
         let element = production[el],
             thing = {};
         thing.type = "action";
-        thing.name = element.name;
+        const nodeId = `${element.name}${element.id}`
+        thing.name = document.getElementById(nodeId).value;
+        element.html = document.getElementById(`divHtmlNode_${nodeId}`).outerHTML;
         if (!!element.html) {
             const config = {},
                 parser = new DOMParser(),
                 details = parser.parseFromString(element.html, "text/html");
-            details.querySelectorAll('input').forEach(node => {
+            details.querySelectorAll('input.form-control.input-sm').forEach(node => {
                 box_element = document.querySelector(`#node-${element.id} #${node.id}`);
                 if (!!box_element) config[node.id] = box_element.value;
             })
@@ -269,7 +271,7 @@ const handleExport = () => {
         for (output in element.outputs) {
             element.outputs[output].connections.forEach(conn => {
                 let dest = production[conn.node];
-                sequence.push({ "name": dest.name });
+                sequence.push({ "name": document.getElementById(`${dest.name}${dest.id}`).value });
             })
         }
         if (sequence.length > 0) {
@@ -277,6 +279,12 @@ const handleExport = () => {
         }
         flow.nodes.push(thing);
     });
+    // todo: to be saved...
+    diagram = {
+        "name": document.getElementById('production-name').value,
+        "def": jsn
+    };
+    console.log(JSON.stringify(diagram))
 
     console.log(flow);
     postData('/csp/megazord/api/generate', flow)
