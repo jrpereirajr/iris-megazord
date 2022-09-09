@@ -1,4 +1,4 @@
-Class dc.irisflow.interoplib.climatiq.EstimateMsg Extends (Ens.Request, %JSON.Adaptor)
+Class dc.irisflow.interoplib.climatiq.msg.beta3.EstimateMsg Extends (Ens.Request, %JSON.Adaptor)
 {
 
 Property EmissionFactor As %String(%JSONFIELDNAME = "emission_factor", MAXLEN = "");

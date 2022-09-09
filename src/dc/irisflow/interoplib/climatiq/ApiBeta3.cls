@@ -16,18 +16,25 @@ Method CreateRequest() As %Net.HttpRequest
     Return request
 }
 
-Method Estimate(pPayload As dc.irisflow.interoplib.climatiq.EstimateMsg) As %Net.HttpResponse
+Method EstimateGeneric(pPayload As dc.irisflow.interoplib.climatiq.msg.beta3.EstimateMsg) As %Net.HttpResponse
 {
     #Dim request = ..CreateRequest()
-    
+    Set url = "https://"_..GetServer()_"/estimate"
     Set json = {
             "emission_factor": ({}.%FromJSON(pPayload.EmissionFactor)),
             "parameters": ({}.%FromJSON(pPayload.Parameters))
         }.%ToJSON()
     Set data(1) = json
+    $$$TOE(st, ..Adapter.SendFormDataArray(.response, "POST", request, "", .data, url))
+    Return response
+}
 
-    Set url = "https://"_..GetServer()_"/estimate"
-    
+Method EstimateFlight(pPayload As dc.irisflow.interoplib.climatiq.msg.beta3.EstimateFlightLegsMsg) As %Net.HttpResponse
+{
+    #Dim request = ..CreateRequest()
+    Set url = "https://"_..GetServer()_"/travel/flights"
+    $$$TOE(st, pPayload.%JSONExportToString(.json))
+    Set data(1) = json
     $$$TOE(st, ..Adapter.SendFormDataArray(.response, "POST", request, "", .data, url))
     Return response
 }

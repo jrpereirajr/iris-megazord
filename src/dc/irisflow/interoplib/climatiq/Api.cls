@@ -14,4 +14,12 @@ ClassMethod GetApi(pApiVersion As %String) As dc.irisflow.interoplib.climatiq.Ap
     }
 }
 
+Method GetServer() As %String [ Abstract ]
+{
+}
+
+Method CreateRequest() As %Net.HttpRequest [ Abstract ]
+{
+}
+
 }

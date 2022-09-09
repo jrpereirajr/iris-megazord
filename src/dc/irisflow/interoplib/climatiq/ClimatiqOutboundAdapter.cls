@@ -20,14 +20,23 @@ Method OnInit() As %Status
 	Return $$$OK
 }
 
-Method Estimate(ByRef pRequest As dc.irisflow.interoplib.climatiq.EstimateMsg, Output pResponse As Ens.Response) As %Status
+Method EstimateGeneric(ByRef pRequest As dc.irisflow.interoplib.climatiq.msg.beta3.EstimateMsg, Output pResponse As Ens.Response) As %Status
 {
     Set st = $$$OK
     Try {
-        Set estimateMsg = ##class(dc.irisflow.interoplib.climatiq.EstimateMsg).%New()
-        Set json = pRequest.Context.estimateMsg
-        $$$TOE(st, estimateMsg.%JSONImport(json))
-        Set pResponse = ..Api.Estimate(estimateMsg)
+        Set pResponse = ..Api.EstimateGeneric(pRequest)
+    }
+    Catch(e) {
+        Set st = e.AsStatus()
+    }
+    Return st
+}
+
+Method EstimateFlight(ByRef pRequest As dc.irisflow.interoplib.climatiq.msg.beta3.EstimateFlightLegsMsg, Output pResponse As Ens.Response) As %Status
+{
+    Set st = $$$OK
+    Try {
+        Set pResponse = ..Api.EstimateFlight(pRequest)
     }
     Catch(e) {
         Set st = e.AsStatus()

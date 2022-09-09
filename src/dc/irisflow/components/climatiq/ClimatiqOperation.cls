@@ -28,7 +28,7 @@ Method ProcessRequest(pRequest As dc.irisflow.components.GenericMessage) As %Reg
 
     If (context.estimateMsg '= "") {
         Set pRequest.Context = context
-        $$$TOE(st, ..Estimate(.pRequest, .response))
+        Set response = ..CallClimatiqOperationByMsgType(context.climatiqMsgType, pRequest.Context.estimateMsg)
     } Else {
         Set message = ##class(%Stream.GlobalCharacter).%New()
         $$$TOE(st, message.Write("Sorry, can't process: "_inputMessage))
@@ -38,6 +38,36 @@ Method ProcessRequest(pRequest As dc.irisflow.components.GenericMessage) As %Reg
     }
         
     Set pRequest.Context = context
+    Return response
+}
+
+Method CallClimatiqOperationByMsgType(pClimatiqMsgType As %String, pOrinalMsg As %String) As Ens.Response
+{
+    /// TODO: change this method by an Ensemble one based on XData MessageMap
+    Set response = ""
+
+    If (pClimatiqMsgType = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateMsg).%ClassName((1))) {
+        Set estimateMsg = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateMsg).%New()
+        Set json = pOrinalMsg
+        $$$TOE(st, estimateMsg.%JSONImport(json))
+        $$$TOE(st, ..EstimateGeneric(.estimateMsg, .response))
+
+    } ElseIf (pClimatiqMsgType = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateClothesMsg).%ClassName((1))) {
+        Set estimateClothesMsg = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateClothesMsg).%New()
+        Set json = pOrinalMsg
+        $$$TOE(st, estimateClothesMsg.%JSONImport(json))
+        $$$TOE(st, ..EstimateClothes(.estimateClothesMsg, .response))
+
+    } ElseIf (pClimatiqMsgType = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateFlightLegsMsg).%ClassName((1))) {
+        Set estimateFlightLegsMsg = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateFlightLegsMsg).%New()
+        Set json = pOrinalMsg
+        $$$TOE(st, estimateFlightLegsMsg.%JSONImport(json))
+        $$$TOE(st, ..EstimateFlight(.estimateFlightLegsMsg, .response))
+
+    } Else {
+        Throw ##class(%Exception.General).%New("Message type not mapped: "_pClimatiqMsgType)
+    }
+
     Return response
 }
 
