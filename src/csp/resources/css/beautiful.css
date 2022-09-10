@@ -371,3 +371,9 @@ cursor: pointer;
     width: 80%;
   }
 }
+
+.drawflow-sidemenu {
+  height: 80vh;
+  overflow: scroll;
+  overflow-x: hidden;
+}
