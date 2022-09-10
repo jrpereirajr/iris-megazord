@@ -354,7 +354,22 @@ async function getData(url = '') {
     return response.json(); // parses JSON response into native JavaScript objects
 }
 
+const searchComponents = () => {
+    document.querySelectorAll('#flow-menu>li').forEach(item => {
+        console.log(item.textContent);
+        item.style.display = '';
+    });
+    let to_search = document.getElementById('flow-search-comp').value;
+    if (to_search === '') return;
 
+    document.querySelectorAll('#flow-menu>li').forEach(item => {
+        if (item.textContent.toUpperCase().indexOf(to_search.toUpperCase()) > -1) {
+            item.style.display = '';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
 
 document.onreadystatechange = function (event) {
     if (document.readyState === "complete") {

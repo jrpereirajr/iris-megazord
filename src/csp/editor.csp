@@ -106,9 +106,13 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-3 sidebar drawflow-sidemenu">
+						<div class="flow-search-box">
+							<button class="btn-search"><i class="fas fa-search"></i></button>
+							<input type="text" id="flow-search-comp" class="input-search" onkeyup="searchComponents()" placeholder="Type to Search...">
+						</div>
 						<ul class="metismenu" id="flow-menu">
 
-				        </ul>
+						</ul>
 					</div>
 					<div class="col-md-9 content">
 						<div class="card board" >
