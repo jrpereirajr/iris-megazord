@@ -8,7 +8,7 @@ Property builder As dc.irisflow.ProductionBuilder;
 ClassMethod Create()
 {
     Set flow = ..%New()
-    Set flowDef = flow.GetDefinition()
+    Set flowDef = flow.GetProdDefinition()
     Set production = flow.mapper.Map(flowDef)
     Do flow.builder.Build(production)
 }
