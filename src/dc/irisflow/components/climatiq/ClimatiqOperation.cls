@@ -64,6 +64,18 @@ Method CallClimatiqOperationByMsgType(pClimatiqMsgType As %String, pOrinalMsg As
         $$$TOE(st, estimateFlightLegsMsg.%JSONImport(json))
         $$$TOE(st, ..EstimateFlight(.estimateFlightLegsMsg, .response))
 
+    } ElseIf (pClimatiqMsgType = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateWaterTreatmentMsg).%ClassName((1))) {
+        Set estimateWaterTreatmentMsg = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateWaterTreatmentMsg).%New()
+        Set json = pOrinalMsg
+        $$$TOE(st, estimateWaterTreatmentMsg.%JSONImport(json))
+        $$$TOE(st, ..EstimateWaterTreatment(.estimateWaterTreatmentMsg, .response))
+
+    } ElseIf (pClimatiqMsgType = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimatePlasticWasteMsg).%ClassName((1))) {
+        Set estimatePlasticWasteMsg = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimatePlasticWasteMsg).%New()
+        Set json = pOrinalMsg
+        $$$TOE(st, estimatePlasticWasteMsg.%JSONImport(json))
+        $$$TOE(st, ..EstimatePlasticWaste(.estimatePlasticWasteMsg, .response))
+
     } Else {
         Throw ##class(%Exception.General).%New("Message type not mapped: "_pClimatiqMsgType)
     }

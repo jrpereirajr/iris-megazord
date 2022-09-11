@@ -1,7 +1,7 @@
 Class dc.irisflow.demo.CarbonFootprintTelegramBotUtils Extends %RegisteredObject
 {
 
-Parameter ValidInputs = {$LFS("clothes,flight")};
+Parameter ValidInputs = {$LFS("clothes,flight,water treatment,plastic")};
 
 ClassMethod ProcessValidInput(input)
 {
@@ -53,6 +53,26 @@ ClassMethod ProcessValidContext(input, context)
             ]
         }
         Set estimateMsg = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateFlightLegsMsg).%New()
+        $$$TOE(st, estimateMsg.%JSONImport(json))
+        Set context.estimateMsg = json
+        Set context.climatiqMsgType = estimateMsg.%ClassName(1)
+
+    } ElseIf (input = "water treatment") {
+        Set json = {
+            "volume": 15,
+            "volume_unit": "l"
+        }
+        Set estimateMsg = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateWaterTreatmentMsg).%New()
+        $$$TOE(st, estimateMsg.%JSONImport(json))
+        Set context.estimateMsg = json
+        Set context.climatiqMsgType = estimateMsg.%ClassName(1)
+
+    } ElseIf (input = "plastic") {
+        Set json = {
+			"weight": 80,
+			"weight_unit": "t"
+        }
+        Set estimateMsg = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimatePlasticWasteMsg).%New()
         $$$TOE(st, estimateMsg.%JSONImport(json))
         Set context.estimateMsg = json
         Set context.climatiqMsgType = estimateMsg.%ClassName(1)
