@@ -154,10 +154,14 @@ Method ProcessTargets(host As Ens.Host)
 {
     If (host.targets '= "") {
         Set targetsIt = host.targets.%GetIterator()
+        Set targetList = ""
         While targetsIt.%GetNext(.idx, .target) {
+            Set $List(targetList, * + 1) = target.name
+        }
+        If (targetList '= "") {
             Do host.config.%Push({
                 "name": "TargetConfigNames",
-                "value": (target.name)
+                "value": ($LTS(targetList))
             })
         }
     }
