@@ -29,15 +29,15 @@ Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage)
 	Set message = ##class(dc.irisflow.components.GenericMessage).%New()
     
 	Set message.Stream = ##class(%Stream.GlobalCharacter).%New()
-    Set cmd = $$$FormatText("(input, node) %1", ..FormatExpression(..Expression))
-    Set result = $Xecute(cmd, inputMessage)
+    Set cmd = $$$FormatText("(input, context) %1", ..FormatExpression(..Expression))
+    Set result = $Xecute(cmd, inputMessage, context)
     If (result = ..#CancelSendRequest) {
         Set ..CancelSendRequest = 1
     } Else {
 	    $$$TOE(st, message.Stream.Write(result))
     }
     
-    Set cmd = $$$FormatText("(input, context, node) %1", ..FormatExpression(..ContextExpression))
+    Set cmd = $$$FormatText("(input, context) %1", ..FormatExpression(..ContextExpression))
     Set context = $Xecute(cmd, inputMessage, context)
     If (context = ..#CancelSendRequest) {
         Set ..CancelSendRequest = 1
