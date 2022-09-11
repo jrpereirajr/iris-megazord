@@ -9,10 +9,28 @@ ClassMethod input(pChatid, pStream)
     Set tType = $ZCONVERT(pStream,"l")
 
     If '$Data(^zChatId(pChatid)) {
-        Set ^zChatId(pChatid)=tType
-        Do ..Routing(pChatid, tType)
+        // If there is no chatId, means there are no interactions before.
+        Set ^zChatId(pChatid)=""
+
+        // Make the introduction and show the options to the user
+        write "Hi, ",!
+        write "Climatiq helps you calculate the environmental footprint created by a broad range of emission-generating activities.",!
+        write "I can talk about the following topics:",!
+        write "1 - Flights",!
+        write "2 - Water Treatment",! 
+        write "3 - Plastic Waste",! 
+        write "4 - Clothing and Footwear",!  
     } Else {
-        Do ..Routing(pChatid, pStream)
+        // If there is no value for the chat, it means the user didn't choose the topic
+        If ($get(^zChatId(pChatid))="") {
+            Set tType=$CASE(pStream,1:"flight",2:"water treatment",3:"plastic",4:"clothes")
+            Set ^zChatId(pChatid)=tType
+            Do ..Routing(pChatid,tType)
+        } Else {
+            // If there is value for the chat, it means the user did choose the topic
+            // Now all the messages will be to respond to the bot's questions.
+            Do ..Routing(pChatid,pStream)
+        }
     }
 
     Return sc
@@ -54,7 +72,7 @@ ClassMethod Flight(pChatid, pStream) As %Status
         write "1 - GRU to JFK",!
 		write "2 - GRU to DXB",!
 		write "3 - GRU to MIA",!
-        
+
     } ElseIf '$Data(^zChatId(pChatid,"flight",2)) {
         
         // Saving the user previous answer
