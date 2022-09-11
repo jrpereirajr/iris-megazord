@@ -6,13 +6,24 @@
  [![Reliability Rating](https://community.objectscriptquality.com/api/project_badges/measure?project=intersystems_iris_community%2Firis-megazord&metric=reliability_rating)](https://community.objectscriptquality.com/dashboard?id=intersystems_iris_community%2Firis-megazord)
 -->
 
-## iris-megazord (🏗️ Under construction...)
+## iris-megazord (🏗️ Beta forever)
 
 A lot of ideas together. Different projects, one goal.
 
 Integration of previous tools, like IRIS Monitor, with a wizard for easy development of interoperability flows.
 
-## Videos
+## 📢Updates for the **InterSystems Interoperability Contest: Building Sustainable Solutions**
+
+In order to been part of the "InterSystems Interoperability Contest: Building Sustainable Solutions" contest, we developed a new Flow node - the Climatiq Operation. This node uses the [Climatiq API](https://www.climatiq.io/) for calculate estating of CO2 emissions for several human activities.
+
+In this video you can see a simple bot using pre-configured Climatiq requests:
+
+[![IRIS Flow - Simple Climatiq API Bot](https://img.youtube.com/vi/evC-OjqWIGY/0.jpg)](https://www.youtube.com/watch?v=evC-OjqWIGY "IRIS Flow - Simple Climatiq API Bot")
+
+More in upcoming resourses... :)
+
+
+## Videos of another examples
 
 ![FHIRaaS sample](https://github.com/jrpereirajr/iris-megazord/blob/master/img/chrome_Xs1BYHGxqm.gif?raw=true)
 
