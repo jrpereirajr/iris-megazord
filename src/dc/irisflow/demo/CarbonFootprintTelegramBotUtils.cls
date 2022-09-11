@@ -80,23 +80,6 @@ ClassMethod ProcessValidContext(input, context)
     Return context
 }
 
-ClassMethod ProcessInvalidInput(input)
-{
-    Do ##class(Ens.Util.Trace).WriteTrace("user", $classname(), "", "input: "_input)
-    Set response = ""
-    If ($LF(..#ValidInputs, input) = 0) {
-        Set response = "Sorry, can't process you request: "_input
-    } Else {
-        Quit ##class(dc.irisflow.components.misc.ObjectScriptOperation).#CancelSendRequest
-    }
-    Return response
-}
-
-ClassMethod ProcessInvalidContext(input, context)
-{
-    Return context
-}
-
 ClassMethod ProcessClimatiqResponse(input)
 {
     Set response = ""
@@ -112,6 +95,23 @@ ClassMethod ProcessClimatiqResponse(input)
 ClassMethod ProcessClimatiqResponseContext(input, context)
 {
     Quit context
+}
+
+ClassMethod ProcessInvalidInput(input)
+{
+    Do ##class(Ens.Util.Trace).WriteTrace("user", $classname(), "", "input: "_input)
+    Set response = ""
+    If ($LF(..#ValidInputs, input) = 0) {
+        Set response = "Sorry, can't process you request: "_input
+    } Else {
+        Quit ##class(dc.irisflow.components.misc.ObjectScriptOperation).#CancelSendRequest
+    }
+    Return response
+}
+
+ClassMethod ProcessInvalidContext(input, context)
+{
+    Return context
 }
 
 }
