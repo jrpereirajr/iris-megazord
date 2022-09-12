@@ -4,6 +4,10 @@ ARG IMAGE=containers.intersystems.com/intersystems/iris:2021.1.0.215.0
 ARG IMAGE=intersystemsdc/iris-community
 FROM $IMAGE
 
+ARG SYSTEM_PWD="SYS"
+ARG TELEGRAM_APIKEY="5382071694:AAG6nRJ1GgX3c9ADZYAEFyK_Gkz8wA7o0BE"
+ARG CLIMATIQ_APIKEY="N2CJV39ZH7M0P1N8D3748YS7186X"
+
 USER root   
 ## add git
 RUN apt update && apt-get -y install git
@@ -23,4 +27,14 @@ RUN mkdir -p /tmp/test/in && mkdir -p /tmp/test/out && \
     iris start IRIS && \
 	iris session IRIS < iris.script && \
     ([ $TESTS -eq 0 ] || iris session iris "##class(%ZPM.PackageManager).Shell(\"test $MODULE -v -only\",1,1)") && \
+    iris session iris "##class(dc.irisflow.util.Setup).ChangePassword(\"_system\",\"$SYSTEM_PWD\")" && \
+    iris session iris "##class(dc.irisflow.util.Setup).ChangePassword(\"CSPSystem\",\"$SYSTEM_PWD\")" && \
+    iris session iris "##class(dc.irisflow.util.Setup).ChangePassword(\"Admin\",\"$SYSTEM_PWD\")" && \
+    iris session iris "##class(dc.irisflow.util.Setup).ChangePassword(\"_Ensemble\",\"$SYSTEM_PWD\")" && \
+    iris session iris "##class(dc.irisflow.util.Setup).ChangePassword(\"irisowner\",\"$SYSTEM_PWD\")" && \
+    iris session iris "##class(dc.irisflow.util.Setup).DisabledUser(\"SuperUser\")" && \
+    iris session iris "##class(dc.irisflow.util.Setup).DisabledUser(\"UnknownUser\")" && \
+    iris session iris "##class(dc.irisflow.util.Setup).DisabledUser(\"IAM\")" && \
+    iris session iris "##class(Ens.Config.Credentials).SetCredential(\"telegram-api-key\",\"\",\"$TELEGRAM_APIKEY\")" && \
+    iris session iris "##class(Ens.Config.Credentials).SetCredential(\"climatiq-api-key\",\"\",\"$CLIMATIQ_APIKEY\")" && \
     iris stop IRIS quietly
