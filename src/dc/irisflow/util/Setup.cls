@@ -42,4 +42,38 @@ ClassMethod AddComponent(Name As %String, Icon As %String, In As %Integer, Out A
 	Quit tSC
 }
 
+ClassMethod ChangePassword(pUserId As %String, pNewPassword As %String) As %Status
+{
+  Set ns = $NAMESPACE
+  ZN "%SYS"
+  Try {
+    Set pUserId = $ZCONVERT(pUserId, "L")
+    Set o = ##class(Security.Users).%OpenId(pUserId)
+    Set o.PasswordExternal = pNewPassword
+    Write o.%Save(),!
+    Write "Password changed",!
+  } Catch(e) {
+    Write e.DisplayString()
+  }
+  ZN ns
+  Return $$$OK
+}
+
+ClassMethod DisabledUser(pUserId As %String) As %Status
+{
+  Set ns = $NAMESPACE
+  ZN "%SYS"
+  Try {
+    Set pUserId = $ZCONVERT(pUserId, "L")
+    Set o = ##class(Security.Users).%OpenId(pUserId)
+    Set o.Enabled = 0
+    Write o.%Save(),!
+    Write "User disabled: "_pUserId,!
+  } Catch(e) {
+    Write e.DisplayString()
+  }
+  ZN ns
+  Return $$$OK
+}
+
 }
