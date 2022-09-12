@@ -58,19 +58,31 @@ ClassMethod GenerateProduction() As %Status
 {
 	Set tSC = $System.Status.OK()
 	Try {
+		Set %response.Status = 200
+		Set resp = {}
+
 		Set data = %request.Content
 		Set payload = data.Read()
 		Set flow = {}.%FromJSON(payload)
+
 		Set mapper = ##class(dc.irisflow.FlowMapper).%New()
 		Set production = mapper.Map(flow)
+		If (mapper.errors.%Size() > 0) {
+			Set %response.Status = 500
+			Set resp.errors = mapper.errors
+			Write resp.%ToJSON()
+			Quit
+		}
+		
 		Set builder = ##class(dc.irisflow.ProductionBuilder).%New()
 		Do builder.Build(production)
-		Set resp = {}
-		Set %response.Status = 200
 		If (builder.errors.%Size() > 0) {
-			Set %response.Status = 200
+			Set %response.Status = 500
 			Set resp.errors = builder.errors
+			Write resp.%ToJSON()
+			Quit
 		}
+
 		Write resp.%ToJSON()
 	} Catch tException {
 		Set tSC = tException.AsStatus()

@@ -7,6 +7,8 @@ Property ContextExpression As %String(MAXLEN = "");
 
 Parameter SETTINGS = "Expression,ContextExpression";
 
+Parameter CancelSendRequest = "$CancelSendRequest";
+
 Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage)
 {
     Set inputMessage = pRequest.Stream.Read()
@@ -27,13 +29,21 @@ Method OnConsumeMessage(ByRef pRequest As dc.irisflow.components.GenericMessage)
 	Set message = ##class(dc.irisflow.components.GenericMessage).%New()
     
 	Set message.Stream = ##class(%Stream.GlobalCharacter).%New()
-    Set cmd = $$$FormatText("(input) %1", ..FormatExpression(..Expression))
-    Set result = $Xecute(cmd, inputMessage)
-	$$$TOE(st, message.Stream.Write(result))
+    Set cmd = $$$FormatText("(input, context) %1", ..FormatExpression(..Expression))
+    Set result = $Xecute(cmd, inputMessage, context)
+    If (result = ..#CancelSendRequest) {
+        Set ..CancelSendRequest = 1
+    } Else {
+	    $$$TOE(st, message.Stream.Write(result))
+    }
     
     Set cmd = $$$FormatText("(input, context) %1", ..FormatExpression(..ContextExpression))
     Set context = $Xecute(cmd, inputMessage, context)
-	Set message.Context = context.%ToJSON()
+    If (context = ..#CancelSendRequest) {
+        Set ..CancelSendRequest = 1
+    } Else {
+	    Set message.Context = context.%ToJSON()
+    }
     
     Kill pRequest
     Set pRequest = message

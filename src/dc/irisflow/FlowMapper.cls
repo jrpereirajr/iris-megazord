@@ -98,11 +98,6 @@ Method CreateBusinessHost(node As %DynamicObject, nodeIdx As %Integer) As %Dynam
         Do ..errors.%Push(..errorHelper.CreateNoConfigActionError(nodeIdx))
         Set errors = 1
     }
-    // for now, only one target is supported
-    If (node.targets '= "") && (node.targets.%Size() > 1) {
-        Do ..errors.%Push(..errorHelper.CreateOnlyOneTargetSupportedError(nodeIdx))
-        Set errors = 1
-    }
 
     If ('errors) {
         Set item = {
