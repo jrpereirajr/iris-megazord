@@ -50,8 +50,8 @@ ClassMethod ChangePassword(pUserId As %String, pNewPassword As %String) As %Stat
     Set pUserId = $ZCONVERT(pUserId, "L")
     Set o = ##class(Security.Users).%OpenId(pUserId)
     Set o.PasswordExternal = pNewPassword
-    Write o.%Save(),!
-    Write "Password changed",!
+    $$$TOE(st, o.%Save())
+    Write "Password changed for user: "_pUserId,!
   } Catch(e) {
     Write e.DisplayString()
   }
@@ -67,7 +67,7 @@ ClassMethod DisabledUser(pUserId As %String) As %Status
     Set pUserId = $ZCONVERT(pUserId, "L")
     Set o = ##class(Security.Users).%OpenId(pUserId)
     Set o.Enabled = 0
-    Write o.%Save(),!
+    $$$TOE(st, o.%Save())
     Write "User disabled: "_pUserId,!
   } Catch(e) {
     Write e.DisplayString()
