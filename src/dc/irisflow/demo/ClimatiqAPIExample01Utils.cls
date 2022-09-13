@@ -1,4 +1,4 @@
-Class dc.irisflow.demo.CarbonFootprintTelegramBotUtils Extends %RegisteredObject
+Class dc.irisflow.demo.ClimatiqAPIExample01Utils Extends %RegisteredObject
 {
 
 Parameter ValidInputsPrefix = "give me a CO2 emission estimate example for ";
@@ -23,17 +23,17 @@ ClassMethod IsValidInput(input) As %Boolean
     Return (..GetActivityFromInput(input) '= "")
 }
 
-ClassMethod ProcessValidInput(input)
+ClassMethod ProcessValidInput(input As %String, context As %DynamicObject) As %String
 {
     Do ##class(Ens.Util.Trace).WriteTrace("user", $classname(), "", "input: "_input)
     Set response = ""
     If ('..IsValidInput(input)) {
-        Quit ##class(dc.irisflow.components.misc.ObjectScriptOperation).#CancelSendRequest
+        Return ##class(dc.irisflow.components.misc.ObjectScriptOperation).#CancelSendRequest
     }
     Return response
 }
 
-ClassMethod ProcessValidContext(input, context)
+ClassMethod ProcessValidContext(input As %String, context As %DynamicObject) As %DynamicObject
 {
     Do ##class(Ens.Util.Trace).WriteTrace("user", $classname(), "", "input: "_input)
     Do ##class(Ens.Util.Trace).WriteTrace("user", $classname(), "", "context: "_context.%ToJSON())
@@ -93,7 +93,7 @@ ClassMethod ProcessValidContext(input, context)
     Return context
 }
 
-ClassMethod ProcessClimatiqResponse(input, context)
+ClassMethod ProcessClimatiqResponse(input As %String, context As %DynamicObject) As %String
 {
     Do ##class(Ens.Util.Trace).WriteTrace("user", $classname(), "", "input: "_input)
     Do ##class(Ens.Util.Trace).WriteTrace("user", $classname(), "", "context: "_context.%ToJSON())
@@ -123,27 +123,27 @@ ClassMethod ProcessClimatiqResponse(input, context)
     } Catch(e) {
         Set response = e.DisplayString()
     }
-    Quit response
+    Return response
 }
 
-ClassMethod ProcessClimatiqResponseContext(input, context)
+ClassMethod ProcessClimatiqResponseContext(input As %String, context As %DynamicObject) As %DynamicObject
 {
-    Quit context
+    Return context
 }
 
-ClassMethod ProcessInvalidInput(input)
+ClassMethod ProcessInvalidInput(input As %String, context As %DynamicObject) As %String
 {
     Do ##class(Ens.Util.Trace).WriteTrace("user", $classname(), "", "input: "_input)
     Set response = ""
     If ('..IsValidInput(input)) {
         Set response = "Sorry, can't process you request: "_input
     } Else {
-        Quit ##class(dc.irisflow.components.misc.ObjectScriptOperation).#CancelSendRequest
+        Return ##class(dc.irisflow.components.misc.ObjectScriptOperation).#CancelSendRequest
     }
     Return response
 }
 
-ClassMethod ProcessInvalidContext(input, context)
+ClassMethod ProcessInvalidContext(input As %String, context As %DynamicObject) As %DynamicObject
 {
     Return context
 }

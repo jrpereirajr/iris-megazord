@@ -9,7 +9,7 @@
       "host": "localhost",
       "port": 55008,
       "ns": "USER",
-      "username": "SuperUser",
+      "username": "_system",
       "password": "SYS",
       "docker-compose": {
         "service": "iris",

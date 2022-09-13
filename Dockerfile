@@ -37,5 +37,6 @@ RUN mkdir -p /tmp/test/in && mkdir -p /tmp/test/out && \
     iris session iris "##class(dc.irisflow.util.Setup).DisabledUser(\"IAM\")" && \
     iris session iris "##class(Ens.Config.Credentials).SetCredential(\"telegram-api-key\",\"\",\"$TELEGRAM_APIKEY\")" && \
     iris session iris "##class(Ens.Config.Credentials).SetCredential(\"climatiq-api-key\",\"\",\"$CLIMATIQ_APIKEY\")" && \
-    iris session iris "##class(dc.irisflow.demo.CarbonFootprintTelegramBot).Create()" && \
+    iris session iris "##class(dc.irisflow.demo.ClimatiqAPIExample01).Create()" && \
+    iris session iris "##class(dc.irisflow.demo.ClimatiqAPIExample02).Create()" && \
     iris stop IRIS quietly
