@@ -5,8 +5,8 @@ ARG IMAGE=intersystemsdc/iris-community
 FROM $IMAGE
 
 ARG SYSTEM_PWD="SYS"
-ARG TELEGRAM_APIKEY="5382071694:AAG6nRJ1GgX3c9ADZYAEFyK_Gkz8wA7o0BE"
-ARG CLIMATIQ_APIKEY="N2CJV39ZH7M0P1N8D3748YS7186X"
+ARG TELEGRAM_APIKEY
+ARG CLIMATIQ_APIKEY
 
 USER root   
 ## add git
@@ -37,4 +37,5 @@ RUN mkdir -p /tmp/test/in && mkdir -p /tmp/test/out && \
     iris session iris "##class(dc.irisflow.util.Setup).DisabledUser(\"IAM\")" && \
     iris session iris "##class(Ens.Config.Credentials).SetCredential(\"telegram-api-key\",\"\",\"$TELEGRAM_APIKEY\")" && \
     iris session iris "##class(Ens.Config.Credentials).SetCredential(\"climatiq-api-key\",\"\",\"$CLIMATIQ_APIKEY\")" && \
+    iris session iris "##class(dc.irisflow.demo.CarbonFootprintTelegramBot).Create()" && \
     iris stop IRIS quietly
