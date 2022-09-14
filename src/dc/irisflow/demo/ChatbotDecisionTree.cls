@@ -12,7 +12,7 @@ Property output As %String;
 Method %OnNew(pChatid As %String, pStream As %String) As %Status
 {
     Set ..pChatid = pChatid
-    Set ..pStream = pStream
+    Set ..pStream = $ZStrip($ZConvert(pStream, "L"), "<>W")
     Set ..output = ""
     Return $$$OK
 }
