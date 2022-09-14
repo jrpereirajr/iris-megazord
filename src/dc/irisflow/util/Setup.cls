@@ -42,7 +42,7 @@ ClassMethod AddComponent(Name As %String, Icon As %String, In As %Integer, Out A
 	Quit tSC
 }
 
-ClassMethod ChangePassword(pUserId As %String, pNewPassword As %String) As %Status
+ClassMethod ChangePassword(pUserId As %String, pNewPassword As %String)
 {
   Set ns = $NAMESPACE
   ZN "%SYS"
@@ -56,10 +56,9 @@ ClassMethod ChangePassword(pUserId As %String, pNewPassword As %String) As %Stat
     Write e.DisplayString()
   }
   ZN ns
-  Return $$$OK
 }
 
-ClassMethod DisabledUser(pUserId As %String) As %Status
+ClassMethod DisabledUser(pUserId As %String)
 {
   Set ns = $NAMESPACE
   ZN "%SYS"
@@ -73,7 +72,15 @@ ClassMethod DisabledUser(pUserId As %String) As %Status
     Write e.DisplayString()
   }
   ZN ns
-  Return $$$OK
+}
+
+ClassMethod AutoStartProduction(pProdName As %String, pPriority As %Integer)
+{
+  Try {
+    $$$TOE(st, ##class(Ens.Director).SetAutoStart(pProdName, pPriority))
+  } Catch(e) {
+    Write e.DisplayString()
+  }
 }
 
 }

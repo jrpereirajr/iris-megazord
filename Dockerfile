@@ -39,4 +39,5 @@ RUN mkdir -p /tmp/test/in && mkdir -p /tmp/test/out && \
     iris session iris "##class(Ens.Config.Credentials).SetCredential(\"climatiq-api-key\",\"\",\"$CLIMATIQ_APIKEY\")" && \
     iris session iris "##class(dc.irisflow.demo.ClimatiqAPIExample01).Create()" && \
     iris session iris "##class(dc.irisflow.demo.ClimatiqAPIExample02).Create()" && \
+    iris session iris "##class(dc.irisflow.util.Setup).AutoStartProduction(\"User.ClimatiqAPIExample02\",0)" && \
     iris stop IRIS quietly
