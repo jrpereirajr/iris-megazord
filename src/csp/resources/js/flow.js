@@ -163,24 +163,6 @@ const loadFlowMenu = (data) => {
     })
 }
 
-const loadDashboard = () => {
-    console.log('change');
-    const prod_name = document.getElementById('production-name').value;
-    if (!prod_name) return;
-
-    const dash = editor.export();
-    if (!!dash.drawflow.Home) return;
-
-    getData('/csp/irisflow/api/production/' + prod_name)
-        .then(data => {
-            console.log(data);
-            if (!data.drawflow) {
-                editor.import(data);
-            }
-        } )
-
-}
-
 /* DRAG EVENT */
 
 /* Mouse and Touch Actions */
@@ -284,39 +266,76 @@ const handleExport = () => {
         "name": document.getElementById('production-name').value,
         "def": jsn
     };
-    console.log(JSON.stringify(diagram))
+
+    postData('/csp/megazord/api/flow/save', diagram);
 
     console.log(flow);
-    postData('/csp/megazord/api/generate', flow)
-        .then(data => {
-            console.table(data);
-            if (!!data.errors) {
-                let errors = data.errors.map(err => err.description || err.error);
+    const data = postData('/csp/megazord/api/flow/generate', flow);
 
-                swal("Something went wrong!", errors.length > 0 ? errors.join(' ') : data.summary, "error");
-            } else {
-                toastr.success("", "Success!", {
-                    positionClass: "toast-bottom-right",
-                    timeOut: 5e3,
-                    closeButton: !0,
-                    debug: !1,
-                    newestOnTop: !0,
-                    progressBar: !0,
-                    preventDuplicates: !0,
-                    onclick: null,
-                    showDuration: "300",
-                    hideDuration: "1000",
-                    extendedTimeOut: "1000",
-                    showEasing: "swing",
-                    hideEasing: "linear",
-                    showMethod: "fadeIn",
-                    hideMethod: "fadeOut",
-                    tapToDismiss: !1
-                })
-            }
-            console.log(data); // JSON data parsed by `data.json()` call
-        });
+    if (!!data.errors) {
+        let errors = data.errors.map(err => err.description || err.error);
+
+        swal("Something went wrong!", errors.length > 0 ? errors.join(' ') : data.summary, "error");
+    } else {
+        toastr.success("", "Success!", {
+            positionClass: "toast-bottom-right",
+            timeOut: 5e3,
+            closeButton: !0,
+            debug: !1,
+            newestOnTop: !0,
+            progressBar: !0,
+            preventDuplicates: !0,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+            tapToDismiss: !1
+        })
+    }
+    console.log(data); // JSON data parsed by `data.json()` call
     return true;
+}
+
+const handleOpen = async () => {
+    const prod_name = document.getElementById('production-name').value;
+    if (!prod_name) {
+        swal("Flow name not specified!", "", "error");
+    };
+
+    try {
+        const data = await getData(`/csp/megazord/api/flow/get/${prod_name}`);
+        if (!!data.drawflow) {
+            editor.import(data);
+            toastr.success("", "Success!", {
+                positionClass: "toast-bottom-right",
+                timeOut: 5e3,
+                closeButton: !0,
+                debug: !1,
+                newestOnTop: !0,
+                progressBar: !0,
+                preventDuplicates: !0,
+                onclick: null,
+                showDuration: "300",
+                hideDuration: "1000",
+                extendedTimeOut: "1000",
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut",
+                tapToDismiss: !1
+            })
+        }
+    } catch(e) {
+        if (!!e.errors) {
+            let errors = e.errors.map(err => err.description || err.error);
+
+            swal("Something went wrong!", errors.length > 0 ? errors.join(' ') : e.summary, "error");
+        }
+    }
 }
 
 async function postData(url = '', data = {}) {
@@ -351,7 +370,12 @@ async function getData(url = '') {
         redirect: 'follow', // manual, *follow, error
         referrerPolicy: 'no-referrer' // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
-    return response.json(); // parses JSON response into native JavaScript objects
+    if (response.ok) {
+        return response.json(); // parses JSON response into native JavaScript objects
+    } else {
+        const error = await response.json()
+        throw error;
+    }
 }
 
 const searchComponents = () => {
@@ -379,9 +403,5 @@ document.onreadystatechange = function (event) {
                 .then(data => loadFlowMenu(data.data))
         }
         getComponentOptions();
-        /*
-        document.getElementById('production-name')
-            .addEventListener("blur", loadDashboard());
-        */
     }
 };

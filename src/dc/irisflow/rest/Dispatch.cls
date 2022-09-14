@@ -8,7 +8,9 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 <Route Url="/" Method="GET" Call="Test" Cors="true"/>
 <Route Url="/components" Method="GET" Call="dc.irisflow.rest.Editor:ListAllComponents" Cors="true"/>
 <Route Url="/production/:productionName" Method="GET" Call="dc.irisflow.rest.Editor:GetProduction" Cors="true"/>
-<Route Url="/generate" Method="POST" Call="dc.irisflow.rest.Editor:GenerateProduction" Cors="true"/>
+<Route Url="/flow/generate" Method="POST" Call="dc.irisflow.rest.Editor:GenerateProduction" Cors="true"/>
+<Route Url="/flow/save" Method="POST" Call="dc.irisflow.rest.Editor:SaveDiagram" Cors="true"/>
+<Route Url="/flow/get/:diagramName" Method="GET" Call="dc.irisflow.rest.Editor:GetDiagram" Cors="true"/>
 <Route Url="/message/:id" Method="GET" Call="dc.irismessageviewer.REST.Messages:getUnlimitedMessages" Cors="true"/>
 <Route Url="/message/resend/" Method="POST" Call="dc.irismessageviewer.REST.Messages:ResendMessage" Cors="true"/>
 <Route Url="/diagram" Method="POST" Call="dc.irismessageviewer.REST.Diagram:GetDiagram" Cors="true"/>
