@@ -266,17 +266,12 @@ const handleExport = () => {
         "name": document.getElementById('production-name').value,
         "def": jsn
     };
-    console.log(JSON.stringify(diagram))
 
-    diagram = {
-        "name": prod_name,
-        "def": editor.export()
-    };
     postData('/csp/megazord/api/flow/save', diagram);
 
     console.log(flow);
     const data = postData('/csp/megazord/api/flow/generate', flow);
-    console.table(data);
+
     if (!!data.errors) {
         let errors = data.errors.map(err => err.description || err.error);
 
