@@ -11,6 +11,9 @@ ClassMethod Create()
     Set flowDef = flow.GetProdDefinition()
     Set production = flow.mapper.Map(flowDef)
     Do flow.builder.Build(production)
+
+    Set diagram = flow.GetDiagramDef()
+    Do ##class(dc.irisflow.util.Setup).SaveDiagram(diagram)
 }
 
 Method %OnNew() As %Status
@@ -20,7 +23,7 @@ Method %OnNew() As %Status
     Quit $$$OK
 }
 
-Method GetProdDefinition()
+Method GetProdDefinition() As %DynamicObject
 {
     Return {
         "name":"User.ClimatiqAPIExample01",
@@ -113,7 +116,7 @@ Method GetProdDefinition()
     }
 }
 
-Method GetDiagramDef()
+Method GetDiagramDef() As %DynamicObject
 {
     Return {
         "name":"User.ClimatiqAPIExample01",

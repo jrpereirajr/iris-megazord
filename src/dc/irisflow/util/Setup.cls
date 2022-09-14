@@ -83,4 +83,17 @@ ClassMethod AutoStartProduction(pProdName As %String, pPriority As %Integer)
   }
 }
 
+ClassMethod SaveDiagram(diagram As %DynamicObject) As %Status
+{
+	Set tSC = $$$OK
+	Try {
+		Set diagramName = diagram.name
+		Set diagramDef = diagram.def
+		$$$TOE(st, ##class(dc.irisflow.data.Diagram).UpdateOrCreateByName(diagramName, diagramDef))
+	} Catch tException {
+		Set:$$$ISOK(tSC) tSC = tException.AsStatus()
+	}
+	Quit tSC
+}
+
 }

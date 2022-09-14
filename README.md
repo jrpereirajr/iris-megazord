@@ -20,8 +20,7 @@ In this video you can see a simple bot using pre-configured Climatiq requests:
 
 [![IRIS Flow - Simple Climatiq API Bot](https://img.youtube.com/vi/evC-OjqWIGY/0.jpg)](https://www.youtube.com/watch?v=evC-OjqWIGY "IRIS Flow - Simple Climatiq API Bot")
 
-More in upcoming resourses... :)
-
+Check more details in [this article](https://community.intersystems.com/post/iris-flow-updates-interoperability-contest-building-sustainable-solutions).
 
 ## Videos of another examples
 
