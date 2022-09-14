@@ -126,8 +126,9 @@
 									<input type="text" class="form-control" placeholder="Production name" id="production-name" >
 								</div>
 								<div class="col-md-5">
-									<div class="btn btn-outline-secondary" onclick="handleExport()">Generate</div>
-									<div class="btn btn-outline-primary" onclick="editor.clearModuleSelected()">Clear</div>
+									<div class="btn btn-outline-primary" onclick="handleExport()">Save</div>
+									<div class="btn btn-outline-secondary" onclick="handleOpen()">Open</div>
+									<div class="btn btn-outline-secondary" onclick="editor.clearModuleSelected()">Clear</div>
 								</div>
 								<div class="col-md-1">
 									<i class="fas fa-search-minus" onclick="editor.zoom_out()"></i>
