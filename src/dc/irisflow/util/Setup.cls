@@ -96,4 +96,10 @@ ClassMethod SaveDiagram(diagram As %DynamicObject) As %Status
 	Quit tSC
 }
 
+ClassMethod CreateContestUser()
+{
+  &SQL(CREATE USER contest IDENTIFY BY contest2022)
+  Throw:(SQLCODE '= 0) ##class(%Exception.SQL).CreateFromSQLCODE(SQLCODE,%msg)
+}
+
 }
