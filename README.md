@@ -22,6 +22,12 @@ In this video you can see a simple bot using pre-configured Climatiq requests:
 
 Check more details in [this article](https://community.intersystems.com/post/iris-flow-updates-interoperability-contest-building-sustainable-solutions).
 
+## Online demo
+
+You can check the application out [here](https://iris-megazord.demo.community.intersystems.com/csp/megazord/editor.csp).
+
+If the system ask you for a user/password, use this: contest/contest2022
+
 ## Videos of another examples
 
 ![FHIRaaS sample](https://github.com/jrpereirajr/iris-megazord/blob/master/img/chrome_Xs1BYHGxqm.gif?raw=true)
@@ -31,12 +37,6 @@ Check more details in [this article](https://community.intersystems.com/post/iri
 [![Flow Editor - IRIS Megazord](https://img.youtube.com/vi/KkG0_-ahfjI/0.jpg)](https://www.youtube.com/watch?v=KkG0_-ahfjI)
 
 If you'd like to try the same process shown in the video, you can follow [this steps](https://github.com/jrpereirajr/iris-chatbot#setting-up-a-telegram-bot) and set a Telegram Bot to use in your test.
-
-## Online demo
-
-You can check the application out [here](https://iris-megazord.demo.community.intersystems.com/csp/megazord/index.csp).
-
-If the system ask you for a user/password, use this: _system/SYS
 
 ## Installation prerequisites
 
