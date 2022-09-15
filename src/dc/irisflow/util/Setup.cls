@@ -98,8 +98,20 @@ ClassMethod SaveDiagram(diagram As %DynamicObject) As %Status
 
 ClassMethod CreateContestUser()
 {
-  &SQL(CREATE USER contest IDENTIFY BY contest2022)
-  Throw:(SQLCODE '= 0) ##class(%Exception.SQL).CreateFromSQLCODE(SQLCODE,%msg)
+  Set ns = $NAMESPACE
+  ZN "%SYS"
+  Try {
+    $$$TOE(st, ##class(Security.Roles).Import("/home/irisowner/irisbuild/ContestRole.xml"))
+    &SQL(DROP USER contest)
+    &SQL(CREATE USER contest IDENTIFY BY contest2022)
+    Throw:(SQLCODE '= 0) ##class(%Exception.SQL).CreateFromSQLCODE(SQLCODE,%msg)
+    &SQL(GRANT %EnsRole_Administrator,ContestRole TO contest)
+    Throw:(SQLCODE '= 0) ##class(%Exception.SQL).CreateFromSQLCODE(SQLCODE,%msg)
+    Write "User contest created!",!
+  } Catch(e) {
+    Write e.DisplayString()
+  }
+  ZN ns
 }
 
 }
