@@ -43,7 +43,7 @@ ClassMethod ProcessValidContext(input As %String, context As %DynamicObject) As 
 			"money": 120,
 			"money_unit": "usd"
         }
-        Set estimateMsg = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateClothesMsg).%New()
+        Set estimateMsg = ##class(dc.jrpereirajr.interop.adapter.climatiq.msg.beta3.EstimateClothesMsg).%New()
         $$$TOE(st, estimateMsg.%JSONImport(json))
         Set context.estimateMsg = json
         Set context.climatiqMsgType = estimateMsg.%ClassName(1)
@@ -65,7 +65,7 @@ ClassMethod ProcessValidContext(input As %String, context As %DynamicObject) As 
                 }
             ]
         }
-        Set estimateMsg = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateFlightLegsMsg).%New()
+        Set estimateMsg = ##class(dc.jrpereirajr.interop.adapter.climatiq.msg.beta3.EstimateFlightLegsMsg).%New()
         $$$TOE(st, estimateMsg.%JSONImport(json))
         Set context.estimateMsg = json
         Set context.climatiqMsgType = estimateMsg.%ClassName(1)
@@ -75,7 +75,7 @@ ClassMethod ProcessValidContext(input As %String, context As %DynamicObject) As 
             "volume": 15,
             "volume_unit": "l"
         }
-        Set estimateMsg = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateWaterTreatmentMsg).%New()
+        Set estimateMsg = ##class(dc.jrpereirajr.interop.adapter.climatiq.msg.beta3.EstimateWaterTreatmentMsg).%New()
         $$$TOE(st, estimateMsg.%JSONImport(json))
         Set context.estimateMsg = json
         Set context.climatiqMsgType = estimateMsg.%ClassName(1)
@@ -85,7 +85,7 @@ ClassMethod ProcessValidContext(input As %String, context As %DynamicObject) As 
 			"weight": 80,
 			"weight_unit": "t"
         }
-        Set estimateMsg = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimatePlasticWasteMsg).%New()
+        Set estimateMsg = ##class(dc.jrpereirajr.interop.adapter.climatiq.msg.beta3.EstimatePlasticWasteMsg).%New()
         $$$TOE(st, estimateMsg.%JSONImport(json))
         Set context.estimateMsg = json
         Set context.climatiqMsgType = estimateMsg.%ClassName(1)
@@ -102,19 +102,19 @@ ClassMethod ProcessClimatiqResponse(input As %String, context As %DynamicObject)
         Set input = {}.%FromJSON(input)
         #; Set response = "CO2 Total emissions: "_input.co2e_input."co2e_unit"
         Set pClimatiqMsgType = context.climatiqMsgType
-        If (pClimatiqMsgType = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateMsg).%ClassName((1))) {
+        If (pClimatiqMsgType = ##class(dc.jrpereirajr.interop.adapter.climatiq.msg.beta3.EstimateMsg).%ClassName((1))) {
             Set response = "Estimating of CO2 emissions: "_input.co2e_input."co2e_unit"
 
-        } ElseIf (pClimatiqMsgType = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateClothesMsg).%ClassName((1))) {
+        } ElseIf (pClimatiqMsgType = ##class(dc.jrpereirajr.interop.adapter.climatiq.msg.beta3.EstimateClothesMsg).%ClassName((1))) {
             Set response = $$$FormatText("Estimating of CO2 emissions produced by purchase %1 %2 of clothing: %3 %4", $ZCONVERT(context.estimateMsg."money_unit", "U"), context.estimateMsg.money, input.co2e, $ZCONVERT(input."co2e_unit", "U"))
 
-        } ElseIf (pClimatiqMsgType = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateFlightLegsMsg).%ClassName((1))) {
+        } ElseIf (pClimatiqMsgType = ##class(dc.jrpereirajr.interop.adapter.climatiq.msg.beta3.EstimateFlightLegsMsg).%ClassName((1))) {
             Set response = $$$FormatText("Estimating of CO2 emissions produced by a flight from Berlin to New York: %1 %2", input.co2e, $ZCONVERT(input."co2e_unit", "U"))
 
-        } ElseIf (pClimatiqMsgType = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimateWaterTreatmentMsg).%ClassName((1))) {
+        } ElseIf (pClimatiqMsgType = ##class(dc.jrpereirajr.interop.adapter.climatiq.msg.beta3.EstimateWaterTreatmentMsg).%ClassName((1))) {
             Set response = $$$FormatText("Estimating of CO2 emissions produced by %1 %2 of water treatment: %3 %4", context.estimateMsg.volume, $ZCONVERT(context.estimateMsg."volume_unit", "U"), input.co2e, $ZCONVERT(input."co2e_unit", "U"))
 
-        } ElseIf (pClimatiqMsgType = ##class(dc.irisflow.interoplib.climatiq.msg.beta3.EstimatePlasticWasteMsg).%ClassName((1))) {
+        } ElseIf (pClimatiqMsgType = ##class(dc.jrpereirajr.interop.adapter.climatiq.msg.beta3.EstimatePlasticWasteMsg).%ClassName((1))) {
             Set response = $$$FormatText("Estimating of CO2 emissions produced by %1 %2 of plastic waste: %3 %4", context.estimateMsg.weight, $ZCONVERT(context.estimateMsg."weight_unit", "U"), input.co2e, $ZCONVERT(input."co2e_unit", "U"))
 
         } Else {

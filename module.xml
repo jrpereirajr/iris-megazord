@@ -19,6 +19,12 @@
           <Version>1.*</Version>
         </ModuleReference>
       </Dependencies>
+      <Dependencies>
+        <ModuleReference>
+          <Name>iris-climatiq-adapter</Name>
+          <Version>1.*</Version>
+        </ModuleReference>
+      </Dependencies>
       <Resource Name="dc.irisflow.PKG"/>
       <Resource Name="dc.irishistorymonitor.PKG"/>
       <Resource Name="dc.irismessageviewer.PKG"/>

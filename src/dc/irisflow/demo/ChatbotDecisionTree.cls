@@ -78,8 +78,12 @@ Method Routing() As %Status
     } ElseIf (route = "clothes") {
         do ..ClothingFootwear()
     } Else {
-        Do ..WriteLine("I didn't understand")
-        Do ..WriteLine("Please, tell me again what do you want to know")
+        If ($get(^zChatId(..pChatid)) = "invalid") {
+            Do ..GreetingsMsg()
+        } Else {
+            Do ..WriteLine("I didn't understand")
+            Do ..WriteLine("Please, tell me again what do you want to know")
+        }
     }
 
     Return sc
