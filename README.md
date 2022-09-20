@@ -12,7 +12,28 @@ A lot of ideas together. Different projects, one goal.
 
 Integration of previous tools, like IRIS Monitor, with a wizard for easy development of interoperability flows.
 
-## 📢Updates for the **InterSystems Interoperability Contest: Building Sustainable Solutions**
+## Table of contents
+
+- [Online demo](#online-demo)
+- [📢 Updates for the InterSystems Interoperability Contest: Building Sustainable Solutions](#---updates-for-the---intersystems-interoperability-contest--building-sustainable-solutions--)
+- [Videos of another examples](#videos-of-another-examples)
+- [Installation prerequisites](#installation-prerequisites)
+- [ZPM installation](#zpm-installation)
+- [Docker installation](#docker-installation)
+- [Unit tests](#unit-tests)
+- [Troubleshootings](#troubleshootings)
+  * [Climatiq demo chatbot isn't responding like expected](#climatiq-demo-chatbot-isn-t-responding-like-expected)
+- [Dream team](#dream-team)
+
+## Online demo
+
+You can check out the IRIS Megazord app [here](https://iris-megazord.demo.community.intersystems.com/csp/megazord/index.csp).
+
+If you'd like to explorer the IRIS Flow, follow [here](https://iris-megazord.demo.community.intersystems.com/csp/megazord/editor.csp).
+
+If the system ask you for a user/password, use this: contest/contest2022
+
+## 📢 Updates for the **InterSystems Interoperability Contest: Building Sustainable Solutions**
 
 In order to been part of the "InterSystems Interoperability Contest: Building Sustainable Solutions" contest, we developed a new Flow node - the Climatiq Operation. This node uses the [Climatiq API](https://www.climatiq.io/) for calculate estating of CO2 emissions for several human activities.
 
@@ -20,13 +41,9 @@ In this video you can see a simple bot using pre-configured Climatiq requests:
 
 [![IRIS Flow - Simple Climatiq API Bot](https://img.youtube.com/vi/evC-OjqWIGY/0.jpg)](https://www.youtube.com/watch?v=evC-OjqWIGY "IRIS Flow - Simple Climatiq API Bot")
 
+[![IRIS Flow - Simple Climatiq API Bot](https://img.youtube.com/vi/gbqDg31hats/0.jpg)](https://www.youtube.com/watch?v=gbqDg31hats "IRIS Flow - Simple Climatiq API Bot")
+
 Check more details in [this article](https://community.intersystems.com/post/iris-flow-updates-interoperability-contest-building-sustainable-solutions).
-
-## Online demo
-
-You can check the application out [here](https://iris-megazord.demo.community.intersystems.com/csp/megazord/editor.csp).
-
-If the system ask you for a user/password, use this: contest/contest2022
 
 ## Videos of another examples
 
@@ -78,6 +95,11 @@ In order to execute the unit tests, run the following command in the shell termi
 iris session iris "##class(%ZPM.PackageManager).Shell(\"test iris-megazord -v\",1,1)"
 ```
 
+## Troubleshootings
+
+### Climatiq demo chatbot isn't responding like expected
+
+Try to kill the global ^zChatId.
 
 ## Dream team
 
