@@ -15,25 +15,18 @@
       </Dependencies>
       <Dependencies>
         <ModuleReference>
-          <Name>appmsw-telestat</Name>
+          <Name>iris-flow</Name>
           <Version>1.*</Version>
         </ModuleReference>
       </Dependencies>
-      <Dependencies>
-        <ModuleReference>
-          <Name>iris-climatiq-adapter</Name>
-          <Version>1.*</Version>
-        </ModuleReference>
-      </Dependencies>
-      <Resource Name="dc.irisflow.PKG"/>
       <Resource Name="dc.irishistorymonitor.PKG"/>
       <Resource Name="dc.irismessageviewer.PKG"/>
       <Resource Name="dc.zpm.PKG"/>
-      <UnitTest Name="/src" Package="UnitTest" Phase="test"/>
+      <UnitTest Name="/src" Package="UnitTest.dc.irismegazord" Phase="test"/>
       <CSPApplication CookiePath="/csp/megazord/api/" DefaultTimeout="900" DispatchClass="dc.irisflow.rest.Dispatch" MatchRoles=":%All" PasswordAuthEnabled="1" Recurse="1" ServeFiles="1" ServeFilesTimeout="3600" UnauthenticatedEnabled="0" Url="/csp/megazord/api" UseSessionCookie="2"/>
-      <CSPApplication CookiePath="/csp/megazord/" DefaultTimeout="900" DeployPath="{cspdir}/csp/${namespace}/" Description="Interoperability Management Portal" MatchRoles=":{$dbrole}" PasswordAuthEnabled="1" Recurse="1" ServeFiles="1" ServeFilesTimeout="3600" SourcePath="/src/csp" UnauthenticatedEnabled="0" Url="/csp/megazord" UseSessionCookie="2"/>
+      <CSPApplication CookiePath="/csp/megazord/" DefaultTimeout="900" DeployPath="${cspdir}/megazord/" Description="Interoperability Management Portal" MatchRoles=":{$dbrole}" PasswordAuthEnabled="1" Recurse="1" ServeFiles="1" ServeFilesTimeout="3600" SourcePath="/src/csp" UnauthenticatedEnabled="0" Url="/csp/megazord" UseSessionCookie="2"/>
+      <CSPApplication CookiePath="/csp/megazord/" DefaultTimeout="900" DeployPath="${cspdir}/iris-flow/" Description="IRIS Flow" MatchRoles=":{$dbrole}" PasswordAuthEnabled="1" Recurse="1" ServeFiles="1" ServeFilesTimeout="3600" UnauthenticatedEnabled="0" Url="/csp/iris-flow/iris-flow" UseSessionCookie="2"/>
       <Invokes>
-          <Invoke Class="dc.irisflow.util.Setup" Method="InitialComponents"></Invoke>
           <Invoke Class="dc.zpm.Charts" Method="CreateSankeyDataSourceTask"></Invoke>
       </Invokes>
     </Module>

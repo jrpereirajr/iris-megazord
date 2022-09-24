@@ -39,7 +39,7 @@ const menuZord = () => {
 							<span class="nav-text">Flow Editor</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="editor.csp">Flow</a></li>
+                            <li><a href="/csp/iris-flow/index.csp">Flow</a></li>
                         </ul>
                     </li>
 

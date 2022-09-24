@@ -24,8 +24,7 @@ COPY iris.script iris.script
 COPY module.xml module.xml
 COPY misc/ContestRole.xml ContestRole.xml
 
-RUN mkdir -p /tmp/test/in && mkdir -p /tmp/test/out && \
-    iris start IRIS && \
+RUN iris start IRIS && \
 	iris session IRIS < iris.script && \
     ([ $TESTS -eq 0 ] || iris session iris "##class(%ZPM.PackageManager).Shell(\"test $MODULE -v -only\",1,1)") && \
     iris session iris "##class(dc.irisflow.util.Setup).ChangePassword(\"_system\",\"$SYSTEM_PWD\")" && \

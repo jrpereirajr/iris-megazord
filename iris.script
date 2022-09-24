@@ -1,7 +1,7 @@
     // Unexpire passwords to simplify dev mode. Comment these two lines for Production use
     zn "%SYS"
     Do ##class(Security.Users).UnExpireUserPasswords("*")
-    d ##class(Security.SSLConfigs).Create("z") s r=##class(%Net.HttpRequest).%New(),r.Server="pm.community.intersystems.com",r.SSLConfiguration="z" d r.Get("/packages/zpm/latest/installer"),$system.OBJ.LoadStream(r.HttpResponse.Data,"c")
+    // d ##class(Security.SSLConfigs).Create("z") s r=##class(%Net.HttpRequest).%New(),r.Server="pm.community.intersystems.com",r.SSLConfiguration="z" d r.Get("/packages/zpm/latest/installer"),$system.OBJ.LoadStream(r.HttpResponse.Data,"c")
 
 
     // todo: enable interoperability in IRISAPP namespace
@@ -12,5 +12,6 @@
     // load all the code of the project as a ZPM package
     // zn "IRISAPP"
     zn "USER"
+    w "---- Installing IRIS Megazord ----", !
     zpm "load /home/irisowner/irisbuild/ -v":1:1
     halt
