@@ -18,6 +18,10 @@
           <Name>appmsw-telestat</Name>
           <Version>1.*</Version>
         </ModuleReference>
+        <ModuleReference>
+          <Name>pregnancy-symp-tracker-fhir-app</Name>
+          <Version>1.*</Version>
+        </ModuleReference>
       </Dependencies>
       <Resource Name="dc.irisflow.PKG"/>
       <Resource Name="dc.irishistorymonitor.PKG"/>
