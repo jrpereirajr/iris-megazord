@@ -33,6 +33,7 @@
       <Invokes>
           <Invoke Class="dc.irisflow.util.Setup" Method="InitialComponents"></Invoke>
           <Invoke Class="dc.zpm.Charts" Method="CreateSankeyDataSourceTask"></Invoke>
+          <Invoke Class="dc.apps.pregsymptracker.util.Example" Method="Main"></Invoke>
       </Invokes>
     </Module>
   </Document>
