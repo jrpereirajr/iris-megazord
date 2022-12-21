@@ -33,13 +33,16 @@ jobs:
     # https://github.com/kubernetes/kubectl/issues/1338#issuecomment-1359344157
     - name: Install Google Auth Plugin
       run: |-
+          # attempt 1: error; no privileges to perform the operation
           # gcloud components install gke-gcloud-auth-plugin
+          # attemp 2: error; no package found
           #sudo apt-get update && sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
+          # attemp3: worked! (https://github.com/actions/runner-images/issues/6778#issuecomment-1353478743)
           gcloud components list
           echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
           curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
           sudo apt update
-          sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
+          sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin google-cloud-cli-gke-gcloud-auth-plugin
           echo "##vso[task.setvariable variable=USE_GKE_GCLOUD_AUTH_PLUGIN]True"
           gcloud components list
           
