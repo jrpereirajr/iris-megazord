@@ -34,7 +34,7 @@ jobs:
     - name: Install Google Auth Plugin
       run: |-
           # gcloud components install gke-gcloud-auth-plugin
-          sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
+          sudo apt-get update && apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
           
     - name: Checkout
       uses: actions/checkout@v2
