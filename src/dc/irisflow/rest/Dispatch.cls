@@ -25,7 +25,7 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 <Route Url="/export" Method="POST" Call="ExportDependencies" Cors="true"/>
 <Route Url="/wordcloud" Method="GET" Call="dc.zpm.Charts:BuildWordCloudDatasource" Cors="true"/>
 <Route Url="/sankey" Method="GET" Call="dc.zpm.Charts:BuildSankeyDataSource" Cors="true"/>
-<Route Url="/oauth2" Method="GET" Call="OAuth2" Cors="true"/>
+<Route Url="/oauth2/.well-known/openid-configuration" Method="GET" Call="OAuth2" Cors="true"/>
 
 </Routes>
 }
@@ -43,11 +43,11 @@ ClassMethod OAuth2() As %Status
 		"jwks_uri" : "https://iris-megazord.demo.community.intersystems.com/oauth2/jwks",
 		"registration_endpoint" : "https://iris-megazord.demo.community.intersystems.com/oauth2/register",
 		"end_session_endpoint" : "https://iris-megazord.demo.community.intersystems.com/oauth2/logout",
-		"scopes_supported" : [ "openid", "profile", "email", "address", "phone", "all", "openid", "profile", "user" ],
+		"scopes_supported" : [ "openid", "profile", "email", "address", "phone", "openid", "profile", "user" ],
 		"response_types_supported" : [ "code" ],
 		"response_modes_supported" : [ "query", "fragment", "form_post" ],
 		"code_challenge_methods_supported" : [ "plain", "S256" ],
-		"grant_types_supported" : [ "authorization_code", "client_credentials", "refresh_token" ],
+		"grant_types_supported" : [ "authorization_code", "refresh_token" ],
 		"subject_types_supported" : [ "public" ],
 		"id_token_signing_alg_values_supported" : [ "HS256", "HS384", "HS512", "RS256", "RS384", "RS512", "ES256", "ES384", "ES512" ],
 		"id_token_encryption_alg_values_supported" : [ "none", "RSA1_5", "RSA-OAEP", "A128KW", "A192KW", "A256KW", "dir" ],
