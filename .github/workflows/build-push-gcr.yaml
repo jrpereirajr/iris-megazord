@@ -20,12 +20,21 @@ env:
   GCR_LOCATION: eu.gcr.io
   REGION:       europe-west2
   NAMESPACE:    demo
+  
+  # https://github.com/kubernetes/kubectl/issues/1338#issuecomment-1359344157
+  USE_GKE_GCLOUD_AUTH_PLUGIN: True
 
 jobs:
   deploy-cloud-run:
     name: Deploy to Cloud Run
     runs-on: ubuntu-20.04
     steps:
+    
+    # https://github.com/kubernetes/kubectl/issues/1338#issuecomment-1359344157
+    - name: Install Google Auth Plugin
+      run: |-
+          gcloud components install gke-gcloud-auth-plugin
+          
     - name: Checkout
       uses: actions/checkout@v2
 
