@@ -49,7 +49,7 @@ If you'd like to test the project in your environment, make sure you have [git](
 ```
 USER>zpm "install iris-megazord"
 ```
-
+Once installed open application localhost:port/csp/megazord/editor.csp
 ## Docker installation
 
 If the online demo is not available anymore or you would like to play with the project code, you can set up a docker container. In order to get your container running, follow these steps:
