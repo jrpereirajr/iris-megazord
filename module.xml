@@ -24,7 +24,7 @@
         </ModuleReference>
         <ModuleReference>
           <Name>webterminal</Name>
-          <Version>1.*</Version>
+          <Version>4.*</Version>
         </ModuleReference>
         <ModuleReference>
           <Name>iris-tripleSlash</Name>
