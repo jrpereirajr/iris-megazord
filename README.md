@@ -28,7 +28,7 @@ Check more details in [this article](https://community.intersystems.com/post/iri
 
 You can check the application out [here](https://iris-megazord.demo.community.intersystems.com/csp/megazord/editor.csp).
 
-If the system ask you for a user/password, use this: contest/contest2022
+If the system ask you for a user/password, use this: _system/SYS
 
 ## Videos of another examples
 
