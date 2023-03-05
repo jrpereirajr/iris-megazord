@@ -5,112 +5,15 @@ on:
     branches:
     - master
     - main
-
-env:
-  # Change this section according to your needs
-  IMAGE_NAME:   iris-megazord
-  SERVICE:      iris-megazord
-  DOMAIN_NAME:  iris-megazord.demo.community.intersystems.com
-  SYSTEM_PWD:   ${{ secrets.SYSTEM_PWD }}
-
-   # Leave this section untouched
-  PROJECT_ID:   iris-community-demos
-  CLUSTER_NAME: demo
-  GITHUB_SHA:   ${{ github.sha }}
-  GCR_LOCATION: eu.gcr.io
-  REGION:       europe-west2
-  NAMESPACE:    demo
-  
-  # https://github.com/kubernetes/kubectl/issues/1338#issuecomment-1359344157
-  USE_GKE_GCLOUD_AUTH_PLUGIN: True
+  workflow_dispatch:
 
 jobs:
-  deploy-cloud-run:
-    name: Deploy to Cloud Run
-    runs-on: ubuntu-20.04
-    steps:
-    
-    # https://github.com/kubernetes/kubectl/issues/1338#issuecomment-1359344157
-    - name: Install Google Auth Plugin
-      run: |-
-          # attempt 1: error; no privileges to perform the operation
-          # gcloud components install gke-gcloud-auth-plugin
-          # attemp 2: error; no package found
-          #sudo apt-get update && sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
-          # attemp3: worked! (https://github.com/actions/runner-images/issues/6778#issuecomment-1353478743)
-          gcloud components list
-          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-          sudo apt update
-          #sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin 
-          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
-          echo "##vso[task.setvariable variable=USE_GKE_GCLOUD_AUTH_PLUGIN]True"
-          gcloud components list
-          
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: Setup Cloud SDK
-      uses: google-github-actions/setup-gcloud@v0.2.0
-      with:
-        version: '327.0.0'
-        service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
-
-    - name: Authorize Docker push
-      run: gcloud auth configure-docker
-
-    - name: Build and Push image
-      run: |
-        docker build -t ${GCR_LOCATION}/${PROJECT_ID}/${IMAGE_NAME}:${GITHUB_SHA} --build-arg SYSTEM_PWD=${{ secrets.SYSTEM_PWD }} --build-arg TELEGRAM_APIKEY=${{ secrets.TELEGRAM_APIKEY }} --build-arg CLIMATIQ_APIKEY=${{ secrets.CLIMATIQ_APIKEY }} --build-arg FHIRSERVER_APIKEY=${{ secrets.FHIRSERVER_APIKEY }} .
-        docker push ${GCR_LOCATION}/${PROJECT_ID}/${IMAGE_NAME}:${GITHUB_SHA}
-
-    - name: Deploy to Cloud Run
-      run: |
-        echo "[INFO] Set google project..."
-        gcloud config set project ${PROJECT_ID}
-
-        echo "[INFO] Deploy service..."
-        gcloud run deploy ${SERVICE}   \
-          --platform gke               \
-          --cluster ${CLUSTER_NAME}    \
-          --cluster-location ${REGION} \
-          --namespace ${NAMESPACE}     \
-          --port 52773                 \
-          --min-instances 1            \
-          --memory 512Mi               \
-          --timeout 300                \
-          --verbosity debug            \
-          --image ${GCR_LOCATION}/${PROJECT_ID}/${IMAGE_NAME}:${GITHUB_SHA}
-
-        echo "[INFO] Create domain mappings..."
-        if [[ $(gcloud run domain-mappings list --platform gke --cluster ${CLUSTER_NAME} --cluster-location ${REGION} --namespace ${NAMESPACE} --filter "DOMAIN=${DOMAIN_NAME}" | grep -v DOMAIN | wc -l) == 0 ]]; then
-          gcloud run domain-mappings create \
-            --service ${SERVICE}            \
-            --platform gke                  \
-            --cluster ${CLUSTER_NAME}       \
-            --cluster-location ${REGION}    \
-            --namespace ${NAMESPACE}        \
-            --verbosity debug               \
-            --domain ${DOMAIN_NAME}
-        fi
-
-    - name: Create domain name
-      run: |
-        gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${REGION} --project ${PROJECT_ID}
-        kubectl version
-        echo "[INFO] Checking if [${DOMAIN_NAME}] is in the existing Ingress annotation..."
-        CURRENT_DOMAINS_LIST=$(kubectl -n gke-system get svc istio-ingress -o jsonpath="{.metadata.annotations['external-dns\.alpha\.kubernetes\.io/hostname']}")
-        if [[ $(echo ${CURRENT_DOMAINS_LIST} | grep -w "${DOMAIN_NAME}" | wc -c) -eq 0 ]]; then \
-          echo "[INFO] Domain [${DOMAIN_NAME}] is ABSENT in the domains list. Adding...";       \
-          kubectl -n gke-system annotate --overwrite svc istio-ingress external-dns\.alpha\.kubernetes\.io/hostname=${CURRENT_DOMAINS_LIST},${DOMAIN_NAME}; \
-          echo -n "[INFO] Resulting domain names: "
-          kubectl -n gke-system get svc istio-ingress -o jsonpath="{.metadata.annotations['external-dns\.alpha\.kubernetes\.io/hostname']}"
-        else
-          echo "[INFO] Domain [${DOMAIN_NAME}] is in the domains list. Leave untouched...";     \
-        fi
-
-    - name: Enable TLS-access
-      run: |
-        gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${REGION} --project ${PROJECT_ID}
-        kubectl version
-        kubectl patch configmap config-domainmapping -n knative-serving -p '{"data":{"autoTLS":"Enabled"}}'
+  deploy:
+    uses: intersystems-community/demo-deployment/.github/workflows/deployment.yml@master
+    with:
+      # Replace the name: parameter below to have your application deployed at
+      # https://project-name.demo.community.intersystems.com/
+      name: iris-megazord
+    secrets:
+      # Do not forget to add Secret in GitHub Repoository Settings with name SERVICE_ACCOUNT_KEY
+      SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
